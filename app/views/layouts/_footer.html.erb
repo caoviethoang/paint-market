@@ -1,15 +1,5 @@
-<footer class="wrapper mx-auto grid-container w-full">
+<footer class="wrapper mx-auto w-full">
   <div class="col-span-full border-t-[1px] border-t-black dark:border-t-white py-16">
-    <div class="text-center col-span-full md:flex md:items-center md:justify-between md:col-start-2 md:col-span-10">
-      <div class="col-span-full mb-14 md:mb-0">
-        <%= image_tag "logo_full_with_label.svg", class: "mx-auto w-52 mb-7 dark:hidden" %>
-        <%= image_tag "logo_full_with_label_white.svg", class: "mx-auto w-52 mb-7 hidden dark:block" %>
-        <%= render partial: "shared/call_to_action", :locals => { :label => "Visit Solidus.io", :url => 'https://solidus.io', :target => '_blank', :additional_classes => "block mx-auto" } %>
-      </div>
-      <div class="col-span-full">
-        <%= render "shared/social_icons" %>
-      </div>
-    </div>
     <%
       available_locales = current_store.available_locales.map do |locale|
         [
@@ -30,5 +20,38 @@
         <% end %>
       </div>
     <% end %>
+  </div>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+    <div>
+      <h2 class="text-4xl font-bold mb-6">Martket</h2>
+      <h3 class="uppercase text-lg font-semibold mb-1"><%= t('spree.footer.information') %></h3>
+      <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
+
+      <p class="font-bold mb-2">MIKE TRAN VIET AN TRADING & SERVICES COMPANY LIMITED</p>
+      <p class="text-gray-300 mb-1"><%= t('spree.footer.tax_code') %> : 0000xxxx1234</p>
+      <p class="text-gray-300 mb-4">Hotline 24/7 : 0984.xxx.666</p>
+
+      <p class="font-bold mb-1"><%= t('spree.footer.showroom') %></p>
+      <p class="text-gray-300 mb-1"><%= t('spree.footer.phone') %> : 0984.xxx.666</p>
+      <p class="text-gray-300"><%= t('spree.footer.adress') %> : 123 Trang Tien, Hoan Kiem , Ha Noi</p>
+    </div>
+    <div>
+      <h3 class="uppercase text-lg font-semibold mb-1"> <%= t('spree.footer.our_company') %></h3>
+      <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
+      <ul class="space-y-2 text-gray-400">
+        <li><%= link_to t('spree.shop_art'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.our_artist'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.event'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.about_us'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="uppercase text-lg font-semibold mb-1"><%= t('spree.footer.connect') %></h3>
+      <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
+      <div class="bg-gray-200 w-full h-[300px] flex items-center justify-center">
+        <span class="text-gray-500">[Social Embed/Image Here]</span>
+      </div>
+    </div>
   </div>
 </footer>

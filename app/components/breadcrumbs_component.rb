@@ -7,7 +7,7 @@ class BreadcrumbsComponent < ViewComponent::Base
     taxon:,
     order:,
     item_classes: nil,
-    separator: "/",
+    separator: ">>",
     separator_classes: nil,
     container_classes: "flex",
     wrapper_classes: nil
