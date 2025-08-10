@@ -1,0 +1,23 @@
+<div data-hook="admin_events_index_headers">
+  <table class="table" id="listing_events">
+    <thead>
+      <tr data-hook="admin_events_index_headers">
+        <th>Title</th>
+        <th>Description</th>
+        <th>URL</th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr id="<%= spree_dom_id(event) %>">
+          <td><%= event.title %></td>
+          <td><%= truncate(event.description, length: 50) %></td>
+          <td><%= truncate(event.youtube_url, length: 50) %></td>
+            <%= link_to 'Show', event_path(event) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
