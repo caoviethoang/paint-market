@@ -1,77 +1,68 @@
-<div class="min-h-screen p-4">
-  <div class="container mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-      <% @events.each do |event| %>
-        <div class="group">
-          <%= link_to event_path(event), class: "block bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all duration-200 hover:scale-105" do %>
-            <!-- Thumbnail with play overlay -->
-            <div class="relative aspect-video bg-gray-700 overflow-hidden">
-              <% if event.youtube_url.present? %>
-                <!-- Use YouTube thumbnail for better performance -->
+<div class="min-h-screen p-4" data-controller="event-preview">
+  <div class="relative p-6">
+    <button data-action="click->event-slider#prev" class="absolute left-0 !top-1/2 !-translate-y-1/2 p-2 bg-white rounded-full shadow-md z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    
+    <button data-action="click->event-slider#next" class="absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
 
-                <!-- Play button overlay -->
-                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200">
-                  <iframe
-                    src="<%= youtube_embed_url(event.youtube_url) %>"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                    class="absolute left-0 h-full w-full"
-                  ></iframe>
-                </div>
-
-                <!-- Duration badge (if you have duration field) -->
-                <% if event.respond_to?(:duration) && event.duration.present? %>
-                  <div class="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded">
-                    <%= event.duration %>
-                  </div>
-                <% end %>
-              <% else %>
-                <!-- Placeholder when no video -->
-                <div class="w-full h-full bg-gray-700 flex items-center justify-center">
-                  <svg class="w-12 h-12 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
-                  </svg>
-                </div>
-              <% end %>
+    <div data-controller="event-slider" class="overflow-hidden">
+      <div data-event-slider-target="track" class="flex gap-4 overflow-x-scroll flex-nowrap">
+        <% @events.each do |event| %>
+          <a href="<%= preview_event_path(event) %>"
+            data-action="click->event-preview#show"
+            class="block flex-shrink-0 w-80 rounded-lg overflow-hidden hover:scale-105 transition">
+            <div class="relative aspect-[4/3] bg-gray-700 overflow-hidden">
+              <%= image_tag event.send(:youtube_thumbnail_url), alt: event.title, class: "w-full h-full object-cover" %>
             </div>
+          </a>
+        <% end %>
+      </div>
+      
+      <div data-event-slider-target="scrollbar" class="mt-4 h-1 bg-gray-300 rounded-full">
+        <div data-event-slider-target="thumb" class="h-full bg-gray-800 rounded-full w-1/4"></div>
+      </div>
+    </div>
+  </div>
 
-            <!-- Event Info -->
-            <div class="p-3">
-              <h3 class="text-gray-400 font-medium text-sm line-clamp-2 mb-2 leading-tight group-hover:text-blue-400 transition-colors">
-                <%= truncate(event.title, length: 80) %>
-              </h3>
+  <div class="mt-8 mx-auto event-preview">
+    <div class="rounded-lg p-6 shadow" data-event-preview-target="details">
+      <% if @first_event.present? %>
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg text-gray-500">Show</h3>
+            <h2 class="text-h3 font-serif leading-tight">
+              <%= @first_event.title %>
+            </h2>
+            <p class="text-h4 font-serif text-gray-500 mt-4">
+              <%= @first_event.from.strftime('%B %e') %> – <%= @first_event.to.strftime('%B %e, %Y') %>
+            </p>
 
-              <div class="flex items-center justify-between text-gray-500 text-xs">
-                <span class="flex items-center">
-                  <%= time_ago_in_words(event.created_at) %> ago
-                </span>
-
-              </div>
+            <div class="mt-8">
+              <p><%= @first_event.address %></p>
+              <p>Mon - Sat | 11am - 7pm</p>
             </div>
-          <% end %>
+          </div>
+          <div>
+            <h3 class="text-lg text-gray-500">About</h3>
+            <p class="mt-2 leading-relaxed">
+              <%= @first_event.description %>
+            </p>
+
+            <div class="mt-4">
+              <%= link_to "MORE INFO", event_path(@first_event), class: "inline-block text-sm underline" %>
+            </div>
+          </div>
         </div>
+      <% else %>
+        Click vào một thumbnail để xem chi tiết ở đây.
       <% end %>
     </div>
-
-    <!-- Pagination (if using Kaminari or similar) -->
-    <% if @events.respond_to?(:current_page) %>
-      <div class="mt-8 flex justify-center">
-        <%= paginate @events, theme: 'dark' if defined?(paginate) %>
-      </div>
-    <% end %>
-
-    <!-- Empty state -->
-    <% if @events.empty? %>
-      <div class="text-center py-16">
-        <div class="mx-auto w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mb-4">
-          <svg class="w-12 h-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-          </svg>
-        </div>
-        <h3 class="text-gray-400 text-xl font-medium mb-2">No events available</h3>
-        <p class="text-gray-500 text-sm">Events will appear here once they're created.</p>
-      </div>
-    <% end %>
   </div>
 </div>

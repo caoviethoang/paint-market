@@ -21,7 +21,7 @@ module Spree
       end
 
       def permitted_event_attributes
-        [:title, :description, :youtube_url, images: []]
+        [:title, :description, :youtube_url, :address, :from, :to, images: []]
       end
 
       def load_data

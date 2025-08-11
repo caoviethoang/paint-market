@@ -3,6 +3,8 @@ class Event < Spree::Base
   attr_accessor :remove_image_ids
   has_many_attached :images
 
+  has_many :products, class_name: 'Spree::Product', dependent: :nullify
+  
   # Validations
   validates :title, :description, :youtube_url, presence: true
 

@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   mount Spree::Core::Engine, at: "/"
   get "up" => "rails/health#show", as: :rails_health_check
   post "/locale/:locale", to: "application#switch_locale", as: :switch_locale
-  resources :events, only: [ :index, :show ]
+  resources :events do
+    member do
+      get :preview
+    end
+  end
 
   Spree::Core::Engine.routes.draw do
     namespace :admin do

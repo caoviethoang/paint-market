@@ -22,6 +22,21 @@
               <%= f.url_field :youtube_url, class: 'form-control', required: true,
                     placeholder: "https://www.youtube.com/watch?v=..." %>
             </div>
+            
+            <div class="form-group">
+              <%= f.label :address, class: 'required' %>
+              <%= f.text_field :address, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :from, class: 'required' %>
+              <%= f.datetime_field :from, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :to, class: 'required' %>
+              <%= f.datetime_field :to, class: 'form-control', required: true %>
+            </div>
           </div>
         </fieldset>
       </div>

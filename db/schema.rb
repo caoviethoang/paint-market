@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_11_061025) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_11_152245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -69,6 +69,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_061025) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.string "image_alt"
+    t.datetime "from"
+    t.datetime "to"
+    t.string "address"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -503,8 +506,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_061025) do
     t.string "meta_title"
     t.datetime "discontinue_on", precision: nil
     t.integer "primary_taxon_id"
+    t.bigint "event_id"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
+    t.index ["event_id"], name: "index_spree_products_on_event_id"
     t.index ["name"], name: "index_spree_products_on_name"
     t.index ["primary_taxon_id"], name: "index_spree_products_on_primary_taxon_id"
     t.index ["slug"], name: "index_spree_products_on_slug", unique: true
@@ -1254,9 +1259,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_061025) do
     t.datetime "updated_at"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "spree_orders_promotions", "spree_orders", column: "order_id", on_delete: :cascade, validate: false
+  add_foreign_key "spree_products", "events"
   add_foreign_key "spree_products", "spree_taxons", column: "primary_taxon_id"
   add_foreign_key "spree_promotion_code_batches", "spree_promotions", column: "promotion_id"
   add_foreign_key "spree_promotion_codes", "spree_promotion_code_batches", column: "promotion_code_batch_id"

@@ -29,6 +29,18 @@
         <h4>Event Details</h4>
       </div>
       <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Created:</dt>
+          <dd><%= l(@event.created_at) %></dd>
+
+          <dt>Updated:</dt>
+          <dd><%= l(@event.updated_at) %></dd>
+          <dt>Addess:</dt>
+          <dd><%= @event.address %></dd>
+          <dt>Duration:</dt>
+          <dd><%= l(@event.from, format: :short) %> - <%= l(@event.to, format: :short) %></dd>
+        </dl>
+
         <% if @event.has_images? %>
           <div class="text-center" style="margin-bottom: 15px;">
             <% @event.display_image_urls(:medium).each do |url| %>
@@ -38,14 +50,6 @@
             <% end %>
           </div>
         <% end %>
-
-        <dl class="dl-horizontal">
-          <dt>Created:</dt>
-          <dd><%= l(@event.created_at) %></dd>
-
-          <dt>Updated:</dt>
-          <dd><%= l(@event.updated_at) %></dd>
-        </dl>
       </div>
     </div>
   </div>
