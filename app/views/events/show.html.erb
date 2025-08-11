@@ -1,9 +1,76 @@
-<div class="max-w-full bg-black rounded-lg" style="height: 315px;">
-  <iframe
-    src="<%= youtube_embed_url(@event.youtube_url) %>"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    class="absolute left-0 h-full w-full"
-  ></iframe>
+<div class="flex pt-2.5 px-5 lg:px-6 2xl:px-6">
+  <div class="min-h-[50vh] p-4 w-[80%]" style="height: 315px;">
+    <iframe
+      src="<%= youtube_embed_url(@event.youtube_url) %>"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      class="w-1/2 h-full w-full"
+    ></iframe>
+  </div>
+  <div class="flex flex-col p-4 w-1_col-3" data-controller="carousel lightbox">
+    <% if @event.has_images? %>
+      <div class="relative w-full max-w-lg mx-auto overflow-hidden rounded-lg">
+        <div data-carousel-target="slides" class="flex transition-transform duration-500 ease-in-out">
+          <% @event.display_image_urls(:medium).each do |url| %>
+            <%= image_tag url,
+                class: "w-full flex-shrink-0 rounded object-cover cursor-pointer",
+                data: {
+                  carousel_target: "slide",
+                  action: "click->lightbox#open",
+                  lightbox_url: url
+                } %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center mt-2 w-1_col-3">
+        <div data-carousel-target="thumbnailContainer" class="flex flex-1 gap-2 overflow-hidden px-2">
+          <% @event.display_image_urls(:thumb).each_with_index do |url, index| %>
+            <%= image_tag url,
+                class: "w-16 h-16 object-cover rounded-md cursor-pointer border-2 border-transparent transition-colors flex-shrink-0",
+                data: {
+                  action: "click->carousel#goToSlide",
+                  carousel_index: index,
+                  carousel_target: "thumbnail"
+                } %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center text-center mt-2">
+        <button data-action="carousel#prev" class="bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none">
+          <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button data-action="carousel#next" class="bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none">
+          <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div data-lightbox-target="modal"
+        data-action="click->lightbox#closeBackground"
+        class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999] hidden">
+        <div class="relative"> <img data-lightbox-target="image" src="" alt="Ảnh phóng to" class="max-w-[90%] max-h-[90%]">
+        <button data-action="lightbox#close" class="absolute mr-4 right-0 text-h2.5 top-0">&times;</button>
+
+        <div class="absolute top-2 right-12 flex items-center bg-black bg-opacity-50 rounded-full text-white z-20">
+          <button data-action="lightbox#zoomIn" class="p-1 hover:bg-opacity-75 rounded-l-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+          </button>
+          <div class="h-5 w-px bg-white bg-opacity-50"></div>
+          <button data-action="lightbox#zoomOut" class="p-1 hover:bg-opacity-75 rounded-r-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

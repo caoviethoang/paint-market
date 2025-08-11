@@ -1,0 +1,88 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to t('spree.new_event'), new_admin_event_url, id: 'admin_new_event', class: 'btn btn-primary' %>
+  </li>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_events_index_search">
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :title_cont, "Title" %>
+            <%= f.text_field :title_cont, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :created_at_gteq, "From Date" %>
+            <%= f.date_field :created_at_gteq, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <br>
+            <%= f.submit "Search", class: 'btn btn-primary' %>
+            <%= link_to "Reset", admin_events_path, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<div data-hook="admin_events_index_headers">
+  <table class="table" id="listing_events" data-hook>
+    <colgroup>
+      <col style="width: 20%;">
+      <col style="width: 45%;">
+      <col style="width: 10%;">
+      <col style="width: 10%;">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_events_index_headers">
+        <th><%= sort_link(@search, :title, "Title") %></th>
+        <th><%= "Description" %></th>
+        <th><%= sort_link(@search, :created_at, "Created At") %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @collection.each do |event| %>
+        <tr id="<%= spree_dom_id(event) %>" data-hook="admin_events_index_rows">
+          <td>
+            <strong><%= link_to event.title, admin_event_path(event) %></strong>
+            <br>
+            <small class="text-muted">
+              <% if event.youtube_url.present? %>
+                <%= link_to "View Video", event.youtube_url, target: "_blank", class: "text-info" %>
+              <% end %>
+            </small>
+          </td>
+
+          <td>
+            <%= truncate(event.description, length: 200) %>
+          </td>
+
+          <td>
+            <%= l(event.created_at, format: :short) %>
+          </td>
+
+          <td class="actions align-center" data-hook="admin_events_index_row_actions">
+            <%= link_to_edit event, no_text: true, class: 'btn btn-sm btn-primary' %>
+            <%= link_to_delete event, no_text: true, class: 'btn btn-sm btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if @collection.empty? %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: 'Events') %>,
+    <%= link_to Spree.t(:add_one), new_admin_event_url %>!
+  </div>
+<% end %>

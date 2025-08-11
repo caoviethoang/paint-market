@@ -209,8 +209,7 @@ vi:
       spree/option_value:
       spree/order: "Đơn đặt hàng"
       spree/payment: Thanh toán
-      spree/payment_method:
-      spree/product: Sản phẩm
+      spree/payment_method: Phương thức thanh toán
       spree/promotion:
       spree/promotion_category:
       spree/property: Thuộc tính
@@ -223,7 +222,7 @@ vi:
       spree/role:
       spree/shipment:
       spree/shipping_category:
-      spree/shipping_method:
+      spree/shipping_method: Phương thức vận chuyển
       spree/state:
       spree/state_change:
       spree/stock_location:
@@ -685,6 +684,8 @@ vi:
     new_option_type: Kiểu tùy chọn mới
     new_order: "Đơn đặt hàng mới"
     new_order_completed: Thanh toán mới hoàn tất
+    new_event: Tạo sự kiện mới
+    edit_event: Chỉnh sửa sự kiện
     new_payment: Thanh toán mới
     new_payment_method: Phương thức thanh toán mới
     new_product: Sản phẩm mới

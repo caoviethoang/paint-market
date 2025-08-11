@@ -19,18 +19,9 @@ SolidusAdmin::Config.configure do |config|
   # config.importmap_paths << Rails.root.join("config/solidus_admin_importmap.rb")
   #
   # Configure the main navigation.
-  # See SolidusAdmin::MenuItem for more details.
-  # config.menu_items << {
-  #   key: :my_custom_link,
-  #   route: :my_custom_link_path,
-  #   icon: "solidus_admin/price-tag-3-line.svg",
-  #   position: 80,
-  #   children: [
-  #     {
-  #       key: :my_custom_child_link,
-  #       route: :my_custom_child_link_path,
-  #       position: 10
-  #     }
-  #   ]
-  # }
+  config.menu_items << {
+    key: :events,
+    route: -> { spree.admin_events_path },
+    position: 70
+  }
 end

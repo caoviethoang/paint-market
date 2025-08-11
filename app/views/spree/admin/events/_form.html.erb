@@ -1,0 +1,83 @@
+<div data-hook="admin_event_form">
+  <%= form_with model: [:admin, @event], local: true, multipart: true do |f| %>
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Basic Information -->
+        <fieldset class="no-border-top">
+          <legend align="center"><%= "Detail" %></legend>
+
+          <div data-hook="admin_event_form_left" class="col-md-12">
+            <div class="form-group">
+              <%= f.label :title, class: 'required' %>
+              <%= f.text_field :title, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :description, class: 'required' %>
+              <%= f.text_area :description, rows: 4, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :youtube_url, "YouTube URL", class: 'required' %>
+              <%= f.url_field :youtube_url, class: 'form-control', required: true,
+                    placeholder: "https://www.youtube.com/watch?v=..." %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-md-4">
+        <!-- Image Upload -->
+        <fieldset>
+          <legend align="center"><%= "Image" %></legend>
+
+          <!-- Current Image -->
+          <% if @event.has_images? %>
+            <div class="form-group text-center">
+              <div class="thumbnail" style="display: inline-block;">
+                <% @event.display_image_urls(:medium).each do |url| %>
+                  <%= image_tag url,
+                      class: "img-responsive",
+                      style: "max-height: 200px; object-fit: cover;" %>
+                <% end %>
+                <div class="caption">
+                  <small class="text-muted">Current Image</small>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :image, "Upload New Image" %>
+            <%= f.file_field :images, multiple: true, direct_upload: true, accept: "image/*", class: 'form-control' %>
+            <small class="help-block">
+              Supported: JPG, PNG, GIF, WebP (Max: 5MB)<br>
+              Recommended: 1280x720px
+            </small>
+          </div>
+        </fieldset>
+
+        <!-- Video Preview -->
+        <% if @event.youtube_url.present? %>
+          <fieldset>
+            <legend align="center">Video Preview</legend>
+            <div class="form-group">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe src="<%= youtube_embed_url(@event.youtube_url) %>"
+                        class="embed-responsive-item"
+                        allowfullscreen></iframe>
+              </div>
+            </div>
+          </fieldset>
+        <% end %>
+      </div>
+    </div>
+
+    <div data-hook="admin_event_form_additional_fields"></div>
+
+    <div class="form-actions" data-hook="admin_event_form_buttons">
+      <%= render 'spree/admin/shared/edit_resource_links' %>
+    </div>
+  <% end %>
+</div>
