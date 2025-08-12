@@ -1,68 +1,54 @@
-<div class="min-h-screen p-4" data-controller="event-preview">
-  <div class="relative p-6">
-    <button data-action="click->event-slider#prev" class="absolute left-0 !top-1/2 !-translate-y-1/2 p-2 bg-white rounded-full shadow-md z-10">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
-    
-    <button data-action="click->event-slider#next" class="absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md z-10">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-
-    <div data-controller="event-slider" class="overflow-hidden">
-      <div data-event-slider-target="track" class="flex gap-4 overflow-x-scroll flex-nowrap">
-        <% @events.each do |event| %>
-          <a href="<%= preview_event_path(event) %>"
-            data-action="click->event-preview#show"
-            class="block flex-shrink-0 w-80 rounded-lg overflow-hidden hover:scale-105 transition">
-            <div class="relative aspect-[4/3] bg-gray-700 overflow-hidden">
-              <%= image_tag event.send(:youtube_thumbnail_url), alt: event.title, class: "w-full h-full object-cover" %>
-            </div>
-          </a>
+<!-- Carousel wrapper -->
+<div data-controller="event-slider" class="relative">
+  <!-- Track -->
+  <div 
+    data-event-slider-target="track" 
+    class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+  >
+    <% @events.drop(5).each do |event| %>
+      <div class="flex-shrink-0 w-80 snap-start">
+        <%= link_to detail_event_path(event), class: "block" do %>
+          <div class="relative aspect-[4/3] bg-gray-200 overflow-hidden rounded-md">
+            <%= image_tag(
+                  if event.background_image.attached?
+                    url_for(event.background_image.variant(resize_to_fill: [640, 480]).processed)
+                  elsif event.has_images?
+                    event.display_image_urls(:medium).first
+                  else
+                    event.send(:youtube_thumbnail_url)
+                  end,
+                  alt: event.title,
+                  class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                ) %>
+          </div>
+          <div class="mt-3">
+            <h3 class="text-lg font-medium text-gray-900 hover:underline"><%= event.title %></h3>
+            <p class="text-sm text-gray-600"><%= event.address %></p>
+          </div>
         <% end %>
       </div>
-      
-      <div data-event-slider-target="scrollbar" class="mt-4 h-1 bg-gray-300 rounded-full">
-        <div data-event-slider-target="thumb" class="h-full bg-gray-800 rounded-full w-1/4"></div>
-      </div>
-    </div>
+    <% end %>
   </div>
 
-  <div class="mt-8 mx-auto event-preview">
-    <div class="rounded-lg p-6 shadow" data-event-preview-target="details">
-      <% if @first_event.present? %>
-        <div class="grid grid-cols-2 gap-8">
-          <div>
-            <h3 class="text-lg text-gray-500">Show</h3>
-            <h2 class="text-h3 font-serif leading-tight">
-              <%= @first_event.title %>
-            </h2>
-            <p class="text-h4 font-serif text-gray-500 mt-4">
-              <%= @first_event.from.strftime('%B %e') %> – <%= @first_event.to.strftime('%B %e, %Y') %>
-            </p>
+  <!-- Nút điều hướng -->
+  <button type="button" data-action="event-slider#prev"
+    class="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow rounded-full p-2 z-10">
+     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+          viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M15 19l-7-7 7-7" />
+      </svg>
+  </button>
+  <button type="button" data-action="event-slider#next"
+    class="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow rounded-full p-2 z-10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+          viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M9 5l7 7-7 7" />
+      </svg>
+  </button>
+</div>
 
-            <div class="mt-8">
-              <p><%= @first_event.address %></p>
-              <p>Mon - Sat | 11am - 7pm</p>
-            </div>
-          </div>
-          <div>
-            <h3 class="text-lg text-gray-500">About</h3>
-            <p class="mt-2 leading-relaxed">
-              <%= @first_event.description %>
-            </p>
-
-            <div class="mt-4">
-              <%= link_to "MORE INFO", event_path(@first_event), class: "inline-block text-sm underline" %>
-            </div>
-          </div>
-        </div>
-      <% else %>
-        Click vào một thumbnail để xem chi tiết ở đây.
-      <% end %>
-    </div>
-  </div>
+<div class="mt-8 mx-auto">
+  <%= render 'products/products_grid', products: @products, taxon: nil %>
 </div>

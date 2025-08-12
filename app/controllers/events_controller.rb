@@ -1,16 +1,15 @@
 class EventsController < StoreController
   def index
     @events = Event.order(:created_at)
-    @first_event = @events.last
+    @products = Spree::Product.all
   end
 
   def show
     @event = Event.find(params[:id])
   end
 
-  def preview
+  def detail
     @event = Event.find(params[:id])
-    # Render the partial without a layout
-    render partial: 'events/preview', locals: { event: @event }, layout: false
+    @products = @event.products
   end
 end

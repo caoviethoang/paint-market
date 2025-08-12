@@ -4,7 +4,7 @@
   price_classes =
     @home_collection ?
       'text-body-xs lg:text-body lg:ml-4 lg:pb-[2px]' :
-      'ml-4 text-body md:text-body-sm lg:text-body pb-[4px] md:pb-[2px] xl:pb-[4px]'
+      'text-body md:text-body-sm lg:text-body pb-[4px] md:pb-[2px] xl:pb-[4px]'
 
   text_flex_classes =
     @home_collection ?
@@ -14,42 +14,31 @@
   padding_classes =
     @home_collection ?
       'p-3 md:p-6' :
-      'p-6'
+      ''
 %>
 
 <li
-  class="aspect-square bg-gray-50 w-full rounded-lg md:rounded-xl lg:rounded-2xl  <%= additional_classes %>"
+  class="aspect-square w-full  <%= additional_classes %>"
   itemscope
   itemtype="http://schema.org/Product"
   id="product_<%= product.id %>"
 >
   <article class="h-full flex flex-col <%= padding_classes %>">
-    <section class="product-card_image h-full">
+    <section class="product-card_image h-full w-full">
       <%= link_to product_path(product), itemprop: 'url' do %>
         <%= render(
           ImageComponent.new(
             image: main_image,
             size: :small,
             itemprop: "image",
-            classes: 'h-0 min-h-full mx-auto object-contain'
+            classes: 'h-0 min-h-full object-contain'
           )
         ) %>
       <% end %>
     </section>
-    <section
+    <header
       class="dark:text-black mt-3 <%= text_flex_classes %>"
     >
-      <header class="product-card_header <%= title_text_classes %>">
-        <span>
-          <%= link_to(
-            truncate(product.name, length: 50),
-            product_path(product),
-            class: 'info',
-            itemprop: "name",
-            title: product.name
-          ) %>
-        </span>
-      </header>
       <section
         class="product-card_price font-sans-md mt-1 lg:mt-0 <%= price_classes %>"
         itemprop="offers"
@@ -63,9 +52,20 @@
           <span itemprop="priceCurrency" content="<%= display_price.currency %>"></span>
         <% end %>
       </section>
+    </header>
+    <section class="product-card_header <%= title_text_classes %>">
+      <span>
+        <%= link_to(
+          truncate(product.name, length: 50),
+          product_path(product),
+          class: 'info',
+          itemprop: "name",
+          title: product.name
+        ) %>
+      </span>
     </section>
     <section>
-      <span><%= product.description %></span>
+      <span><%= truncate(product.description, length: 20) %></span>
     </section>
   </article>
 </li>

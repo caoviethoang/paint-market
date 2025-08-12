@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post "/locale/:locale", to: "application#switch_locale", as: :switch_locale
   resources :events do
     member do
-      get :preview
+      get :detail
     end
   end
 

@@ -45,7 +45,21 @@
       <div class="col-md-4">
         <!-- Image Upload -->
         <fieldset>
+          <legend align="center"><%= "Background Image" %></legend>
+          <div class="form-group">
+            <%= f.label :background_image, "Upload New Image" %>
+            <%= f.file_field :background_image, direct_upload: true, accept: "image/*", class: 'form-control' %>
+          </div>
+
           <legend align="center"><%= "Image" %></legend>
+          <div class="form-group">
+            <%= f.label :image, "Upload New Image" %>
+            <%= f.file_field :images, multiple: true, direct_upload: true, accept: "image/*", class: 'form-control' %>
+            <small class="help-block">
+              Supported: JPG, PNG, GIF, WebP (Max: 5MB)<br>
+              Recommended: 1280x720px
+            </small>
+          </div>
 
           <!-- Current Image -->
           <% if @event.has_images? %>
@@ -63,14 +77,6 @@
             </div>
           <% end %>
 
-          <div class="form-group">
-            <%= f.label :image, "Upload New Image" %>
-            <%= f.file_field :images, multiple: true, direct_upload: true, accept: "image/*", class: 'form-control' %>
-            <small class="help-block">
-              Supported: JPG, PNG, GIF, WebP (Max: 5MB)<br>
-              Recommended: 1280x720px
-            </small>
-          </div>
         </fieldset>
 
         <!-- Video Preview -->

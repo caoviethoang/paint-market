@@ -2,11 +2,13 @@
 class Event < Spree::Base
   attr_accessor :remove_image_ids
   has_many_attached :images
+  has_one_attached :background_image
 
-  has_many :products, class_name: 'Spree::Product', dependent: :nullify
-  
+  has_many :products, class_name: "Spree::Product", dependent: :nullify
+
   # Validations
   validates :title, :description, :youtube_url, presence: true
+  validate :background_image_presence
 
   # Scopes for admin
   scope :recent, -> { order(created_at: :desc) }
@@ -16,7 +18,7 @@ class Event < Spree::Base
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[images_attachments images_blobs]
+    %w[images_attachments images_blobs background_image_attachment background_image_blob]
   end
 
   def image_urls(variant = :medium)
@@ -25,11 +27,11 @@ class Event < Spree::Base
     images.map do |img|
       case variant
       when :thumb
-        img.variant(resize_to_fill: [320, 180]).processed
+        img.variant(resize_to_fill: [ 320, 180 ]).processed
       when :medium
-        img.variant(resize_to_fill: [640, 360]).processed
+        img.variant(resize_to_fill: [ 640, 360 ]).processed
       when :large
-        img.variant(resize_to_fill: [1280, 720]).processed
+        img.variant(resize_to_fill: [ 1280, 720 ]).processed
       else
         img
       end
@@ -42,24 +44,38 @@ class Event < Spree::Base
 
   # S3 URL với CDN support
   def display_image_urls(variant = :medium)
-    if has_images?
-      if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
-        image_urls(variant).map(&:url)
+    return [] unless has_images?
+
+    images.filter_map do |img|
+      # Bỏ qua ảnh không tồn tại trên storage
+      next unless img.blob&.service.exist?(img.blob.key)
+
+      case variant
+      when :thumb
+        img.variant(resize_to_fill: [ 320, 180 ]).processed
+      when :medium
+        img.variant(resize_to_fill: [ 640, 360 ]).processed
+      when :large
+        img.variant(resize_to_fill: [ 1280, 720 ]).processed
       else
-        image_urls(variant).map do |img|
-          Rails.application.routes.url_helpers.rails_blob_path(img, only_path: true)
-        end
+        img
       end
-    elsif youtube_url.present?
-      [youtube_thumbnail_url]
-    else
-      []
+    end.map do |processed_image|
+      if Rails.application.config.active_storage.service.in?([ :amazon_production, :amazon_development ])
+        processed_image.url
+      else
+        Rails.application.routes.url_helpers.rails_blob_path(processed_image, only_path: true)
+      end
     end
   end
 
   private
 
-  def youtube_thumbnail_url(quality = 'hqdefault')
+  def background_image_presence
+    errors.add(:background_image, "must be attached") unless background_image.attached?
+  end
+
+  def youtube_thumbnail_url(quality = "hqdefault")
     video_id = extract_youtube_id(youtube_url)
     return nil if video_id.blank?
 
@@ -67,7 +83,7 @@ class Event < Spree::Base
   end
 
   def extract_youtube_id(url)
-    return '' if url.blank?
+    return "" if url.blank?
 
     patterns = [
       /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i,
@@ -77,6 +93,6 @@ class Event < Spree::Base
       match = url.match(pattern)
       return match[1] if match
     end
-    ''
+    ""
   end
 end

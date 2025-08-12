@@ -1,14 +1,14 @@
 module Spree
   module Admin
     class EventsController < ResourceController
-      before_action :load_data, except: [:index, :destroy]
+      before_action :load_data, except: [ :index, :destroy ]
       private
 
       def collection
         return @collection if @collection
 
         params[:q] ||= {}
-        params[:q][:s] ||= 'created_at desc'
+        params[:q][:s] ||= "created_at desc"
 
         @search = super.ransack(params[:q])
         @collection = @search.result.includes(:images_attachments)
@@ -21,7 +21,7 @@ module Spree
       end
 
       def permitted_event_attributes
-        [:title, :description, :youtube_url, :address, :from, :to, images: []]
+        [ :title, :description, :youtube_url, :address, :from, :to, :background_image, images: [] ]
       end
 
       def load_data
@@ -33,7 +33,7 @@ module Spree
       end
 
       def object_name
-        'event'
+        "event"
       end
     end
   end
