@@ -1787,6 +1787,8 @@ en:
     new_order_completed: New Order Completed
     new_event: New Event
     edit_event: Edit Event
+    new_artist: New Artist
+    edit_artist: Edit Artist
     new_payment: New Payment
     new_payment_method: New Payment Method
     new_product: New Product

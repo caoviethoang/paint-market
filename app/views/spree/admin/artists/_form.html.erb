@@ -1,0 +1,62 @@
+<div data-hook="admin_artist_form">
+  <%= form_with model: [:admin, @artist], local: true, multipart: true do |f| %>
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Basic Information -->
+        <fieldset class="no-border-top">
+          <legend align="center"><%= "Detail" %></legend>
+
+          <div data-hook="admin_artist_form_left" class="col-md-12">
+            <div class="form-group">
+              <%= f.label :name, class: 'required' %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :introduction, class: 'required' %>
+              <%= f.text_area :introduction, rows: 4, class: 'form-control', required: true %>
+            </div>
+            
+            <div class="form-group">
+              <%= f.label :address, class: 'required' %>
+              <%= f.text_field :address, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :dob, class: 'required' %>
+              <%= f.date_field :dob, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :start_work, class: 'required' %>
+              <%= f.date_field :start_work, class: 'form-control', required: true %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-md-4">
+        <!-- Image Upload -->
+        <fieldset>
+          <legend align="center"><%= "Background Image" %></legend>
+          <div class="form-group">
+            <%= f.label :background_image, "Upload New Image" %>
+            <%= f.file_field :background_image, direct_upload: true, accept: "image/*", class: 'form-control' %>
+            <small class="help-block">
+              Supported: JPG, PNG, GIF, WebP (Max: 5MB)<br>
+              Recommended: 1280x720px
+            </small>
+          </div>
+
+        </fieldset>
+      </div>
+    </div>
+
+    <div data-hook="admin_artist_form_additional_fields"></div>
+
+    <div class="form-actions" data-hook="admin_artist_form_buttons">
+      <%= render 'spree/admin/shared/edit_resource_links' %>
+    </div>
+  <% end %>
+</div>

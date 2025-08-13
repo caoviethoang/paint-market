@@ -1,5 +1,5 @@
-<section class="bg-[#f5f0e9] py-12">
-  <div class="container mx-auto px-6 lg:px-8">
+<section class="bg-[#f5f0e9]">
+  <div class="mx-auto px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
       <!-- Cột trái -->
@@ -45,8 +45,16 @@
 
     </div>
 
-    <div class="flex pt-2.5 px-5 lg:px-6 2xl:px-6">
-      <div class="min-h-[50vh] p-4 w-[80%]" style="height: 315px;">
+    <div class="bg-[#fdf3e2] flex mt-8">
+      <div class="flex flex-col justify-center p-6 wrapper">
+        <h1 class="font-serif mb-4 md:text-5xl text-h3">
+          Discover and Buy<br />Art that Moves You
+        </h1>
+        <button class="border border-gray-800 px-6 py-2 mt-2 hover:bg-gray-800 hover:text-white transition">
+          SIGN UP
+        </button>
+      </div>
+      <div class="min-h-[50vh] w-[80%]" style="height: 315px;">
         <iframe
           src="<%= youtube_embed_url(@event.youtube_url) %>"
           frameborder="0"

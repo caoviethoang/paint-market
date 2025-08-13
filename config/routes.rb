@@ -12,10 +12,12 @@ Rails.application.routes.draw do
       get :detail
     end
   end
+  resources :artists
 
   Spree::Core::Engine.routes.draw do
     namespace :admin do
       resources :events
+      resources :artists
     end
   end
 end
