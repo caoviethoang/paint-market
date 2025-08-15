@@ -1,0 +1,112 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to t('spree.new_taxonomy'), new_admin_taxonomy_url, id: 'admin_new_taxonomy', class: 'btn btn-primary' %>
+  </li>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_taxonomies_index_search">
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :name_cont, "Name" %>
+            <%= f.text_field :name_cont, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :description_cont, "Description" %>
+            <%= f.text_field :description_cont, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <br>
+            <%= f.submit "Search", class: 'btn btn-primary' %>
+            <%= link_to "Reset", admin_taxonomies_path, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<div data-hook="admin_taxonomies_index_headers">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <!-- Header row with checkbox and Name -->
+      <div class="row taxonomy-header" style="border-bottom: 1px solid #eee; padding: 10px 0; margin-bottom: 10px;">
+        <div class="col-md-1">
+          <input type="checkbox" id="select-all-taxonomies">
+        </div>
+        <div class="col-md-11">
+          <strong>Name</strong>
+        </div>
+      </div>
+      
+      <!-- Taxonomy list items -->
+      <% @collection.each do |taxonomy| %>
+        <div class="row taxonomy-item" id="<%= spree_dom_id(taxonomy) %>" data-hook="admin_taxonomies_index_rows" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+          <div class="col-md-1">
+            <input type="checkbox" class="taxonomy-checkbox" value="<%= taxonomy.id %>">
+          </div>
+          <div class="col-md-11">
+            <%= link_to taxonomy.name, admin_taxonomy_path(taxonomy), style: "text-decoration: none; color: #333;" %>
+          </div>
+        </div>
+      <% end %>
+      
+      <!-- Pagination controls -->
+      <div class="text-center" style="margin-top: 20px;">
+        <div class="btn-group">
+          <%= link_to_prev_page @collection, class: 'btn btn-default btn-sm' do %>
+            <span>&lt;</span>
+          <% end %>
+          <%= link_to_next_page @collection, class: 'btn btn-default btn-sm' do %>
+            <span>&gt;</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @collection.empty? %>
+  <div class="alert alert-info no-objects-found">
+    <p><%= t('spree.no_taxonomies_found') %></p>
+  </div>
+<% end %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Select all functionality
+  const selectAllCheckbox = document.getElementById('select-all-taxonomies');
+  const taxonomyCheckboxes = document.querySelectorAll('.taxonomy-checkbox');
+  
+  selectAllCheckbox.addEventListener('change', function() {
+    taxonomyCheckboxes.forEach(checkbox => {
+      checkbox.checked = this.checked;
+    });
+  });
+  
+  // Update select all when individual checkboxes change
+  taxonomyCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const checkedCount = document.querySelectorAll('.taxonomy-checkbox:checked').length;
+      const totalCount = taxonomyCheckboxes.length;
+      
+      if (checkedCount === 0) {
+        selectAllCheckbox.indeterminate = false;
+        selectAllCheckbox.checked = false;
+      } else if (checkedCount === totalCount) {
+        selectAllCheckbox.indeterminate = false;
+        selectAllCheckbox.checked = true;
+      } else {
+        selectAllCheckbox.indeterminate = true;
+      }
+    });
+  });
+});
+</script> 

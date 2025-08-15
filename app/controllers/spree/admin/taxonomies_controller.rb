@@ -1,14 +1,15 @@
 module Spree
   module Admin
-    class EventsController < ResourceController
-      before_action :load_data, except: [ :index, :destroy ]
+    class TaxonomiesController < ResourceController
+      before_action :load_data, except: [:index, :destroy]
+
       private
 
       def collection
         return @collection if @collection
 
         params[:q] ||= {}
-        params[:q][:s] ||= "created_at desc"
+        params[:q][:s] ||= "name asc"
 
         @search = super.ransack(params[:q])
         @collection = @search.result.page(params[:page])
@@ -16,24 +17,24 @@ module Spree
       end
 
       def permitted_resource_params
-        params.require(:event).permit(permitted_event_attributes)
+        params.require(:taxonomy).permit(permitted_taxonomy_attributes)
       end
 
-      def permitted_event_attributes
-        [ :title, :description, :youtube_url, :statement, :gallery, :press_release, :location, :from, :to, :background_image, images: [] ]
+      def permitted_taxonomy_attributes
+        [:name, :description]
       end
 
       def load_data
-        @event = @object if @object
+        @taxonomy = @object if @object
       end
 
       def model_class
-        Event
+        Spree::Taxonomy
       end
 
       def object_name
-        "event"
+        "taxonomy"
       end
     end
   end
-end
+end 

@@ -1,43 +1,41 @@
-<section class="bg-[#f5f0e9]">
-  <div class="mx-auto px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<section class="bg-[#f5f0e9] min-h-screen">
+  <div class="mx-auto px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
       
-      <!-- Cột trái -->
-      <div class="lg:col-span-2 space-y-8">
-        <h1 class="text-h2.5 font-bold text-gray-900">About Event</h1>
+      <!-- Cột trái - About Event -->
+      <div class="lg:col-span-2 space-y-10">
+        <h1 class="text-4xl font-bold text-gray-900 leading-tight">About Event</h1>
         
         <div>
-          <h2 class="text-lg font-semibold text-gray-600 mb-2">Statement</h2>
-          <p class="text-gray-700">
-            Discover an exclusive selection of silver sculptures by Salvador Dalí: refined creations including the iconic melting watches and Alice in Wonderland, where the brilliance of silver enhances the master's surrealist vision.
+          <h2 class="text-xl font-semibold text-gray-600 mb-4">Statement</h2>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            <%= @event.statement.presence || "Discover an exclusive selection of silver sculptures by Salvador Dalí: refined creations including the iconic melting watches and Alice in Wonderland, where the brilliance of silver enhances the master's surrealist vision." %>
           </p>
         </div>
 
         <div>
-          <h2 class="text-lg font-semibold text-gray-600 mb-2">Press Release</h2>
-          <p class="text-gray-700 mb-4">
-            Ben Brown Fine Arts is pleased to present 'Wish You Were Here', an exhibition curated by New York-based curator, art advisor, and independent scholar Jie Xia. On view at Ben Brown Fine Arts Hong Kong, the exhibition evokes the intoxicating pull of summer: the heat, the haze, and the promise of escape. Featuring works by leading postwar and contemporary artists – drawn from the gallery’s programme and beyond – the exhibition explores the iconography of travel, the sea, and the rituals of seasonal escape, approached with varying degrees of meditation, longing, and nostalgia.
+          <h2 class="text-xl font-semibold text-gray-600 mb-4">Press Release</h2>
+          <p class="text-gray-700 text-lg leading-relaxed mb-6">
+            <%= @event.press_release.presence || "Ben Brown Fine Arts is pleased to present 'Wish You Were Here', an exhibition curated by New York-based curator, art advisor, and independent scholar Jie Xia. On view at Ben Brown Fine Arts Hong Kong, the exhibition evokes the intoxicating pull of summer: the heat, the haze, and the promise of escape. Featuring works by leading postwar and contemporary artists – drawn from the gallery's programme and beyond – the exhibition explores the iconography of travel, the sea, and the rituals of seasonal escape, approached with varying degrees of meditation, longing, and nostalgia." %>
           </p>
-          <p class="text-gray-700">
+          <p class="text-gray-700 text-lg leading-relaxed">
             'Wish You Were Here' is a reflection on how we construct and consume paradise – through postcards, advertisements, snapshots, and stylised memories. The beach is explored as a mirage of freedom, mythologised in oil paint, photography, and glossy idealism.
           </p>
         </div>
       </div>
       
-      <!-- Cột phải -->
-      <div class="flex flex-col gap-8 justify-center space-y-8">
+      <!-- Cột phải - Gallery & Location -->
+      <div class="flex flex-col gap-10 justify-start">
         <div>
-          <h2 class="text-lg font-semibold text-gray-600 mb-2">Gallery</h2>
-          <p class="text-gray-700">Martket Gallery Ha Noi</p>
+          <h2 class="text-xl font-semibold text-gray-600 mb-4">Gallery</h2>
+          <p class="text-gray-700 text-lg"><%= @event.gallery.presence || "Martket Gallery Ha Noi" %></p>
         </div>
         <div>
-          <h2 class="text-lg font-semibold text-gray-600 mb-2">Location</h2>
-          <p class="text-gray-700">
-            201 The Factory,<br>
-            1 Hang Bai,<br>
-            Ha Noi, VN.
+          <h2 class="text-xl font-semibold text-gray-600 mb-4">Location</h2>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            <%= @event.location.presence || "201 The Factory,<br>1 Hang Bai,<br>Ha Noi, VN.".html_safe %>
           </p>
-          <p class="text-gray-700 mt-2">
+          <p class="text-gray-700 text-lg mt-3">
             Mon - Sat | 11am - 7pm
           </p>
         </div>
@@ -45,23 +43,37 @@
 
     </div>
 
-    <div class="bg-[#fdf3e2] flex mt-8">
-      <div class="flex flex-col justify-center p-6 wrapper">
-        <h1 class="font-serif mb-4 md:text-5xl text-h3">
-          Discover and Buy<br />Art that Moves You
-        </h1>
-        <button class="border border-gray-800 px-6 py-2 mt-2 hover:bg-gray-800 hover:text-white transition">
-          SIGN UP
-        </button>
-      </div>
-      <div class="min-h-[50vh] w-[80%]" style="height: 315px;">
-        <iframe
-          src="<%= youtube_embed_url(@event.youtube_url) %>"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          class="w-1/2 h-full w-full"
-        ></iframe>
+    <!-- Bottom Section - Call to Action & Gallery Image -->
+    <div class="mt-16 bg-[#fdf3e2] rounded-lg overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+        <!-- Left Side - Call to Action -->
+        <div class="flex flex-col justify-center p-12 lg:p-16">
+          <h2 class="font-serif text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-8">
+            Discover and Buy<br />Art that Moves You
+          </h2>
+          <button class="border-2 border-gray-800 px-8 py-4 text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300 rounded-lg w-fit">
+            SIGN UP
+          </button>
+        </div>
+        
+        <!-- Right Side - Gallery Image -->
+        <div class="min-h-[400px] lg:min-h-[500px] relative overflow-hidden">
+          <% if @event.background_image.attached? %>
+            <%= image_tag @event.background_image, 
+                class: "w-full h-full object-cover",
+                alt: "Art Gallery" %>
+          <% else %>
+            <!-- Fallback image placeholder -->
+            <div class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+              <div class="text-center text-gray-500">
+                <svg class="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+                <p class="text-lg">Gallery Image</p>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

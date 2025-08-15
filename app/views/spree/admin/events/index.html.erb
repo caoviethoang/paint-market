@@ -47,7 +47,7 @@
       <tr data-hook="admin_events_index_headers">
         <th><%= sort_link(@search, :title, "Title") %></th>
         <th><%= "Description" %></th>
-        <th><%= "Address" %></th>
+        <th><%= "Location" %></th>
         <th><%= "Duration" %></th>
         <th><%= sort_link(@search, :created_at, "Created At") %></th>
         <th class="actions"></th>
@@ -71,7 +71,7 @@
           </td>
 
           <td>
-            <%= truncate(event.address, length: 200) %>
+            <%= truncate(event.location, length: 200) %>
           </td>
 
           <td>

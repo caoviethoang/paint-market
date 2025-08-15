@@ -24,8 +24,26 @@
             </div>
             
             <div class="form-group">
-              <%= f.label :address, class: 'required' %>
-              <%= f.text_field :address, class: 'form-control', required: true %>
+              <%= f.label :statement, "Statement" %>
+              <%= f.text_area :statement, rows: 3, class: 'form-control',
+                    placeholder: "Brief statement about the event..." %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :gallery, "Gallery" %>
+              <%= f.text_field :gallery, class: 'form-control',
+                    placeholder: "Gallery name..." %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :press_release, "Press Release" %>
+              <%= f.text_area :press_release, rows: 6, class: 'form-control',
+                    placeholder: "Detailed press release content..." %>
+            </div>
+            
+            <div class="form-group">
+              <%= f.label :location, "Location", class: 'required' %>
+              <%= f.text_field :location, class: 'form-control', required: true %>
             </div>
 
             <div class="form-group">

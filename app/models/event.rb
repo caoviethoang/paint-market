@@ -14,7 +14,7 @@ class Event < Spree::Base
   scope :recent, -> { order(created_at: :desc) }
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title description youtube_url created_at updated_at]
+    %w[title description youtube_url statement gallery press_release location created_at updated_at]
   end
 
   def self.ransackable_associations(auth_object = nil)

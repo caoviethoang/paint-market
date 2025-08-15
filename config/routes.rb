@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :events
       resources :artists
+      resources :taxonomies
     end
   end
 end

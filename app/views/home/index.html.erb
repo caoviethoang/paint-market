@@ -14,9 +14,9 @@
           Bring home your new art to view it in person. If a piece doesn't quite work in your space, return it within seven days of receiving your order and receive a full refund.*
         </p>
 
-        <button class="inline-block bg-white text-black px-6 py-3 border border-black hover:bg-black hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+        <%= link_to products_path, class: "border-b-2 hover:text-white inline-block py-3 text-black tracking-wide underline" do %>
           GO TO COLLECTION
-        </button>
+        <% end %>
       </div>
     </div>
   </div>
@@ -35,30 +35,31 @@
   </div>
 </section>
 
-<section class="py-8 pt-7 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap justify-center gap-4">
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+<section class="taxonomies-menu py-8 pt-7 bg-white">
+  <div class="mx-auto">
+    <div class="flex flex-wrap justify-center gap-4" id="taxonomies-container">
+      <% if @taxonomies.present? %>
+        <% @taxonomies.first(7).each_with_index do |taxonomy, index| %>
+          <% if taxonomy.root.present? %>
+            <%= link_to products_path(taxon: taxonomy.root.id),
+                class: "px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase whitespace-nowrap",
+                data: { taxonomy_id: taxonomy.id } do %>
+              <%= taxonomy.name.upcase %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <!-- Fallback buttons if no taxonomies -->
+        <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
           PAINTINGS
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+        </button>
+        <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
           ABSTRACT ART
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+        </button>
+        <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
           OIL PAINTINGS
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          LANDSCAPES
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          ACRYLIC PAINTINGS
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          MODERN ART
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          SCULPTURE
-      </button>
+        </button>
+      <% end %>
     </div>
   </div>
 </section>
@@ -102,54 +103,49 @@
   </div>
 </section>
 
-<section class="py-12 px-6 bg-white border-b-2 border-dashed border-gray-300">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<section id="example-taxonomies" class="py-12 px-6 bg-white border-b-2 border-gray-300">
+  <% if @example_taxonomies.present? %>
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% @example_taxonomies.each do |taxonomy_data| %>
+          <div class="flex flex-col">
 
-    <div class="flex flex-col">
-      <div class="overflow-hidden shadow-lg mb-4">
-        <%= image_tag "im_1.png", class: "w-full h-auto" %>
-      </div>
-      <h3 class="text-h4 font-semibold text-gray-900 mt-2">
-        Dinning room Art
-      </h3>
-      <p class="text-sm text-gray-500 mt-2 max-w-sm">
-        Inspire conversation and connection with original artwork.
-      </p>
-      <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-        Shop Dinning Room Art
-      </a>
-    </div>
+            <!-- Single product image -->
+            <div class="mb-6">
+              <div class="aspect-square overflow-hidden rounded-lg shadow-md">
+                <%= image_tag taxonomy_data[:image].url(:small),
+                    class: 'w-full h-full object-cover hover:scale-110 transition-transform duration-300',
+                    alt: "#{taxonomy_data[:product].name} Image" %>
+              </div>
+            </div>
 
-    <div class="flex flex-col">
-      <div class="overflow-hidden shadow-lg mb-4">
-        <%= image_tag "im_1.png", class: "w-full h-auto" %>
-      </div>
-      <h3 class="text-h4 font-semibold text-gray-900 mt-2">
-        Living room Art
-      </h3>
-      <p class="text-sm text-gray-500 mt-2 max-w-sm">
-        Shop our exceptional collection of original art to brighten your walls.
-      </p>
-      <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-        Shop Living Room Art
-      </a>
-    </div>
+            <div class="mb-6">
+              <h3 class="text-h4 font-semibold text-gray-900 mb-3">
+                <%= taxonomy_data[:taxonomy].name %>
+              </h3>
+              <% if taxonomy_data[:taxonomy].description.present? %>
+                <p class="text-sm text-gray-500 max-w-sm mx-auto">
+                  <%= truncate(taxonomy_data[:taxonomy].description, length: 120) %>
+                </p>
+              <% end %>
+            </div>
 
-    <div class="flex flex-col">
-      <div class="overflow-hidden shadow-lg mb-4">
-        <%= image_tag "im_1.png", class: "w-full h-auto" %>
+            <!-- Shop button -->
+            <% if taxonomy_data[:taxonomy].root.present? %>
+              <%= link_to products_path(taxon: taxonomy_data[:taxonomy].root.id),
+                  class: "mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" do %>
+                Shop <%= taxonomy_data[:taxonomy].name %>
+              <% end %>
+            <% else %>
+              <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                Shop <%= taxonomy_data[:taxonomy].name %>
+              </a>
+            <% end %>
+          </div>
+        <% end %>
       </div>
-      <h3 class="text-h4 font-semibold text-gray-900 mt-2">
-        Kitchen Art
-      </h3>
-      <p class="text-sm text-gray-500 mt-2 max-w-sm">
-        Browse art online in a range of styles to suit your taste.
-      </p>
-      <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-        Shop Kitchen Art
-      </a>
     </div>
-  </div>
+  <% end %>
 </section>
 
 <section class="bg-[#fdf3e2] py-16 px-6">
@@ -247,7 +243,7 @@
 
     <!-- Grid ảnh -->
     <div class="grid gap-8 mb-10">
-      <ul class="gap-7 flex">
+      <ul class="gap-7 flex text-left">
         <% @products.each do |product| %>
           <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
             <%= render ProductCardComponent.new(
