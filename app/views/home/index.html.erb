@@ -1,12 +1,12 @@
-<section class="banner h-screen flex w-full">
-  <div class="relative inset-0">
+<section class="banner relative flex w-full">
+  <div class="inset-0">
     <%= image_tag "banner.png", class: "w-full object-cover" %>
   </div>
 
-  <div class="bg-[#F5F3F0] absolute z-10 flex items-center w-1_col-3">
-    <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
+  <div class="bg-[#F5F3F0] absolute z-10 flex items-center w-1_col-3 left-8 bottom-8">
+    <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-12">
       <div class="max-w-lg">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif text-black leading-tight mb-6">
+        <h1 class="text-h2.5 md:text-5xl lg:text-6xl font-serif text-black leading-tight mb-6">
           Good art changes lives
         </h1>
 
@@ -14,14 +14,14 @@
           Bring home your new art to view it in person. If a piece doesn't quite work in your space, return it within seven days of receiving your order and receive a full refund.*
         </p>
 
-        <button class="inline-block bg-white text-black px-6 py-3 border border-black hover:bg-black hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+        <%= link_to products_path, class: "border-b-2 hover:text-white inline-block py-3 text-black tracking-wide underline" do %>
           GO TO COLLECTION
-        </button>
+        <% end %>
       </div>
     </div>
   </div>
 
-  <div class="absolute bottom-8 left-8 flex space-x-2">
+  <div class="absolute bottom-8 flex right-[3px] space-x-2">
     <button class="w-10 h-10 bg-white bg-opacity-90 hover:bg-opacity-100 transition-all duration-300 flex items-center justify-center border border-black">
       <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -35,38 +35,39 @@
   </div>
 </section>
 
-<section class="py-8 pt-7">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap justify-center gap-4">
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+<section class="taxonomies-menu py-8 pt-7 bg-white">
+  <div class="mx-auto">
+    <div class="flex flex-wrap justify-center gap-4" id="taxonomies-container">
+      <% if @taxonomies.present? %>
+        <% @taxonomies.first(7).each_with_index do |taxonomy, index| %>
+          <% if taxonomy.root.present? %>
+            <%= link_to products_path(taxon: taxonomy.root.id),
+                class: "px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase whitespace-nowrap",
+                data: { taxonomy_id: taxonomy.id } do %>
+              <%= taxonomy.name.upcase %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <!-- Fallback buttons if no taxonomies -->
+        <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
           PAINTINGS
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+        </button>
+        <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
           ABSTRACT ART
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
+        </button>
+        <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
           OIL PAINTINGS
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          LANDSCAPES
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          ACRYLIC PAINTINGS
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          MODERN ART
-      </button>
-      <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          SCULPTURE
-      </button>
+        </button>
+      <% end %>
     </div>
   </div>
 </section>
 
-<section class="py-20 bg-gray-50">
+<section class="py-20 bg-cream">
   <div class="bg-cream py-12 px-6 text-center">
     <h2 class="text-3xl md:text-4xl font-semibold text-gray-900">
-      Celebrate <span class="text-orange-500">15 Years</span> of Discovering Art You Love
+      Celebrate <span class="text-orange">15 Years</span> of Discovering Art You Love
     </h2>
 
     <div class="mt-8 flex flex-wrap justify-center gap-4">
@@ -76,80 +77,75 @@
     <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 text-center">
       <div>
         <p class="text-3xl font-semibold text-gray-900">30</p>
-        <p class="text-sm text-gray-600 uppercase mt-1">Years of Living with Art,<br> Made Easy</p>
+        <p class="text-sm text-gray-600 uppercase mt-1"><%= t('spree.made_easy') %></p>
       </div>
       <div>
         <p class="text-3xl font-semibold text-gray-900">130,000+</p>
-        <p class="text-sm text-gray-600 uppercase mt-1">Homes with Art</p>
+        <p class="text-sm text-gray-600 uppercase mt-1"><%= t('spree.home_with_art') %></p>
       </div>
       <div>
         <p class="text-3xl font-semibold text-gray-900">153</p>
-        <p class="text-sm text-gray-600 uppercase mt-1">Collector Countries</p>
+        <p class="text-sm text-gray-600 uppercase mt-1"><%= t('spree.collector_countries') %></p>
       </div>
       <div>
         <p class="text-3xl font-semibold text-gray-900">100,000+</p>
-        <p class="text-sm text-gray-600 uppercase mt-1">Artists Collected</p>
+        <p class="text-sm text-gray-600 uppercase mt-1"><%= t('spree.artists_collected') %></p>
       </div>
       <div>
         <p class="text-3xl font-semibold text-gray-900">330,000+</p>
-        <p class="text-sm text-gray-600 uppercase mt-1">Artworks Sold</p>
+        <p class="text-sm text-gray-600 uppercase mt-1"><%= t('spree.artworks_sold') %></p>
       </div>
       <div>
         <p class="text-3xl font-semibold text-gray-900">143</p>
-        <p class="text-sm text-gray-600 uppercase mt-1">Artist Countries</p>
+        <p class="text-sm text-gray-600 uppercase mt-1"><%= t('spree.artist_countries') %></p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="py-12 px-6 bg-white border-b-2 border-dashed border-gray-300">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-    <div class="flex flex-col">
-      <div class="overflow-hidden shadow-lg mb-4">
-        <%= image_tag "im_1.png", class: "w-full h-auto" %>
-      </div>
-      <h3 class="text-h4 font-semibold text-gray-900 mt-2">
-        Dinning room Art
-      </h3>
-      <p class="text-sm text-gray-500 mt-2 max-w-sm">
-        Inspire conversation and connection with original artwork.
-      </p>
-      <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-        Shop Dinning Room Art
-      </a>
-    </div>
+<section id="example-taxonomies" class="py-12 px-6 bg-white border-b-2 border-gray-300">
+  <% if @example_taxonomies.present? %>
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% @example_taxonomies.each do |taxonomy_data| %>
+          <div class="flex flex-col">
 
-    <div class="flex flex-col">
-      <div class="overflow-hidden shadow-lg mb-4">
-        <%= image_tag "im_1.png", class: "w-full h-auto" %>
-      </div>
-      <h3 class="text-h4 font-semibold text-gray-900 mt-2">
-        Living room Art
-      </h3>
-      <p class="text-sm text-gray-500 mt-2 max-w-sm">
-        Shop our exceptional collection of original art to brighten your walls.
-      </p>
-      <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-        Shop Living Room Art
-      </a>
-    </div>
+            <!-- Single product image -->
+            <div class="mb-6">
+              <div class="aspect-square overflow-hidden rounded-lg shadow-md">
+                <%= image_tag taxonomy_data[:image].url(:small),
+                    class: 'w-full h-full object-cover hover:scale-110 transition-transform duration-300',
+                    alt: "#{taxonomy_data[:product].name} Image" %>
+              </div>
+            </div>
 
-    <div class="flex flex-col">
-      <div class="overflow-hidden shadow-lg mb-4">
-        <%= image_tag "im_1.png", class: "w-full h-auto" %>
+            <div class="mb-6">
+              <h3 class="text-h4 font-semibold text-gray-900 mb-3">
+                <%= taxonomy_data[:taxonomy].name %>
+              </h3>
+              <% if taxonomy_data[:taxonomy].description.present? %>
+                <p class="text-sm text-gray-500 max-w-sm mx-auto">
+                  <%= truncate(taxonomy_data[:taxonomy].description, length: 120) %>
+                </p>
+              <% end %>
+            </div>
+
+            <!-- Shop button -->
+            <% if taxonomy_data[:taxonomy].root.present? %>
+              <%= link_to products_path(taxon: taxonomy_data[:taxonomy].root.id),
+                  class: "mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" do %>
+                Shop <%= taxonomy_data[:taxonomy].name %>
+              <% end %>
+            <% else %>
+              <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                Shop <%= taxonomy_data[:taxonomy].name %>
+              </a>
+            <% end %>
+          </div>
+        <% end %>
       </div>
-      <h3 class="text-h4 font-semibold text-gray-900 mt-2">
-        Kitchen Art
-      </h3>
-      <p class="text-sm text-gray-500 mt-2 max-w-sm">
-        Browse art online in a range of styles to suit your taste.
-      </p>
-      <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-400 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-        Shop Kitchen Art
-      </a>
     </div>
-  </div>
+  <% end %>
 </section>
 
 <section class="bg-[#fdf3e2] py-16 px-6">
@@ -173,8 +169,7 @@
   </div>
 </section>
 
-
-<section class="bg-[#fcf7ed] py-12 lg:py-20">
+<section class="bg-white py-12 lg:py-20">
   <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
     <div class="max-w-xl mx-auto lg:mx-0">
       <h2 class="text-4xl lg:text-6xl font-serif text-gray-900 leading-tight">
@@ -189,7 +184,7 @@
     </div>
 
     <div class="relative w-full">
-      
+
       <div class="flex justify-center mt-4 space-x-3">
         <button class="text-gray-500 hover:text-gray-800 transition duration-200">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -204,3 +199,66 @@
     </div>
   </div>
 </section>
+
+<section class="bg-[#fdf3e2] py-16 px-6">
+  <div class="container gap-8 grid items-center lg:gap-16 lg:grid-cols-2 max-w-7xl mx-auto px-6">
+    <div class="text-gray-800 space-y-4">
+      <h1 class="text-h2.5 sm:text-5xl md:text-6xl font-serif font-medium leading-tight tracking-tight">
+        We believe that good art<br>
+        bring people together,<br>
+        elevated ling space,<br>
+        and transforms lives.
+      </h1>
+    </div>
+
+    <div class="text-gray-700 text-lg leading-relaxed">
+      <p class="mb-6">
+        Founded by Gallery Director Mike Tran in 2006, Martket has developed a loyal following of art collectors,
+        artists, and interior designers in all 50 states and over 50 countries.
+      </p>
+      <div class="inline-flex items-center text-base font-medium underline underline-offset-4 hover:text-gray-900 transition gap-3">
+        <a href="#"> About Us </a>
+        <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="banner-2 flex w-full">
+  <div class="relative inset-0">
+    <%= image_tag "artist.png", class: "w-full object-cover" %>
+  </div>
+</section>
+
+<section class="bg-[#F8F4ED] py-16 weekly-art">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <!-- Tiêu đề -->
+    <h2 class="text-h2.5 font-serif font-medium text-[#3B382E] mb-2">
+      Discover new art added weekly
+    </h2>
+    <div class="w-24 h-[1px] bg-[#3B382E] mx-auto mb-10"></div>
+
+    <!-- Grid ảnh -->
+    <div class="grid gap-8 mb-10">
+      <ul class="gap-7 flex text-left">
+        <% @products.each do |product| %>
+          <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
+            <%= render ProductCardComponent.new(
+              product,
+              price: nil,
+              additional_classes: "col-span-full md:col-span-6 lg:col-span-4"
+            ) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    <button class="mt-8 px-6 py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300">
+      Browse New Art
+    </button>
+  </div>
+</section>
+

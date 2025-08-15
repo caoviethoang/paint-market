@@ -1,3 +1,11 @@
+<p class="font-sans text-body" itemprop="name">
+  <%= product.name rescue t('spree.product_has_no_name') %>
+</p>
+
+<p class="font-sans text-body" itemprop="name">
+  <%= product.artist.name rescue t('spree.product_has_no_name') %>
+</p>
+
 <p class="font-sans text-body" itemprop="description">
   <%= product_description(product) rescue t('spree.product_has_no_description') %>
 </p>

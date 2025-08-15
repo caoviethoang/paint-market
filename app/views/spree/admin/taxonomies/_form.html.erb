@@ -1,0 +1,34 @@
+<div data-hook="admin_taxonomy_form">
+  <%= form_with model: [:admin, @taxonomy], local: true do |f| %>
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Basic Information -->
+        <fieldset class="no-border-top">
+          <legend align="center"><%= "Taxonomy Details" %></legend>
+
+          <div data-hook="admin_taxonomy_form_left" class="col-md-12">
+            <div class="form-group">
+              <%= f.label :name, "Name", class: 'required' %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :description, "Description" %>
+              <%= f.text_area :description, rows: 4, class: 'form-control',
+                    placeholder: "Enter taxonomy description..." %>
+              <small class="help-block">
+                Optional description for this taxonomy category
+              </small>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div data-hook="admin_taxonomy_form_additional_fields"></div>
+
+    <div class="form-actions" data-hook="admin_taxonomy_form_buttons">
+      <%= render 'spree/admin/shared/edit_resource_links' %>
+    </div>
+  <% end %>
+</div> 

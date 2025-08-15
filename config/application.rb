@@ -32,6 +32,8 @@ module PaintMarket
     end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
+    config.i18n.available_locales = [:en, :vi]
+    config.i18n.default_locale = :en
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

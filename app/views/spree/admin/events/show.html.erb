@@ -1,0 +1,56 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to t('spree.edit_event'), edit_admin_event_url, id: 'admin_edit_event', class: 'btn btn-primary' %>
+  </li>
+<% end %>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h4><%= @event.title %></h4>
+        <p><%= simple_format(@event.description) %></p>
+
+        <% if @event.youtube_url.present? %>
+          <div class="embed-responsive embed-responsive-16by9" style="margin-top: 20px;">
+            <iframe src="<%= youtube_embed_url(@event.youtube_url) %>"
+                    class="embed-responsive-item"
+                    allowfullscreen></iframe>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Event Details</h4>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Created:</dt>
+          <dd><%= l(@event.created_at) %></dd>
+
+          <dt>Updated:</dt>
+          <dd><%= l(@event.updated_at) %></dd>
+          <dt>Location:</dt>
+          <dd><%= @event.location %></dd>
+          <dt>Duration:</dt>
+          <dd><%= l(@event.from, format: :short) %> - <%= l(@event.to, format: :short) %></dd>
+        </dl>
+
+        <% if @event.has_images? %>
+          <div class="text-center" style="margin-bottom: 15px;">
+            <% @event.display_image_urls(:medium).each do |url| %>
+              <%= image_tag url,
+                  class: "img-responsive",
+                  style: "max-height: 200px; object-fit: cover;" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

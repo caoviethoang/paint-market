@@ -1,0 +1,54 @@
+<!-- Carousel wrapper -->
+<div data-controller="event-slider" class="relative">
+  <!-- Track -->
+  <div 
+    data-event-slider-target="track" 
+    class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+  >
+    <% @events.drop(5).each do |event| %>
+      <div class="flex-shrink-0 w-80 snap-start">
+        <%= link_to detail_event_path(event), class: "block" do %>
+          <div class="relative aspect-[4/3] bg-gray-200 overflow-hidden rounded-md">
+            <%= image_tag(
+                  if event.background_image.attached?
+                    url_for(event.background_image.variant(resize_to_fill: [640, 480]).processed)
+                  elsif event.has_images?
+                    event.display_image_urls(:medium).first
+                  else
+                    event.send(:youtube_thumbnail_url)
+                  end,
+                  alt: event.title,
+                  class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                ) %>
+          </div>
+          <div class="mt-3">
+            <h3 class="text-lg font-medium text-gray-900 hover:underline"><%= event.title %></h3>
+            <p class="text-sm text-gray-600"><%= event.location %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Nút điều hướng -->
+  <button type="button" data-action="event-slider#prev"
+    class="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow rounded-full p-2 z-10">
+     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+          viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M15 19l-7-7 7-7" />
+      </svg>
+  </button>
+  <button type="button" data-action="event-slider#next"
+    class="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow rounded-full p-2 z-10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+          viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M9 5l7 7-7 7" />
+      </svg>
+  </button>
+</div>
+
+<div class="mt-8 mx-auto">
+  <%= render 'products/products_grid', products: @products, taxon: nil %>
+</div>
