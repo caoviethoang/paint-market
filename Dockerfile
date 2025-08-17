@@ -56,8 +56,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 \
     AWS_ACCESS_KEY_ID=dummy \
     AWS_SECRET_ACCESS_KEY=dummy \
     AWS_REGION=us-east-1 \
-    AWS_BUCKET_PROD=dummy-bucket \
-    # ./bin/rails assets:precompile
+    AWS_BUCKET_PROD=dummy-bucket
 
 # Final stage for app image
 FROM base
