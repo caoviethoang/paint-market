@@ -1,0 +1,64 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to t('spree.edit_taxonomy'), edit_admin_taxonomy_url, id: 'admin_edit_taxonomy', class: 'btn btn-primary' %>
+  </li>
+<% end %>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h4><%= @taxonomy.name %></h4>
+        
+        <% if @taxonomy.description.present? %>
+          <div class="well">
+            <h5>Description:</h5>
+            <p><%= simple_format(@taxonomy.description) %></p>
+          </div>
+        <% end %>
+
+        <% if @taxonomy.root.present? %>
+          <div class="mt-4">
+            <h5>Root Taxon:</h5>
+            <p><strong><%= @taxonomy.root.name %></strong></p>
+            
+            <% if @taxonomy.root.children.any? %>
+              <h6>Child Taxons:</h6>
+              <ul class="list-unstyled">
+                <% @taxonomy.root.children.each do |child| %>
+                  <li><%= child.name %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Taxonomy Details</h4>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Name:</dt>
+          <dd><%= @taxonomy.name %></dd>
+
+          <dt>Created:</dt>
+          <dd><%= l(@taxonomy.created_at) if @taxonomy.created_at %></dd>
+
+          <dt>Updated:</dt>
+          <dd><%= l(@taxonomy.updated_at) if @taxonomy.updated_at %></dd>
+
+          <% if @taxonomy.description.present? %>
+            <dt>Description:</dt>
+            <dd><%= truncate(@taxonomy.description, length: 100) %></dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div> 

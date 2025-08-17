@@ -1,0 +1,44 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to t('spree.edit_artist'),
+                edit_admin_artist_url(@artist),
+                id: 'admin_edit_artist',
+                class: 'btn btn-primary' %>
+  </li>
+<% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Artist Information</h4>
+  </div>
+  <div class="panel-body">
+    <h3><%= @artist.name %></h3>
+
+    <dl class="dl-horizontal">
+      <dt>Introduction:</dt>
+      <dd><%= @artist.introduction if @artist.introduction.present? %></dd>
+      <dt>Date of Birth:</dt>
+      <dd><%= l(@artist.dob) if @artist.dob.present? %></dd>
+
+      <dt>Address:</dt>
+      <dd><%= @artist.address %></dd>
+
+      <dt>Created:</dt>
+      <dd><%= l(@artist.created_at, format: :short) %></dd>
+
+      <dt>Updated:</dt>
+      <dd><%= l(@artist.updated_at, format: :short) %></dd>
+    </dl>
+
+    <% if @artist.background_image.attached? %>
+      <div class="artist-image text-center col-4" style="margin-top:20px;">
+        <%= image_tag(@artist.background_image_url(:large),
+                      alt: @artist.name,
+                      class: "img-responsive img-thumbnail") %>
+      </div>
+    <% else %>
+      <p class="text-muted text-center">No background image uploaded</p>
+    <% end %>
+  </div>
+</div>

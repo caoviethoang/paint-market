@@ -7,7 +7,6 @@ class LocaleController < StoreController
     if locale_is_available?(requested_locale)
       I18n.locale = requested_locale
       session[set_user_language_locale_key] = requested_locale
-      flash.notice = t('spree.locale_changed')
     else
       flash[:error] = t('spree.locale_not_changed')
     end

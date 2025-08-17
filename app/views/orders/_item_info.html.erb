@@ -21,6 +21,10 @@
   <% end %>
 
   <p class="<%= base_class %>__options text-body">
+    <%= line_item.product.property('size') %>
+  </p>
+
+  <p class="<%= base_class %>__options text-body">
     <%= variant.options_text %>
   </p>
 

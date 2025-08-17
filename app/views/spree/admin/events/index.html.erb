@@ -1,0 +1,83 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to t('spree.new_event'), new_admin_event_url, id: 'admin_new_event', class: 'btn btn-primary' %>
+  </li>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_events_index_search">
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :title_cont, "Title" %>
+            <%= f.text_field :title_cont, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :status_eq, "Status" %>
+            <%= f.select :status_eq, Event.statuses.map { |k, v| [k.humanize, v] }, { include_blank: true }, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :location_cont, "Location" %>
+            <%= f.text_field :location_cont, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :created_at_gteq, "Created From Date & Time" %>
+            <%= f.datetime_field :created_at_gteq, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.submit "Search", class: 'btn btn-primary' %>
+          <%= link_to "Clear", admin_events_path, class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table table-striped" data-hook="admin_events_index">
+    <thead>
+      <tr data-hook="admin_events_index_headers">
+        <th><%= sort_link @search, :title, "Title" %></th>
+        <th><%= sort_link @search, :location, "Location" %></th>
+        <th><%= sort_link @search, :start_time, "Start Time" %></th>
+        <th><%= sort_link @search, :end_time, "End Time" %></th>
+        <th><%= sort_link @search, :status, "Status" %></th>
+        <th><%= sort_link @search, :created_at, "Created" %></th>
+        <th data-hook="admin_events_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr data-hook="admin_events_index_rows" class="<%= cycle('odd', 'even') %>">
+          <td><%= link_to event.title, edit_admin_event_url(event) %></td>
+          <td><%= event.location %></td>
+          <td><%= event.start_time&.strftime('%B %d, %Y %I:%M %p') %></td>
+          <td><%= event.end_time&.strftime('%B %d, %Y %I:%M %p') %></td>
+          <td>
+            <span class="badge badge-<%= event.active? ? 'success' : 'secondary' %>">
+              <%= event.status.humanize %>
+            </span>
+          </td>
+          <td><%= event.created_at.strftime('%B %d, %Y') %></td>
+          <td class="actions" data-hook="admin_events_index_row_actions">
+            <%= link_to_edit event, no_text: true, class: 'btn btn-primary btn-sm' %>
+            <%= link_to_delete event, no_text: true, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @events %>

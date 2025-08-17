@@ -1,0 +1,167 @@
+<div class="p-4">
+  <!-- Custom CSS cho pagination -->
+  <style>
+    /* Loại bỏ styling cũ, giữ styling mới từ Tailwind */
+    .pagination {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .pagination li {
+      margin: 0;
+    }
+    
+    /* Đảm bảo spacing đẹp */
+    .pagination .inline-flex {
+      margin: 0 2px;
+    }
+  </style>
+
+  <% if @event.display_image_urls(:medium).present? %>
+    <div class="relative" data-controller="carousel lightbox">
+      <!-- Nút Prev -->
+      <button data-action="click->carousel#prev" 
+              class="absolute left-0 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+            viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      
+      <!-- Nút Next -->
+      <button data-action="click->carousel#next" 
+              class="absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+            viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Carousel -->
+      <div class="overflow-hidden">
+        <!-- slides wrapper (bắt buộc cho Stimulus carousel) -->
+        <div data-carousel-target="slides" 
+            class="flex flex-1 gap-4 transition-transform duration-300 ease-in-out">
+          <% @event.display_image_urls(:medium).each_with_index do |url, index| %>
+            <%= image_tag url,
+                class: "block flex-shrink-0 w-80 overflow-hidden hover:scale-105 transition cursor-pointer",
+                style: "max-height: 200px; object-fit: cover;",
+                data: {
+                  carousel_target: "slide",
+                  action: "click->lightbox#open",
+                  lightbox_url: url
+                } %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Modal zoom ảnh -->
+      <div data-lightbox-target="modal"
+          data-action="click->lightbox#closeBackground"
+          class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999] hidden">
+        <div class="relative">
+          <img data-lightbox-target="image" src="" alt="Ảnh phóng to" 
+              class="max-w-[90%] max-h-[90%] transition-transform duration-200">
+          <button data-action="lightbox#close" 
+                  class="absolute mr-4 right-0 text-h2.5 top-0">&times;</button>
+
+          <!-- Nút Zoom -->
+          <div class="absolute flex items-center bg-black bg-opacity-50 rounded-full text-white z-20">
+            <button data-action="lightbox#zoomIn" 
+                    class="p-1 hover:bg-opacity-75 rounded-l-full">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" 
+                  viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+            <div class="h-5 w-px bg-white bg-opacity-50"></div>
+            <button data-action="lightbox#zoomOut" 
+                    class="p-1 hover:bg-opacity-75 rounded-r-full">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" 
+                  viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M20 12H4"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="mt-8 mx-auto event-preview">
+    <div>
+      <% if @event.present? %>
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg text-gray-500">Show</h3>
+            <h2 class="text-h3 font-serif leading-tight">
+              <%= @event.title %>
+            </h2>
+            <p class="text-h4 font-serif text-gray-500 mt-4">
+              <%= @event.start_time.strftime('%B %e') %> – <%= @event.end_time.strftime('%B %e, %Y') %>
+            </p>
+
+            <div class="mt-8">
+              <p><%= @event.location %></p>
+              <p><%= @event.display_operating_hours%></p>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg text-gray-500">About</h3>
+            <p class="mt-2 leading-relaxed">
+              <%= @event.description %>
+            </p>
+
+            <div class="mt-4">
+              <%= link_to "MORE INFO", event_path(@event), class: "inline-block text-sm underline" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-8 mx-auto">
+    <% if @products.present? %>
+      <h2 class="mb-6"> <%= @products.total_count %> ART WORKS </h2>
+      <%= render 'products/products', products: @products, taxon: nil %>
+    <% else %>
+      <h2 class="mb-6">No ART WORKS found</h2>
+    <% end %>
+  </div>
+</div>
+
+<div class="mt-4 bg-[#fdf3e2] overflow-hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+    <div class="flex flex-col justify-center lg:p-16 p-12 text-center">
+      <h2 class="font-bold font-serif leading-tight lg:text-5xl mb-8 text-gray-900 text-h2.5">
+        Discover and Buy<br />Art that Moves You
+      </h2>
+      <div class="flex justify-center">
+        <button class="border-2 border-gray-800 px-8 py-4 text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300">
+          <% if spree_user_signed_in? %>
+            BUY NOW
+          <% else %>
+            SIGN UP
+          <% end %>
+        </button>
+      </div>
+    </div>
+    
+      <div class="min-h-[50vh]" style="height: 315px;">
+      <iframe
+        src="<%= youtube_embed_url(@event.youtube_url) %>"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="w-1/2 h-full w-full"
+      ></iframe>
+    </div>
+  </div>
+</div>

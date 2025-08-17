@@ -27,7 +27,6 @@
                 <th class="<%= table_head_classes %>"><%= I18n.t(:number, scope: 'activerecord.attributes.spree/order') %></th>
                 <th class="<%= table_head_classes %>"><%= I18n.t('spree.date') %></th>
                 <th class="<%= table_head_classes %>"><%= I18n.t('spree.status') %></th>
-                <th class="<%= table_head_classes %>"><%= I18n.t('spree.payment_state') %></th>
                 <th class="<%= table_head_classes %>"><%= I18n.t('spree.shipment_state') %></th>
                 <th class="<%= table_head_classes %>"><%= I18n.t('spree.total') %></th>
               </tr>
@@ -42,7 +41,6 @@
                     <%= I18n.t("spree.order_state.#{order.state}").titleize %>
                   </div>
                 </td>
-                <td class="<%= table_cells_classes %>"><%= I18n.t("spree.payment_states.#{order.payment_state}").titleize if order.payment_state %></td>
                 <td class="<%= table_cells_classes %>">
                   <% if order.shipment_state %>
                     <div class="badge badge-<%= I18n.t("spree.shipment_states.#{order.shipment_state}").downcase %>">

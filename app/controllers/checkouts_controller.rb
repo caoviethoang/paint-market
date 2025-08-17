@@ -6,7 +6,6 @@
 # is warranted.
 class CheckoutsController < CheckoutBaseController
   before_action :ensure_valid_state
-  before_action :ensure_valid_payment
   before_action :check_registration
   before_action :setup_for_current_state
 
@@ -73,36 +72,16 @@ class CheckoutsController < CheckoutBaseController
   def update_params
     case params[:state].to_sym
     when :address
-      massaged_params.require(:order).permit(
-        permitted_checkout_address_attributes
-      )
+      massaged_params.require(:order).permit(permitted_checkout_address_attributes)
     when :delivery
-      massaged_params.require(:order).permit(
-        permitted_checkout_delivery_attributes
-      )
-    when :payment
-      if @order.covered_by_store_credit?
-        massaged_params.fetch(:order, {})
-      else
-        massaged_params.require(:order)
-      end.permit(
-        permitted_checkout_payment_attributes
-      )
+      massaged_params.require(:order).permit(permitted_checkout_delivery_attributes)
     else
-      massaged_params.fetch(:order, {}).permit(
-        permitted_checkout_confirm_attributes
-      )
+      massaged_params.fetch(:order, {}).permit(permitted_checkout_confirm_attributes)
     end
   end
 
   def massaged_params
-    massaged_params = params.deep_dup
-
-    move_payment_source_into_payments_attributes(massaged_params)
-    move_wallet_payment_source_id_into_payments_attributes(massaged_params)
-    set_payment_parameters_amount(massaged_params, @order)
-
-    massaged_params
+    params.deep_dup
   end
 
   def ensure_valid_state
@@ -111,18 +90,6 @@ class CheckoutsController < CheckoutBaseController
 
     @order.state = 'cart'
     redirect_to checkout_state_path(@order.checkout_steps.first)
-  end
-
-  def ensure_valid_payment
-    # Fix for https://github.com/spree/spree/issues/4117
-    # If confirmation of payment fails, redirect back to payment screen
-    return unless params[:state] == "confirm"
-    return unless @order.payment_required?
-
-    if @order.payments.valid.empty?
-      flash.keep
-      redirect_to checkout_state_path("payment")
-    end
   end
 
   def setup_for_current_state
@@ -143,22 +110,6 @@ class CheckoutsController < CheckoutBaseController
 
     packages = @order.shipments.map(&:to_package)
     @differentiator = Spree::Stock::Differentiator.new(@order, packages)
-  end
-
-  def before_payment
-    if @order.checkout_steps.include? "delivery"
-      packages = @order.shipments.map(&:to_package)
-      @differentiator = Spree::Stock::Differentiator.new(@order, packages)
-      @differentiator.missing.each do |variant, quantity|
-        @order.contents.remove(variant, quantity)
-      end
-    end
-
-    if spree_current_user && spree_current_user.respond_to?(:wallet)
-      @wallet_payment_sources = spree_current_user.wallet.wallet_payment_sources
-      @default_wallet_payment_source = @wallet_payment_sources.detect(&:default) ||
-                                       @wallet_payment_sources.first
-    end
   end
 
   def order_params

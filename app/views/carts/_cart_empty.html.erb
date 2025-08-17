@@ -4,8 +4,8 @@
   </h1>
 
   <p class="text-body-sm mb-9 md:mb-14 md:text-body">
-    You have no items in your shopping cart.
+    <%= t('spree.you_have_no_items_in_your_shopping_cart') %>
   </p>
-  
+
   <%= render partial: "shared/call_to_action", :locals => { :label => t('spree.continue_shopping'), :url => products_path } %>
 </div>

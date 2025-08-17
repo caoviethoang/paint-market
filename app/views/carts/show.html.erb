@@ -1,6 +1,6 @@
 <% @body_id = 'cart' %>
 
-<article class="cart-page wrapper grid-container h-auto my-7 lg:my-14" data-controller="cart-page">
+<article class="cart-page h-auto my-7 px-8 w-1/2 wrapper" data-controller="cart-page">
   <% if @order.line_items.empty? %>
     <%= render 'carts/cart_empty' %>
   <% else %>
@@ -20,7 +20,6 @@
     <% end %>
     
     <div class="col-span-full flex flex-col justify-between gap-y-8 p-6 bg-gray-50 h-full text-black dark:bg-gray-800 dark:text-sand lg:flex-col lg:col-span-3 2xl:col-start-10">
-      <%= render 'orders/coupon_code' %>
       <%= form_for @order, url: cart_path, html: {
         id: 'checkout-button-form',
       } do |order_form| %>
