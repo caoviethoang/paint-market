@@ -51,10 +51,13 @@ RUN chmod +x bin/* && \
     sed -i 's/ruby\.exe$/ruby/' bin/*
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-
-
+# Set dummy environment variables to avoid AWS configuration errors during build
+RUN SECRET_KEY_BASE_DUMMY=1 \
+    AWS_ACCESS_KEY_ID=dummy \
+    AWS_SECRET_ACCESS_KEY=dummy \
+    AWS_REGION=us-east-1 \
+    AWS_BUCKET_PROD=dummy-bucket \
+    ./bin/rails assets:precompile
 
 # Final stage for app image
 FROM base
