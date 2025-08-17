@@ -1,0 +1,48 @@
+name: Simple Docker Test
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/simple-test.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Debug Secrets
+      run: |
+        echo "Checking secrets..."
+        if [ -n "${{ secrets.DOCKER_USERNAME }}" ]; then
+          echo "✅ DOCKER_USERNAME is set"
+          echo "Username: ${{ secrets.DOCKER_USERNAME }}"
+        else
+          echo "❌ DOCKER_USERNAME is NOT set"
+        fi
+        
+        if [ -n "${{ secrets.DOCKER_PASSWORD }}" ]; then
+          echo "✅ DOCKER_PASSWORD is set"
+          echo "Password length: ${#DOCKER_PASSWORD}"
+        else
+          echo "❌ DOCKER_PASSWORD is NOT set"
+        fi
+    
+    - name: Test Docker Login
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: Test Repository Access
+      run: |
+        echo "Testing repository access..."
+        REPO="${{ secrets.DOCKER_USERNAME }}/paint_market"
+        echo "Repository: $REPO"
+        
+        # Try to get repository info
+        docker manifest inspect $REPO:latest || echo "Repository not found or no access"
+        
+        echo "Docker Hub test completed!"
