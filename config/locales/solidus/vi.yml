@@ -11,6 +11,10 @@ vi:
         phone: "Điện thoại"
         state: Bang
         zipcode: Mã Zip
+      spree/event:
+        status: "Trạng thái"
+        active: "Hoạt động"
+        inactive: "Không hoạt động"
       spree/calculator/tiered_flat_rate:
         preferred_base_amount:
         preferred_tiers:

@@ -7,6 +7,10 @@ en:
         quantity: Quantity
         shipment: Shipment
         state: State
+      spree/event:
+        status: Status
+        active: Active
+        inactive: Inactive
     errors:
       models:
         spree/fulfilment_changer:
@@ -2180,7 +2184,7 @@ en:
         vat: incl. %{amount} %{tax_rate_name}
     shipping_total: Shipping total
     shop_by_taxonomy: Shop by %{taxonomy}
-    shopping_cart: Shopping Cart
+    shopping_cart: Your Cart
     show: Show
     show_active: Show Active
     show_deleted: Show Deleted
@@ -2375,6 +2379,21 @@ en:
     zipcode: Zip Code
     zone: Zone
     zones: Zones
+    celebrate: Celebrate 15 Years of Discovering Art You Love
+    made_easy: YEARS OF LIVING WITH ART, MADE EASY
+    home_with_art: HOMES WITH ART
+    collector_countries: COLLECTOR COUNTRIES
+    artists_collected: ARTISTS COLLECTED
+    artworks_sold: ARTWORKS SOLD
+    artist_countries: ARTIST COUNTRIES
+    footer:
+      information: INFORMATION
+      our_company: OUR COMPANY
+      connect: CONNECT WITH US
+      tax_code: Tax Code
+      showroom: Showroom
+      phone: Phone
+      address: Address
   time:
     formats:
       solidus:

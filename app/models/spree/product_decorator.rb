@@ -3,6 +3,17 @@ module Spree
     def self.prepended(base)
       base.belongs_to :event, optional: true
       base.belongs_to :artist
+
+      base.validates :artist, presence: true
+      base.validate :must_have_taxon
+    end
+
+    private
+
+    def must_have_taxon
+      if taxons.empty?
+        errors.add(:taxons, "phải chọn ít nhất một thể loại (taxon)")
+      end
     end
   end
 end

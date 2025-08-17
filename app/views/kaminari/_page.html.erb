@@ -1,0 +1,7 @@
+<li class="inline-flex items-center">
+  <% if page.current? %>
+    <span class="px-3 py-2 text-sm font-bold text-gray-900"><%= page %></span>
+  <% else %>
+    <%= link_to page, url, {remote: remote, rel: page.rel, class: "px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"} %>
+  <% end %>
+</li>

@@ -15,7 +15,7 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
-gem 'aws-sdk-s3', '~> 1.0'
+gem 'aws-sdk-s3', '~> 1.2'
 gem 'image_processing', '~> 1.2'
 gem 'dotenv-rails'
 
@@ -61,3 +61,5 @@ group :development, :test do
 end
 
 gem "solidus_admin", ">= 0.2"
+
+gem "kaminari", "~> 1.2"

@@ -1,24 +1,35 @@
-<header class="product-header">
-  <h1 class="font-serif-md text-h4 lg:text-h3 mt-12 mb-3 lg:mt-3" itemprop="name">
-    <%= product.name %>
-  </h1>
+<header class="product-header mt-12 lg:mt-3">
+  <div class="grid grid-cols-2 border-t border-dashed border-gray-500 py-3">
+    <!-- Cột trái: Label -->
+    <span class="font-sans-sm text-gray-600">Title</span>
 
-  <% if product.price_for_options(current_pricing_options)&.money and !product.price.nil? %>
-    <h2 class="font-sans-md text-body-md" id="product-price">
-      <%= content_tag(
-        :span,
-        display_price(product),
-        itemprop: 'price',
-        content: product.price_for_options(current_pricing_options)&.money.to_d,
-        data: { js: 'price' }
-      ) %>
+    <!-- Cột phải: Value -->
+    <h1 class="font-serif-md text-h6 lg:text-h6" itemprop="name">
+      <%= product.name %>
+    </h1>
+  </div>
 
-      <%= content_tag(
-        :span,
-        nil,
-        itemprop: 'priceCurrency',
-        content: current_pricing_options.currency
-      ) %>
-    </h2>
+  <% if product.price_for_options(current_pricing_options)&.money && !product.price.nil? %>
+    <div class="grid grid-cols-2 border-t border-dashed border-gray-500 py-3">
+      <!-- Label -->
+      <span class="font-sans-sm text-gray-600">Price</span>
+
+      <!-- Value -->
+      <h2 class="font-sans-md text-body-md" id="product-price">
+        <%= content_tag(
+          :span,
+          display_price(product),
+          itemprop: 'price',
+          content: product.price_for_options(current_pricing_options)&.money.to_d,
+          data: { js: 'price' }
+        ) %>
+
+        <%= content_tag(
+          :span,
+          current_pricing_options.currency,
+          itemprop: 'priceCurrency'
+        ) %>
+      </h2>
+    </div>
   <% end %>
 </header>

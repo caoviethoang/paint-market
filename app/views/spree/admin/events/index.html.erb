@@ -9,7 +9,7 @@
   <div data-hook="admin_events_index_search">
     <%= search_form_for [:admin, @search] do |f| %>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :title_cont, "Title" %>
             <%= f.text_field :title_cont, class: 'form-control' %>
@@ -17,74 +17,62 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <%= f.label :created_at_gteq, "From Date" %>
-            <%= f.date_field :created_at_gteq, class: 'form-control' %>
+            <%= f.label :status_eq, "Status" %>
+            <%= f.select :status_eq, Event.statuses.map { |k, v| [k.humanize, v] }, { include_blank: true }, class: 'form-control' %>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <div class="form-group">
-            <br>
-            <%= f.submit "Search", class: 'btn btn-primary' %>
-            <%= link_to "Reset", admin_events_path, class: 'btn btn-default' %>
+            <%= f.label :location_cont, "Location" %>
+            <%= f.text_field :location_cont, class: 'form-control' %>
           </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :created_at_gteq, "Created From Date & Time" %>
+            <%= f.datetime_field :created_at_gteq, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.submit "Search", class: 'btn btn-primary' %>
+          <%= link_to "Clear", admin_events_path, class: 'btn btn-default' %>
         </div>
       </div>
     <% end %>
   </div>
 <% end %>
 
-<div data-hook="admin_events_index_headers">
-  <table class="table" id="listing_events" data-hook>
-    <colgroup>
-      <col style="width: 20%;">
-      <col style="width: 30%;">
-      <col style="width: 25%;">
-      <col style="width: 15%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
-    </colgroup>
+<div class="table-responsive">
+  <table class="table table-striped" data-hook="admin_events_index">
     <thead>
       <tr data-hook="admin_events_index_headers">
-        <th><%= sort_link(@search, :title, "Title") %></th>
-        <th><%= "Description" %></th>
-        <th><%= "Location" %></th>
-        <th><%= "Duration" %></th>
-        <th><%= sort_link(@search, :created_at, "Created At") %></th>
-        <th class="actions"></th>
+        <th><%= sort_link @search, :title, "Title" %></th>
+        <th><%= sort_link @search, :location, "Location" %></th>
+        <th><%= sort_link @search, :start_time, "Start Time" %></th>
+        <th><%= sort_link @search, :end_time, "End Time" %></th>
+        <th><%= sort_link @search, :status, "Status" %></th>
+        <th><%= sort_link @search, :created_at, "Created" %></th>
+        <th data-hook="admin_events_index_header_actions" class="actions"></th>
       </tr>
     </thead>
     <tbody>
-      <% @collection.each do |event| %>
-        <tr id="<%= spree_dom_id(event) %>" data-hook="admin_events_index_rows">
+      <% @events.each do |event| %>
+        <tr data-hook="admin_events_index_rows" class="<%= cycle('odd', 'even') %>">
+          <td><%= link_to event.title, edit_admin_event_url(event) %></td>
+          <td><%= event.location %></td>
+          <td><%= event.start_time&.strftime('%B %d, %Y %I:%M %p') %></td>
+          <td><%= event.end_time&.strftime('%B %d, %Y %I:%M %p') %></td>
           <td>
-            <strong><%= link_to event.title, admin_event_path(event) %></strong>
-            <br>
-            <small class="text-muted">
-              <% if event.youtube_url.present? %>
-                <%= link_to "View Video", event.youtube_url, target: "_blank", class: "text-info" %>
-              <% end %>
-            </small>
+            <span class="badge badge-<%= event.active? ? 'success' : 'secondary' %>">
+              <%= event.status.humanize %>
+            </span>
           </td>
-
-          <td>
-            <%= truncate(event.description, length: 200) %>
-          </td>
-
-          <td>
-            <%= truncate(event.location, length: 200) %>
-          </td>
-
-          <td>
-            <%= l(event.from, format: :short) %> - <%= l(event.to, format: :short) %>
-          </td>
-
-          <td>
-            <%= l(event.created_at, format: :short) %>
-          </td>
-
-          <td class="actions align-center" data-hook="admin_events_index_row_actions">
-            <%= link_to_edit event, no_text: true, class: 'btn btn-sm btn-primary' %>
-            <%= link_to_delete event, no_text: true, class: 'btn btn-sm btn-danger' %>
+          <td><%= event.created_at.strftime('%B %d, %Y') %></td>
+          <td class="actions" data-hook="admin_events_index_row_actions">
+            <%= link_to_edit event, no_text: true, class: 'btn btn-primary btn-sm' %>
+            <%= link_to_delete event, no_text: true, class: 'btn btn-danger btn-sm' %>
           </td>
         </tr>
       <% end %>
@@ -92,9 +80,4 @@
   </table>
 </div>
 
-<% if @collection.empty? %>
-  <div class="alert alert-info no-objects-found">
-    <%= Spree.t(:no_resource_found, resource: 'Events') %>,
-    <%= link_to Spree.t(:add_one), new_admin_event_url %>!
-  </div>
-<% end %>
+<%= paginate @events %>

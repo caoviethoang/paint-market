@@ -1,4 +1,5 @@
 <% @body_id = 'product-details' %>
+<% @title = "Here's more work from #{@artist.name} you may enjoy" %>
 
 <% cache [I18n.locale, current_pricing_options, @product] do %>
   <section itemscope itemtype="http://schema.org/Product">
@@ -18,8 +19,34 @@
       </div>
     </div>
 
-    <div class="col-span-full pt-12">
-      <%= render partial: 'home/collection', :locals => { :title => "You May Also Like", :products => @similar_products } %>
+    <div class="bg-[#fdf3e2] mt-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+    
+    <!-- Cột bên trái: ảnh -->
+    <div>
+      <% if @artist.background_image.attached? %>
+        <%= image_tag @artist.background_image_url(:large),
+          alt: @artist.name,
+          class: "w-full h-auto" %>
+      <% else %>
+        <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
+          <span class="text-gray-500">No image</span>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Cột bên phải: thông tin -->
+    <div>
+      <h2 class="text-h2.5 font-bold mb-2"><%= @artist.name %></h2>
+      <p class="text-lg text-gray-500 mb-4"><%= @artist.address %></p>
+      <p class="text-gray-700 leading-relaxed"><%= @artist.introduction %></p>
+    </div>
+
+  </div>
+</div>
+
+    <div class="col-span-full pt-12 mt-28">
+      <%= render partial: 'home/collection', :locals => { :title => @title, :products => @similar_products } %>
     </div>
   </section>
 <% end %>

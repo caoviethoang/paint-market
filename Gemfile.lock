@@ -630,7 +630,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  aws-sdk-s3 (~> 1.0)
+  aws-sdk-s3 (~> 1.2)
   bootsnap
   brakeman
   capybara
@@ -645,6 +645,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  kaminari (~> 1.2)
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)

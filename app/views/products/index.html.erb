@@ -1,3 +1,22 @@
+<% if @taxon %>
+  <section class="bg-[#fdf3e2] py-16 px-6 text-center border-t">
+    <div class="flex flex-col justify-center max-w-3xl mx-auto text-center">
+      <!-- Tiêu đề -->
+      <h2 class="text-h3 md:text-4xl font-serif font-bold text-gray-800 mb-3">
+        <%= @taxon.name %>
+      </h2>
+
+      <!-- Gạch ngang -->
+      <div class="border-[1px] h-[2px] mx-auto w-16 w-24"></div>
+
+      <!-- Nội dung mô tả -->
+      <div class="leading-relaxed mt-3 text-gray-700 text-lg">
+        <p><%= @taxon.taxonomy.description %></p>
+      </div>
+    </div>
+  </section>
+<% end %>
+
 <div class="products wrapper grid-container gap-7 mt-8 mb-20">
   <aside class="col-span-full m-0 md:col-span-3 lg:col-span-2">
     <% if "products" == params[:controller] && @taxon %>
@@ -13,6 +32,7 @@
         <%= t('spree.no_products_found') %>
       </span>
     <% else %>
+      <h3 class="mb-4"><%= @products.count %> ART WORKS</h3>
       <%= render 'products', products: @products, taxon: @taxon %>
     <% end %>
   </section>

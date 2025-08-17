@@ -13,6 +13,7 @@ amazon_development:
   region: <%= ENV['AWS_REGION'] %>
   bucket: <%= ENV['AWS_BUCKET_DEV'] %>
   public: true
+  force_path_style: false
 
 amazon_production:
   service: S3
@@ -21,6 +22,7 @@ amazon_production:
   region: <%= ENV['AWS_REGION'] %>
   bucket: <%= ENV['AWS_BUCKET_PROD'] %>
   public: true
+  force_path_style: false
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

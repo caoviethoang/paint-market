@@ -1,26 +1,26 @@
-<footer class="bg-[#3B382E] mx-auto w-full">
-  <div class="col-span-full border-t-[1px] border-t-black dark:border-t-white py-16">
-    <%
-      available_locales = current_store.available_locales.map do |locale|
-        [
-          I18n.t('spree.i18n.this_file_language',
-          locale: locale,
-          default: locale.to_s,
-          fallback: false), locale
-        ]
-      end.sort
-    %>
-    <% if available_locales.many? %>
-      <div class="locale-selector"  data-controller="locale-selector">
-        <%= form_tag select_locale_path do %>
-          <div class="locale-selector__select-input select-input">
-            <%= label_tag :switch_to_locale, "#{t('spree.i18n.language')}:" %>
-            <%= select_tag(:switch_to_locale, options_for_select(available_locales, I18n.locale), data: { action: "locale-selector#submitForm", "locale-selector-target" => "selector" }) %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+<footer class="bg-[#3B382E] mx-auto w-full pt-7">
+  <%# <div class="col-span-full border-t-[1px] border-t-black dark:border-t-white py-16"> %>
+    <%# <% %>
+      <%# available_locales = current_store.available_locales.map do |locale| %>
+        <%# [ %>
+          <%# I18n.t('spree.i18n.this_file_language', %>
+          <%# locale: locale, %>
+          <%# default: locale.to_s, %>
+          <%# fallback: false), locale %>
+        <%# ] %>
+      <%# end.sort %>
+    <%# %>
+    <%# <% if available_locales.many? %>
+      <%# <div class="locale-selector"  data-controller="locale-selector"> %>
+        <%# <%= form_tag select_locale_path do %>
+          <%# <div class="locale-selector__select-input select-input"> %>
+            <%# <%= label_tag :switch_to_locale, "#{t('spree.i18n.language')}:" %>
+            <%# <%= select_tag(:switch_to_locale, options_for_select(available_locales, I18n.locale), data: { action: "locale-selector#submitForm", "locale-selector-target" => "selector" }) %>
+          <%# </div> %>
+        <%# <% end %>
+      <%# </div> %>
+    <%# <% end %>
+  <%# </div> %>
 
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
     <div>
@@ -42,15 +42,14 @@
       <ul class="space-y-2 text-gray-400">
         <li><%= link_to t('spree.shop_art'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
         <li><%= link_to t('spree.our_artist'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
-        <li><%= link_to t('spree.event'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
-        <li><%= link_to t('spree.about_us'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.event'), events_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.about_us'), root_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
       </ul>
     </div>
     <div>
       <h3 class="uppercase text-lg font-semibold mb-1 text-white"><%= t('spree.footer.connect') %></h3>
       <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
       <div class="bg-gray-200 w-full h-[300px] flex items-center justify-center">
-        <span class="text-gray-500">[Social Embed/Image Here]</span>
       </div>
     </div>
   </div>

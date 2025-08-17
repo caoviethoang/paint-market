@@ -1,4 +1,4 @@
-# app/models/event.rb
+# app/models/artist.rb
 class Artist < Spree::Base
   has_one_attached :background_image
 
@@ -8,7 +8,7 @@ class Artist < Spree::Base
   validates :name, :introduction, :dob, :address, presence: true
   validate :background_image_presence
 
-  # Scopes for admin
+  # Scopes
   scope :recent, -> { order(created_at: :desc) }
 
   def self.ransackable_attributes(auth_object = nil)
@@ -19,51 +19,26 @@ class Artist < Spree::Base
     %w[background_image_attachment background_image_blob]
   end
 
-  # def image_urls(variant = :medium)
-  #   return [] unless images.attached?
+  # Trả về URL của ảnh background với variant
+  def background_image_url(variant = :medium)
+    return nil unless background_image.attached?
 
-  #   images.map do |img|
-  #     case variant
-  #     when :thumb
-  #       img.variant(resize_to_fill: [ 320, 180 ]).processed
-  #     when :medium
-  #       img.variant(resize_to_fill: [ 640, 360 ]).processed
-  #     when :large
-  #       img.variant(resize_to_fill: [ 1280, 720 ]).processed
-  #     else
-  #       img
-  #     end
-  #   end
-  # end
-
-  # def has_images?
-  #   images.attached? && images.any?
-  # end
-
-  # S3 URL với CDN support
-  def display_image_urls(variant = :medium)
-    return [] unless has_images?
-
-    images.filter_map do |img|
-      # Bỏ qua ảnh không tồn tại trên storage
-      next unless img.blob&.service.exist?(img.blob.key)
-
+    processed_image =
       case variant
       when :thumb
-        img.variant(resize_to_fill: [ 320, 180 ]).processed
+        background_image.variant(resize_to_fill: [ 320, 180 ]).processed
       when :medium
-        img.variant(resize_to_fill: [ 640, 360 ]).processed
+        background_image.variant(resize_to_fill: [ 640, 360 ]).processed
       when :large
-        img.variant(resize_to_fill: [ 1280, 720 ]).processed
+        background_image.variant(resize_to_fill: [ 1280, 720 ]).processed
       else
-        img
+        background_image
       end
-    end.map do |processed_image|
-      if Rails.application.config.active_storage.service.in?([ :amazon_production, :amazon_development ])
-        processed_image.url
-      else
-        Rails.application.routes.url_helpers.rails_blob_path(processed_image, only_path: true)
-      end
+
+    if Rails.application.config.active_storage.service.in?([ :amazon_production, :amazon_development ])
+      processed_image.url
+    else
+      Rails.application.routes.url_helpers.rails_blob_path(processed_image, only_path: true)
     end
   end
 

@@ -20,11 +20,11 @@ module Spree
       end
 
       def permitted_event_attributes
-        [ :title, :description, :youtube_url, :statement, :gallery, :press_release, :location, :from, :to, :background_image, images: [] ]
+        [ :title, :description, :youtube_url, :statement, :gallery, :press_release, :location, :start_time, :end_time, :status, :background_image, images: [] ]
       end
 
       def load_data
-        @event = @object if @object
+        # Load any additional data needed for the form
       end
 
       def model_class

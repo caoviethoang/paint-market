@@ -1,11 +1,26 @@
-<p class="font-sans text-body" itemprop="name">
-  <%= product.name rescue t('spree.product_has_no_name') %>
-</p>
+<div class="border-t border-dashed border-gray-500 py-3 grid grid-cols-2">
+  <!-- Label -->
+  <span class="font-sans-sm text-gray-600">Artist</span>
+  <!-- Value -->
+  <p class="font-sans text-body" itemprop="artist">
+    <%= product.artist.name rescue t('spree.product_has_no_name') %>
+  </p>
+</div>
 
-<p class="font-sans text-body" itemprop="name">
-  <%= product.artist.name rescue t('spree.product_has_no_name') %>
-</p>
+<div class="border-t border-dashed border-gray-500 py-3 grid grid-cols-2">
+  <!-- Label -->
+  <span class="font-sans-sm text-gray-600">Size</span>
+  <!-- Value -->
+  <p class="font-sans text-body" itemprop="name">
+    <%= product.property('size') rescue t('spree.product_has_no_name') %>
+  </p>
+</div>
 
-<p class="font-sans text-body" itemprop="description">
-  <%= product_description(product) rescue t('spree.product_has_no_description') %>
-</p>
+<div class="border-t border-dashed border-gray-500 py-3 grid grid-cols-2">
+  <!-- Label -->
+  <span class="font-sans-sm text-gray-600">Description</span>
+  <!-- Value -->
+  <p class="font-sans text-body" itemprop="description">
+    <%= product_description(product) rescue t('spree.product_has_no_description') %>
+  </p>
+</div>

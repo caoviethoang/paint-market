@@ -1,7 +1,7 @@
 window.Solidus = {};
 
 Solidus.mountedAt = () => {
-  return '<%= Rails.application.routes.url_helpers.spree_path(trailing_slash: true) %>';
+  return '<%= Rails.application.routes.url_helpers.root_path rescue "/" %>';
 };
 
 Solidus.pathFor = (path) => {
