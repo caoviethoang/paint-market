@@ -9,8 +9,8 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-/* Import custom fonts */
-@import 'fonts/fonts';
+/* Import custom fonts - Commented out due to build issues */
+/* @import 'fonts/fonts'; */
 
 /* Custom font classes */
 .font-inter {
