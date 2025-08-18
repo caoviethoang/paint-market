@@ -34,7 +34,7 @@ jobs:
         tags: ${{ secrets.DOCKER_USERNAME }}/paint_market:latest
     
     - name: Deploy to AWS
-      uses: appleboy/ssh-action@v1.0.3
+      uses: appleboy/ssh-action@v1.2.2
       with:
         host: ${{ secrets.AWS_HOST }}
         username: ${{ secrets.AWS_USERNAME }}
