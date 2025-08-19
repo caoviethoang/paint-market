@@ -54,6 +54,9 @@ module PaintMarket
     # Disable credentials in production for Heroku
     if Rails.env.production?
       config.require_master_key = false
+      config.active_record.encryption.primary_key = nil
+      config.active_record.encryption.deterministic_key = nil
+      config.active_record.encryption.key_derivation_salt = nil
     end
   end
 end

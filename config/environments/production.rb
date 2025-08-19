@@ -24,6 +24,11 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon_production
   config.active_storage.variant_processor = :mini_magick
+  
+  # Disable ActiveRecord encryption for Heroku
+  config.active_record.encryption.primary_key = nil
+  config.active_record.encryption.deterministic_key = nil
+  config.active_record.encryption.key_derivation_salt = nil
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true
 
