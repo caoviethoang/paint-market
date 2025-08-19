@@ -34,7 +34,7 @@ Rails.application.configure do
   config.active_record.encryption.deterministic_key = nil
   config.active_record.encryption.key_derivation_salt = nil
   
-  # Disable asset precompilation and compression for Heroku
+  # Configure Sprockets for Solidus compatibility
   config.assets.compile = false
   config.assets.precompile = []
   config.assets.css_compressor = nil

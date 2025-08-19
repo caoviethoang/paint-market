@@ -5,15 +5,20 @@ Rails.application.config.assets.version = "1.0"
 
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
-# Disable asset precompilation for Heroku to avoid SassC issues
+
+# Precompile additional assets.
+# application.js, application.css, and all non-JS/CSS in the app/assets
+# folder are already added.
+# Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Configure Sprockets for Solidus compatibility
 if ENV['RAILS_ENV'] == 'production'
+  # Disable asset precompilation for Heroku to avoid SassC issues
   Rails.application.config.assets.compile = false
   Rails.application.config.assets.precompile = []
   Rails.application.config.assets.css_compressor = nil
   Rails.application.config.assets.js_compressor = nil
-end
-
-# Add font paths for development only
-if ENV['RAILS_ENV'] != 'production'
+else
+  # Add font paths for development only
   Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'stylesheets', 'fonts')
 end
