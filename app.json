@@ -1,0 +1,40 @@
+{
+  "name": "paint-market",
+  "description": "Paint Market e-commerce application built with Solidus",
+  "repository": "https://github.com/yourusername/paint-market",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["rails", "solidus", "e-commerce", "ruby"],
+  "addons": [
+    "heroku-postgresql:mini",
+    "heroku-redis:mini"
+  ],
+  "env": {
+    "RAILS_ENV": {
+      "description": "Rails environment",
+      "value": "production"
+    },
+    "RAILS_MASTER_KEY": {
+      "description": "Rails master key for credentials",
+      "generator": "secret"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "description": "Serve static files",
+      "value": "true"
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "description": "Log to stdout",
+      "value": "true"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby"
+    }
+  ]
+}
