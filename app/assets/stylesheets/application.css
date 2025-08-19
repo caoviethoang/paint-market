@@ -9,30 +9,27 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-/* Import custom fonts */
-@import 'fonts/fonts';
-
-/* Custom font classes */
+/* Custom font classes using system fonts */
 .font-inter {
-  font-family: 'Inter Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .font-inter-medium {
-  font-family: 'Inter Medium', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 500;
 }
 
 .font-inter-semibold {
-  font-family: 'Inter Semibold', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 600;
 }
 
 .font-source-serif {
-  font-family: 'Source Serif', Georgia, 'Times New Roman', serif;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 .font-source-serif-medium {
-  font-family: 'Source Serif Medium', Georgia, 'Times New Roman', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-weight: 500;
 }
 
