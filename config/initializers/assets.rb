@@ -8,7 +8,7 @@ Rails.application.config.assets.version = "1.0"
 # Disable asset precompilation for Heroku to avoid SassC issues
 if ENV['RAILS_ENV'] == 'production'
   Rails.application.config.assets.compile = false
-  Rails.application.config.assets.precompile = false
+  Rails.application.config.assets.precompile = []
   Rails.application.config.assets.css_compressor = nil
   Rails.application.config.assets.js_compressor = nil
 end

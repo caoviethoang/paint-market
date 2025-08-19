@@ -36,7 +36,7 @@ Rails.application.configure do
   
   # Disable asset precompilation and compression for Heroku
   config.assets.compile = false
-  config.assets.precompile = false
+  config.assets.precompile = []
   config.assets.css_compressor = nil
   config.assets.js_compressor = nil
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
