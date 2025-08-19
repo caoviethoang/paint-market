@@ -22,7 +22,11 @@ Rails.application.configure do
   # config.asset_host = "http://assets.example.com"
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon_production
+  if ENV['AWS_ACCESS_KEY_ID'].present? && ENV['AWS_SECRET_ACCESS_KEY'].present?
+    config.active_storage.service = :amazon_production
+  else
+    config.active_storage.service = :local
+  end
   config.active_storage.variant_processor = :mini_magick
   
   # Disable ActiveRecord encryption for Heroku

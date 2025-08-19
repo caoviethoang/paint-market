@@ -20,7 +20,7 @@ amazon_production:
   access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
   secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   region: <%= ENV['AWS_REGION'] %>
-  bucket: <%= ENV['AWS_BUCKET_PROD'] %>
+  bucket: <%= ENV['AWS_BUCKET_PROD'] || ENV['AWS_BUCKET_DEV'] %>
   public: true
   force_path_style: false
 
