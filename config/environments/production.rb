@@ -33,6 +33,12 @@ Rails.application.configure do
   config.active_record.encryption.primary_key = nil
   config.active_record.encryption.deterministic_key = nil
   config.active_record.encryption.key_derivation_salt = nil
+  
+  # Disable asset precompilation and compression for Heroku
+  config.assets.compile = false
+  config.assets.precompile = false
+  config.assets.css_compressor = nil
+  config.assets.js_compressor = nil
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true
 
