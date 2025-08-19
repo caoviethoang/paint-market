@@ -16,7 +16,7 @@
       "data-turbo-stream": true,
       "data-search-target": "form" do %>
 
-    <%= search_field_tag :keywords, params[:keywords], placeholder: "#{t('spree.search')}", id: form_id, class: 'bg-transparent px-0 py-1 text-sm w-full lg:min-w-[200px] focus:ring-0 focus:border-b-red-500', autocomplete: "off",
+    <%= search_field_tag :keywords, params[:keywords], placeholder: "#{t('spree.search')}", id: form_id, class: 'bg-transparent px-0 py-1 text-sm w-full lg:min-w-[200px] focus:ring-0 focus:border-b-red-500', autocomplete: "off", style: "border: none !important;",
       "data-action": "input->search#fetchResults
                       keydown.down->search#nextResult
                       keydown.up->search#previousResult
