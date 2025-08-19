@@ -50,5 +50,10 @@ module PaintMarket
     
     # Heroku configuration
     config.assets.initialize_on_precompile = false
+    
+    # Disable credentials in production for Heroku
+    if Rails.env.production?
+      config.require_master_key = false
+    end
   end
 end
