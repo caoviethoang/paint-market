@@ -1,6 +1,6 @@
 <section class="banner relative flex w-full">
   <div class="inset-0">
-    <%= image_tag s3_image_url("banner.png"), class: "w-full object-cover" %>
+    <%= image_tag image_path("banner.png"), class: "w-full object-cover" %>
   </div>
 
   <div class="bg-[#F5F3F0] absolute z-10 flex items-center w-1_col-3 left-8 bottom-8" style="left: 5%; bottom: 10%;">
@@ -87,7 +87,7 @@
                             'width: 200px; height: 200px;'
                           end %>">
           <% if index <= 3 %>
-            <%= image_tag s3_image_url("image_#{index}.png"),
+            <%= image_tag image_path("image_#{index}.png"),
                 class: "w-full h-full object-cover transition-opacity duration-300",
                 alt: "Art Image #{index}",
                 loading: "eager",
@@ -98,7 +98,7 @@
                   action: "mouseenter->image-optimization#preloadOnHover"
                 } %>
           <% else %>
-            <%= image_tag s3_image_url("image_#{index}.png"),
+            <%= image_tag image_path("image_#{index}.png"),
                 class: "w-full h-full object-cover transition-opacity duration-300",
                 alt: "Art Image #{index}",
                 loading: "lazy",
@@ -290,7 +290,7 @@
 
 <section class="banner-2 flex justify-center w-full">
   <div class="relative inset-0">
-    <%= image_tag s3_image_url("together.png"), class: "object-cover" %>
+    <%= image_tag image_path("together.png"), class: "object-cover" %>
   </div>
 </section>
 

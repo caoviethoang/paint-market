@@ -16,19 +16,7 @@ module ApplicationHelper
     end
   end
 
-  # Helper method to get S3 URLs for static images
-  def s3_image_url(image_name)
-    bucket = ENV['AWS_BUCKET_DEV'] || ENV['AWS_BUCKET_PROD']
-    region = ENV['AWS_REGION']
-    
-    if bucket && region
-      # Use S3 URL format
-      "https://#{bucket}.s3.#{region}.amazonaws.com/#{image_name}"
-    else
-      # Fallback to asset_path if S3 not configured
-      asset_path(image_name)
-    end
-  end
+
 
   def event_image_url(event, size = :medium)
     if event.background_image.attached?
