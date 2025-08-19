@@ -1,0 +1,20 @@
+{
+  "name": "Havy Art",
+  "description": "A Solidus-based e-commerce application",
+  "repository": "https://github.com/yourusername/paint-market",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["ruby", "rails", "solidus", "ecommerce"],
+  "addons": [
+    "heroku-postgresql:mini"
+  ],
+  "env": {
+    "RAILS_ENV": "production",
+    "RAILS_SERVE_STATIC_FILES": "true",
+    "RAILS_LOG_TO_STDOUT": "true"
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+} 

@@ -63,3 +63,7 @@ end
 gem "solidus_admin", ">= 0.2"
 
 gem "kaminari", "~> 1.2"
+
+group :production do
+  gem "rails_12factor"
+end
