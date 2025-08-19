@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Override để thêm event và artist vào form sản phẩm
 Deface::Override.new(
   virtual_path: "spree/admin/products/_form",
   name: "add_event_to_product_form",

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Override để thêm taxonomies vào admin menu
 Deface::Override.new(
   virtual_path: "spree/layouts/admin",
   name: "add_taxonomies_to_admin_menu",

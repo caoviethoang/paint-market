@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Override để thêm events vào admin menu
 Deface::Override.new(
   virtual_path: "spree/layouts/admin",
   name: "add_events_to_admin_menu",
