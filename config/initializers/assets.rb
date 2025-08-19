@@ -13,12 +13,12 @@ Rails.application.config.assets.version = "1.0"
 
 # Configure Sprockets for Solidus compatibility
 if ENV['RAILS_ENV'] == 'production'
-  # Disable asset precompilation for Heroku to avoid SassC issues
+  # Enable asset precompilation for production with built CSS
   Rails.application.config.assets.compile = false
-  Rails.application.config.assets.precompile = []
+  Rails.application.config.assets.precompile += %w( tailwind.css )
   Rails.application.config.assets.css_compressor = nil
   Rails.application.config.assets.js_compressor = nil
 else
   # Add font paths for development only
-  Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'stylesheets', 'fonts')
+  Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'stylesheets', 'files')
 end

@@ -34,6 +34,9 @@
   },
   "buildpacks": [
     {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
       "url": "https://github.com/heroku/heroku-buildpack-ruby"
     }
   ]

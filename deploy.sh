@@ -51,6 +51,10 @@ else
     echo "✅ Redis addon đã tồn tại"
 fi
 
+# Build Tailwind CSS
+echo "🎨 Building Tailwind CSS..."
+npm run build:css:prod
+
 # Cấu hình environment variables
 echo "⚙️ Cấu hình environment variables..."
 

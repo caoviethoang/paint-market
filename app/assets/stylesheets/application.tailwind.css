@@ -5,8 +5,8 @@
 @layer base {
   html,
   body {
-    @apply box-border max-w-full antialiased scroll-smooth bg-sand;
-    @apply dark:bg-black dark:text-sand;
+    @apply box-border max-w-full antialiased scroll-smooth bg-gray-50;
+    @apply dark:bg-black dark:text-gray-50;
   }
 }
 
@@ -27,11 +27,11 @@
   }
 
   .button-primary {
-    @apply w-fit py-3 px-7 rounded-full text-body-sm font-sans-md tracking-wider leading-none uppercase whitespace-nowrap transition-colors duration-200 bg-red-500 text-white hover:bg-red-700;
+    @apply w-fit py-3 px-7 rounded-full text-sm font-medium tracking-wider leading-none uppercase whitespace-nowrap transition-colors duration-200 bg-red-500 text-white hover:bg-red-700;
   }
 
   .categories-menu ul {
-    @apply flex flex-col lg:flex-row justify-center p-0 space-y-8 lg:space-y-0 lg:space-x-4 xl:space-x-6 font-medium text-body lg:items-center;
+    @apply flex flex-col lg:flex-row justify-center p-0 space-y-8 lg:space-y-0 lg:space-x-4 xl:space-x-6 font-medium text-base lg:items-center;
   }
 
   .categories-menu ul li.current a {
@@ -40,13 +40,13 @@
 
   /* Inputs */
   .text-input input {
-    @apply relative flex items-center justify-start border border-gray-mid rounded px-4 py-3 placeholder:text-gray-500 text-black w-full;
+    @apply relative flex items-center justify-start border border-gray-300 rounded px-4 py-3 placeholder:text-gray-500 text-black w-full;
     @apply hover:border-gray-400 focus:outline-none focus:ring focus:ring-offset-1 focus:ring-black/20 focus:border-gray-400;
-    @apply dark:bg-gray-800 dark:border-gray-600 dark:text-sand dark:placeholder:text-gray-400 dark:focus:ring-white/30;
+    @apply dark:bg-gray-800 dark:border-gray-600 dark:text-gray-50 dark:placeholder:text-gray-400 dark:focus:ring-white/30;
   }
 
   .text-input label {
-    @apply text-body-sm font-normal mb-1;
+    @apply text-sm font-normal mb-1;
   }
 
   .select-input {
@@ -54,13 +54,13 @@
   }
 
   .select-input select {
-    @apply border-gray-mid rounded px-4 py-3 w-full cursor-pointer text-black;
+    @apply border border-gray-300 rounded px-4 py-3 w-full cursor-pointer text-black;
     @apply hover:border-gray-400 focus:outline-none focus:ring focus:ring-black/20 focus:border-gray-400;
-    @apply dark:bg-gray-800 dark:border-gray-600 dark:text-sand dark:placeholder:text-gray-400;
+    @apply dark:bg-gray-800 dark:border-gray-600 dark:text-gray-50 dark:placeholder:text-gray-400;
   }
 
   .checkbox-input {
-    @apply flex items-center gap-x-2
+    @apply flex items-center gap-x-2;
   }
   
   input[type=checkbox] {
@@ -84,14 +84,14 @@
   /* Theme switcher component */
   .theme-switcher {
     @apply relative flex items-center w-14 h-7 py-0.5 px-2 rounded-full border border-black bg-black;
-    @apply after:bg-sand after:content-[''] after:rounded-full after:h-[22px] after:w-[22px] after:transition-all after:translate-x-[120%];
-    @apply dark:bg-sand;
+    @apply after:bg-gray-50 after:content-[''] after:rounded-full after:h-[22px] after:w-[22px] after:transition-all after:translate-x-[120%];
+    @apply dark:bg-gray-50;
     @apply peer-focus:outline-none;
   }
 
   /* Flash Messages */
   .flash {
-    @apply rounded p-3 text-center text-body-sm w-fit h-fit mx-auto md:text-body md:p-4;
+    @apply rounded p-3 text-center text-sm w-fit h-fit mx-auto md:text-base md:p-4;
     @apply mx-[25px] 2xl:mx-auto;
   }
 
@@ -114,7 +114,7 @@
   }
 
   .checkout-header__steps > ol > li {
-    @apply flex items-center text-body-xs font-sans-md text-gray-500 dark:text-sand last:after:hidden;
+    @apply flex items-center text-xs font-medium text-gray-500 dark:text-gray-50 last:after:hidden;
   }
 
   .checkout-header__steps > ol > li::after {
@@ -132,19 +132,18 @@
   }
 
   /* Badges */
-
   .badge {
-    @apply rounded-full px-3 py-0.5 leading-tight text-center inline-block font-semibold text-body-xs;
+    @apply rounded-full px-3 py-0.5 leading-tight text-center inline-block font-semibold text-xs;
   }
 
   .badge.badge-complete,
   .badge.badge-shipped {
-    @apply bg-seafoam text-black;
+    @apply bg-green-200 text-black;
   }
 
   .badge.badge-pending,
   .badge.badge-returned {
-    @apply bg-yellow text-black;
+    @apply bg-yellow-200 text-black;
   }
 }
 
