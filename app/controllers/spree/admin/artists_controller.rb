@@ -2,6 +2,31 @@ module Spree
   module Admin
     class ArtistsController < ResourceController
       before_action :load_data, except: [ :index, :destroy ]
+
+      def destroy
+        @artist = Artist.find(params[:id])
+        
+        if @artist.can_be_destroyed?
+          @artist.destroy
+          flash[:success] = "Artist '#{@artist.name}' has been successfully deleted."
+        else
+          # Nếu có products, hiển thị warning và xóa
+          @artist.destroy_with_products
+          flash[:warning] = "Artist '#{@artist.name}' has been deleted. All associated products have been unassigned."
+        end
+        
+        respond_with(@artist) do |format|
+          format.html { redirect_to admin_artists_path }
+          format.js { render :destroy }
+        end
+      rescue => e
+        flash[:error] = "Error deleting artist: #{e.message}"
+        respond_with(@artist) do |format|
+          format.html { redirect_to admin_artists_path }
+          format.js { render :destroy }
+        end
+      end
+
       private
 
       def collection

@@ -19,6 +19,22 @@ class Artist < Spree::Base
     %w[background_image_attachment background_image_blob]
   end
 
+  # Kiểm tra xem artist có thể xóa được không
+  def can_be_destroyed?
+    products.empty?
+  end
+
+  # Xóa artist và xử lý products
+  def destroy_with_products
+    if can_be_destroyed?
+      destroy
+    else
+      # Nếu có products, set artist_id = nil cho tất cả products
+      products.update_all(artist_id: nil)
+      destroy
+    end
+  end
+
   # Trả về URL của ảnh background với variant
   def background_image_url(variant = :medium)
     return nil unless background_image.attached?
