@@ -6,13 +6,17 @@ module Spree
       def destroy
         @artist = Artist.find(params[:id])
         
-        if @artist.can_be_destroyed?
-          @artist.destroy
-          flash[:success] = "Artist '#{@artist.name}' has been successfully deleted."
+        # Lưu số lượng products trước khi xóa để hiển thị thông báo
+        products_count = @artist.products_count
+        
+        if @artist.destroy
+          if products_count > 0
+            flash[:warning] = "Artist '#{@artist.name}' has been deleted. #{products_count} associated products have been unassigned."
+          else
+            flash[:success] = "Artist '#{@artist.name}' has been successfully deleted."
+          end
         else
-          # Nếu có products, hiển thị warning và xóa
-          @artist.destroy_with_products
-          flash[:warning] = "Artist '#{@artist.name}' has been deleted. All associated products have been unassigned."
+          flash[:error] = "Unable to delete artist: #{@artist.errors.full_messages.join(', ')}"
         end
         
         respond_with(@artist) do |format|
@@ -45,7 +49,7 @@ module Spree
       end
 
       def permitted_artist_attributes
-        [ :name, :introduction, :dob, :address, :background_image ]
+        [ :name, :introduction, :start_work, :address, :background_image ]
       end
 
       def load_data

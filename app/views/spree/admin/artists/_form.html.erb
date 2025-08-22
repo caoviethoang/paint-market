@@ -23,13 +23,14 @@
             </div>
 
             <div class="form-group">
-              <%= f.label :dob, class: 'required' %>
-              <%= f.date_field :dob, class: 'form-control', required: true %>
-            </div>
-
-            <div class="form-group">
-              <%= f.label :start_work, class: 'required' %>
-              <%= f.date_field :start_work, class: 'form-control', required: true %>
+              <%= f.label :start_work, "Start Work Year", class: 'required' %>
+              <%= f.number_field :start_work, 
+                                class: 'form-control', 
+                                required: true,
+                                min: 1900,
+                                max: Date.current.year,
+                                placeholder: "e.g., 2010" %>
+              <small class="help-block">Enter the year when the artist started working</small>
             </div>
           </div>
         </fieldset>
