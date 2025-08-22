@@ -1,7 +1,7 @@
 class SolidusAdmin::Layout::Navigation::Component < SolidusAdmin::BaseComponent
   def initialize(
     store:,
-    logo_path: "logo.png",
+    logo_path: "havyart.png",
     items: SolidusAdmin::Config.menu_items
   )
     @logo_path = logo_path

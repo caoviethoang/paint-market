@@ -103,29 +103,29 @@ class HomeController < StoreController
   def get_example_taxonomies(limit = 3)
     # Get all available taxonomies with products
     all_taxonomies = Spree::Taxonomy.includes(root: { children: :products }).all
-    
+
     Rails.logger.info "Found #{all_taxonomies.length} total taxonomies"
-    
+
     # Return nil if no taxonomies exist
     return nil if all_taxonomies.empty?
 
     taxonomy_data = []
-    
+
     all_taxonomies.each do |taxonomy|
       break if taxonomy_data.length >= limit
-      
+
       Rails.logger.info "Processing taxonomy: #{taxonomy.name}"
       next unless taxonomy.root.present?
 
       # Try to find a product with images in this taxonomy
       product_with_image = nil
       image = nil
-      
+
       # First, try to find any product with images through gallery
       Rails.logger.info "Checking #{taxonomy.root.products.count} products in taxonomy: #{taxonomy.name}"
       taxonomy.root.products.each do |product|
         Rails.logger.info "Product: #{product.name}"
-        
+
         # Try different ways to get images
         if product.respond_to?(:gallery) && product.gallery.present? && product.gallery.respond_to?(:images)
           if product.gallery.images.any?
@@ -146,13 +146,13 @@ class HomeController < StoreController
           break
         end
       end
-      
+
       # If no product with image found, get the first product
       if product_with_image.nil?
         product_with_image = taxonomy.root.products.first
         Rails.logger.info "No product with image found, using first product: #{product_with_image&.name || 'none'}"
       end
-      
+
       next unless product_with_image.present?
 
       # Create entry
@@ -177,19 +177,19 @@ class HomeController < StoreController
     while taxonomy_data.length < limit && all_taxonomies.length > 0
       taxonomy = all_taxonomies[taxonomy_data.length % all_taxonomies.length]
       next unless taxonomy.root.present?
-      
+
       Rails.logger.info "Creating additional fallback entry for: #{taxonomy.name}"
       # Create fallback entry
       taxonomy_data << {
         taxonomy: taxonomy,
-        product: taxonomy.root.products.first || OpenStruct.new(name: taxonomy.name),
+        product: taxonomy.root.products.first,
         image: nil # Will be handled in view
       }
     end
 
     Rails.logger.info "Final taxonomy_data count: #{taxonomy_data.length}"
     Rails.logger.info "Returning taxonomies: #{taxonomy_data.map { |td| td[:taxonomy].name }}"
-    
+
     taxonomy_data
   end
 end

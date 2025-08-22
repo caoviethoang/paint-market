@@ -1,4 +1,4 @@
-<header class="grid-container w-full pt-2.5 px-5 lg:px-6 2xl:px-6 border-b">
+<header class="grid-container pt-2.5 px-5 lg:px-6 2xl:px-6 border-b">
   <div class="col-span-full flex items-center justify-center max-h-[70px] lg:justify-between lg:gap-x-6">
     <div class="flex items-center justify-center w-8 h-8 lg:py-2 lg:hidden">
       <button type="button" class="inline-flex flex-col gap-y-2 items-center p-2 w-10 h-10 justify-center rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500" aria-controls="navbar-default" aria-expanded="false" data-action="click->drawer#toggle">
@@ -11,9 +11,9 @@
         </svg>
       </button>
     </div>
-    <div class="flex items-center gap-x-4 xl:gap-x-8 justify-center lg:justify-start">
-      <%= link_to root_path, class: 'absolute lg:relative left-1/2 lg:left-0 lg:-translate-x-0 -translate-x-1/2 flex items-center space-x-3' do %>
-        <%= image_tag image_path("logo.png") %>
+    <div class="flex items-center gap-x-4 xl:gap-x-8 justify-center lg:justify-start h-full">
+      <%= link_to root_path, class: 'h-full absolute lg:relative left-1/2 lg:left-0 lg:-translate-x-0 -translate-x-1/2 flex items-center space-x-3' do %>
+        <%= image_tag image_path("havyart.png"), class: "h-full md:h-8 lg:h-10 w-auto object-contain max-w-[180px] max-h-[50px]", alt: "HAVYART Logo" %>
       <% end %>
 
       <% navMobileClasses = '
