@@ -60,8 +60,8 @@
 
     <nav class="flex items-center justify-center p-4 text-h6">
       <div class="flex gap-6">
+        <%= link_to t('spree.home'), root_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %>
         <%= link_to t('spree.shop_art'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %>
-        <%= link_to t('spree.our_artist'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %>
         <%= link_to t('spree.event'), events_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %>
         <%= link_to t('spree.about_us'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %>
       </div>

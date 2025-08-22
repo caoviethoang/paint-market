@@ -4,6 +4,7 @@ class ProductsController < StoreController
   before_action :load_product, only: :show
   before_action :load_taxon, only: :index
   before_action :load_artist, only: :show
+  before_action :load_taxonomies, only: :index
 
   helper "spree/products", "spree/taxons", "taxon_filters"
 
@@ -59,5 +60,9 @@ class ProductsController < StoreController
 
   def load_artist
     @artist = Artist.find(@product.artist_id)
+  end
+
+  def load_taxonomies
+    @taxonomies = Spree::Taxonomy.includes(:taxons).all
   end
 end
