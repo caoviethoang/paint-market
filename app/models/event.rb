@@ -9,6 +9,11 @@ class Event < Spree::Base
   # Enum for status - Rails 8 syntax
   enum :status, { inactive: 0, active: 1 }, default: :inactive
 
+  # Class method để trả về status options cho form select
+  def self.status_options
+    statuses.map { |key, value| [key.humanize, key] }
+  end
+
   # Validations
   validates :title, :description, :youtube_url, presence: true
   validate :background_image_presence
