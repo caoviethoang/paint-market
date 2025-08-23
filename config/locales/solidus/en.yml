@@ -1557,6 +1557,23 @@ en:
         page_view: Static page viewed
         user:
           signup: User signup
+      pages:
+        featured_show: Featured Show
+        current_show: Current Show
+        about_event: About Event
+        statement: Statement
+        press_release: Press Release
+        gallery: Gallery
+        location: Location
+        show: Show
+        about: About
+        more_info: MORE INFO
+        discover_art: Discover and Buy<br />Art that Moves You
+        buy_now: BUY NOW
+        sign_up: SIGN UP
+        view_all: View All
+        art_works: ART WORKS
+        no_art_works: No ART WORKS found
     exceptions:
       count_on_hand_setter: Cannot set count_on_hand manually, as it is set automatically by the recalculate_count_on_hand callback. Please use `update_column(:count_on_hand, value)` instead.
     exchange_for: Exchange For
@@ -1645,6 +1662,68 @@ en:
         shipping_category: 'This determines what kind of shipping this variant requires.<br> Default: Use shipping category of the product associated with this variant'
         tax_category: 'This determines what kind of taxation is applied to this variant.<br> Default: Use tax category of the product associated with this variant'
     home: Home
+    about_us: About Us
+    shop_art: Shop Art
+    about_us_page:
+      header:
+        line1: "Browsing our online gallery is"
+        line2: "meant to feel like a leisurely"
+        line3: "afternoon visiting local galleries –"
+        line4: "from the comfort of your home."
+      story:
+        title: "Our story"
+        paragraph1: "Founded by Gallery Director Alex Tran in 2006, Martket has established itself as a premier destination for art enthusiasts and collectors in Vietnam."
+        paragraph2: "Our mission is to bridge the gap between talented artists and discerning collectors, providing a platform that showcases exceptional artwork while fostering meaningful connections within the art community."
+        paragraph3: "What sets us apart is our commitment to curating exclusive, high-quality pieces that represent the diverse and vibrant contemporary art scene. We believe that art should be accessible to everyone, whether you're a seasoned collector or just beginning your artistic journey."
+        paragraph4: "Through our online gallery, we bring the intimate experience of visiting local galleries directly to your home, allowing you to discover and appreciate art at your own pace, in your own space."
+        cta_button: "Explore Our Gallery"
+      features:
+        curated_selection:
+          title: "Curated Selection"
+          description: "Carefully selected artworks from emerging and established artists"
+        expert_guidance:
+          title: "Expert Guidance"
+          description: "Professional art consultation and collection building advice"
+        secure_transactions:
+          title: "Secure Transactions"
+          description: "Safe and reliable payment processing for all purchases"
+    home_page:
+      banner:
+        title: "Good art changes lives"
+        description: "Bring home your new art to view it in person. If a piece doesn't quite work in your space, return it within seven days of receiving your order and receive a full refund."
+        cta_button: "GO TO COLLECTION"
+      taxonomies:
+        fallback:
+          paintings: "PAINTINGS"
+          abstract_art: "ABSTRACT ART"
+          oil_paintings: "OIL PAINTINGS"
+          landscapes: "LANDSCAPES"
+          portraits: "PORTRAITS"
+          modern_art: "MODERN ART"
+      celebrate:
+        title: "Celebrate 15 Years of Discovering Art You Love"
+      stats:
+        years: "30"
+        homes: "130,000+"
+        countries: "153"
+        artists: "100,000+"
+        artworks: "330,000+"
+        artist_countries: "143"
+      gift_section:
+        title: "The perfect husband"
+        description: "Looking for a 40th anniversary gift for the New Yorker who has everything, John won the award for best husband with a gift of art."
+        cta_button: "Browse Gift Collection"
+      mission:
+        title: "We believe that good art bring people together, elevated living space, and transforms lives."
+        description: "Founded by Gallery Director Mike Tran in 2006, Martket has developed a loyal following of art collectors, artists, and interior designers in all 50 states and over 50 countries."
+        about_link: "About Us"
+      weekly_art:
+        title: "Discover new art added weekly"
+        cta_button: "Browse New Art"
+      search_section:
+        title: "Seeking something special?"
+        subtitle: "Start searching with specific characteristics and narrow your options."
+      shop_button: "Shop"
     i18n:
       available_locales: Available Locales
       fields: Fields
@@ -2387,6 +2466,23 @@ en:
     artists_collected: ARTISTS COLLECTED
     artworks_sold: ARTWORKS SOLD
     artist_countries: ARTIST COUNTRIES
+    checkout:
+      customer_email: Customer email
+      email_placeholder: name@example.com
+    product:
+      artist: Artist
+      size: Size
+      description: Description
+      no_image: No image
+      more_work_title: "Here's more work from %{artist_name} you may enjoy"
+    admin:
+      artist_information: Artist Information
+      artist_start_year_help: Enter the year when the artist started working
+      reset: Reset
+      taxonomy_description: Description
+      taxonomy_description_placeholder: Enter taxonomy description...
+      taxonomy_description_help: Optional description for this taxonomy category
+      event_description: Description
     footer:
       information: INFORMATION
       our_company: OUR COMPANY

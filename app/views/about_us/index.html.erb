@@ -1,0 +1,117 @@
+<!-- Header Banner Section -->
+<div class="bg-[#fdf3e2] py-6 px-4 text-h3">
+  <div class="mx-auto text-center">
+    <div>
+      <p class="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-800 leading-relaxed">
+        <%= t('spree.about_us_page.header.line1') %>
+      </p>
+      <p class="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-800 leading-relaxed">
+        <%= t('spree.about_us_page.header.line2') %>
+      </p>
+      <p class="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-800 leading-relaxed">
+        <%= t('spree.about_us_page.header.line3') %>
+      </p>
+      <p class="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-800 leading-relaxed">
+        <%= t('spree.about_us_page.header.line4') %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Section -->
+<div class="bg-white py-16 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left Column - Image/Video -->
+      <div class="relative">
+        <div class="relative overflow-hidden rounded-lg shadow-xl">
+          <!-- Placeholder for the image/video - you can replace this with actual content -->
+          <div class="aspect-[4/3] bg-gradient-to-br from-blue-100 to-gray-200 flex items-center justify-center">
+            <div class="min-h-[50vh] w-full" style="height: 315px;">
+              <iframe
+                src="<%= youtube_embed_url(@event.youtube_url) %>"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                class="w-1/2 h-full w-full"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Column - Our Story -->
+      <div class="space-y-6">
+        <h2 class="text-h3 md:text-4xl font-serif text-gray-800 leading-tight">
+          <%= t('spree.about_us_page.story.title') %>
+        </h2>
+        
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p class="text-lg">
+            <%= t('spree.about_us_page.story.paragraph1') %>
+          </p>
+          
+          <p class="text-lg">
+            <%= t('spree.about_us_page.story.paragraph2') %>
+          </p>
+          
+          <p class="text-lg">
+            <%= t('spree.about_us_page.story.paragraph3') %>
+          </p>
+          
+          <p class="text-lg">
+            <%= t('spree.about_us_page.story.paragraph4') %>
+          </p>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="pt-4">
+          <a href="<%= products_path %>" class="inline-flex items-center px-6 py-3 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <%= t('spree.about_us_page.story.cta_button') %>
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Additional Information Section -->
+<div class="py-16 px-4">
+  <div class="max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div class="space-y-3">
+        <div class="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800"><%= t('spree.about_us_page.features.curated_selection.title') %></h3>
+        <p class="text-gray-600"><%= t('spree.about_us_page.features.curated_selection.description') %></p>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800"><%= t('spree.about_us_page.features.expert_guidance.title') %></h3>
+        <p class="text-gray-600"><%= t('spree.about_us_page.features.expert_guidance.description') %></p>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800"><%= t('spree.about_us_page.features.secure_transactions.title') %></h3>
+        <p class="text-gray-600"><%= t('spree.about_us_page.features.secure_transactions.description') %></p>
+      </div>
+    </div>
+  </div>
+</div>

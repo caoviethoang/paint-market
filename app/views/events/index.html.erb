@@ -3,7 +3,7 @@
   <div class="mx-auto px-6 lg:px-8">
     <h2 class="text-h3 font-bold text-gray-900 mb-8 text-left relative">
       <span class="inline-block relative">
-        Featured Show
+        <%= t('spree.events.pages.featured_show') %>
         <div class="absolute bg-gray-400 border-[1px] h-0.5 left-0 w-full"></div>
       </span>
     </h2>
@@ -65,7 +65,7 @@
     <div class="mx-auto px-6">
       <h2 class="text-h3 font-bold text-gray-900 mb-8 text-left relative">
         <span class="inline-block relative">
-          Current Show
+          <%= t('spree.events.pages.current_show') %>
           <div class="absolute bg-gray-400 border-[1px] h-0.5 left-0 w-full"></div>
         </span>
       </h2>
@@ -98,13 +98,13 @@
 <% end %>
 
 <div class="mt-8 mb-8 mx-auto px-6">
-  <h2 class="mb-6 text-2xl font-bold text-gray-900"><%= @all_products.count %> ART WORKS</h2>
+  <h2 class="mb-6 text-2xl font-bold text-gray-900"><%= @all_products.count %> <%= t('spree.events.pages.art_works') %></h2>
   <%= render 'products/products', products: @all_products, taxon: nil %>
   
   <!-- View All Button -->
   <div class="text-center mt-8">
     <%= link_to products_path, class: "bg-[#424242] font-medium hover:bg-gray-800 inline-flex items-center px-6 py-3 text-white transition-colors" do %>
-      View All
+      <%= t('spree.events.pages.view_all') %>
       <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
       </svg>
@@ -116,14 +116,14 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
     <div class="flex flex-col justify-center lg:p-16 p-12 text-center">
       <h2 class="font-bold font-serif leading-tight lg:text-5xl mb-8 text-gray-900 text-h2.5">
-        Discover and Buy<br />Art that Moves You
+        <%= t('spree.events.pages.discover_art').html_safe %>
       </h2>
       <div class="flex justify-center">
         <button class="border-2 border-gray-800 px-8 py-4 text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300">
           <% if spree_user_signed_in? %>
-            BUY NOW
+            <%= t('spree.events.pages.buy_now') %>
           <% else %>
-            SIGN UP
+            <%= t('spree.events.pages.sign_up') %>
           <% end %>
         </button>
       </div>

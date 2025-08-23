@@ -7,15 +7,15 @@
     <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-12">
       <div class="max-w-lg">
                  <h1 class="text-h2.5 md:text-5xl lg:text-6xl font-source-serif text-black leading-tight mb-6">
-           Good art changes lives
+           <%= t('spree.home_page.banner.title') %>
          </h1>
 
          <p class="text-base md:text-lg text-black leading-relaxed mb-8 max-w-md font-inter">
-           Bring home your new art to view it in person. If a piece doesn't quite work in your space, return it within seven days of receiving your order and receive a full refund.
+           <%= t('spree.home_page.banner.description') %>
          </p>
 
                  <%= link_to products_path, class: "border-b-2 hover:text-primary inline-block py-3 text-black tracking-wide underline font-inter-medium" do %>
-           GO TO COLLECTION
+           <%= t('spree.home_page.banner.cta_button') %>
          <% end %>
       </div>
     </div>
@@ -51,26 +51,34 @@
       <% else %>
         <!-- Fallback buttons if no taxonomies -->
         <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          PAINTINGS
+          <%= t('spree.home_page.taxonomies.fallback.paintings') %>
         </button>
         <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          ABSTRACT ART
+          <%= t('spree.home_page.taxonomies.fallback.abstract_art') %>
         </button>
         <button class="px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase">
-          OIL PAINTINGS
+          <%= t('spree.home_page.taxonomies.fallback.oil_paintings') %>
         </button>
       <% end %>
     </div>
   </div>
 
   <div class="celebrate-15-years flex justify-center mb-12 mt-6 pt-12 text-center">
-           <h2 class="text-h2.5 font-source-serif-medium text-gray-900">
-         Celebrate <span class="text-orange">15 Years</span> of Discovering Art You Love
+        <h2 class="text-h2.5 font-source-serif-medium text-gray-900">
+         <% 
+           celebrate_text = t('spree.celebrate')
+           if I18n.locale == :vi
+             celebrate_text = celebrate_text.gsub('15 Năm', '<span class="text-orange">15 năm</span>')
+           elsif I18n.locale == :en
+             celebrate_text = celebrate_text.gsub('15 Years', '<span class="text-orange">15 Years</span>')
+           end
+         %>
+         <%= celebrate_text.html_safe %>
        </h2>
   </div>
 </section>
 
-<section class="bg-cream py-16">
+<section class="bg-cream">
   <div class="max-w-7xl mx-auto px-6 text-center">
        <div class="7-images mt-4 flex flex-nowrap justify-center gap-6 px-6 py-6 w-full"  
           data-controller="image-optimization"
@@ -117,27 +125,27 @@
 
         <div class="gap-4 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 mt-12 sm:grid-cols-2 text-center mx-auto max-w-4xl">
           <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2">30</p>
+            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.years') %></p>
             <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.made_easy') %></p>
           </div>
           <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2">130,000+</p>
+            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.homes') %></p>
             <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.home_with_art') %></p>
           </div>
           <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2">153</p>
+            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.countries') %></p>
             <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.collector_countries') %></p>
           </div>
           <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2">100,000+</p>
+            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.artists') %></p>
             <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.artists_collected') %></p>
           </div>
           <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2">330,000+</p>
+            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.artworks') %></p>
             <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.artworks_sold') %></p>
           </div>
           <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2">143</p>
+            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.artist_countries') %></p>
             <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.artist_countries') %></p>
           </div>
         </div>
@@ -184,11 +192,11 @@
             <% if taxonomy_data[:taxonomy].root.present? %>
               <%= link_to products_path(taxon: taxonomy_data[:taxonomy].root.id),
                   class: "mt-4 px-6 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" do %>
-                Shop <%= taxonomy_data[:taxonomy].name %>
+                <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
               <% end %>
             <% else %>
               <a href="#" class="mt-4 px-6 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                Shop <%= taxonomy_data[:taxonomy].name %>
+                <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
               </a>
             <% end %>
           </div>
@@ -215,17 +223,17 @@
     <% else %>
       <%# Fallback if no taxonomies available %>
       <div class="flex flex-wrap justify-center gap-6 mb-8">
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer">Paintings</a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer">Abstract Art</a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer">Oil Paintings</a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer">Landscapes</a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer">Portraits</a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer">Modern Art</a>
+        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.paintings') %></a>
+        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.abstract_art') %></a>
+        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.oil_paintings') %></a>
+        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.landscapes') %></a>
+        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.portraits') %></a>
+        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.modern_art') %></a>
       </div>
     <% end %>
 
     <p class="text-h6 text-gray-700 mt-8 font-inter">
-      Seeking something special?</br>Start searching with specific characteristics and narrow your options.
+      <%= t('spree.home_page.search_section.title') %></br><%= t('spree.home_page.search_section.subtitle') %>
     </p>
   </div>
 </section>
@@ -233,14 +241,14 @@
 <section class="bg-white py-12 lg:py-20">
   <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
     <div class="max-w-xl mx-auto lg:mx-0">
-             <h2 class="text-4xl lg:text-6xl font-source-serif text-gray-900 leading-tight">
-         The perfect husband
+             <h2 class="text-h3 lg:text-6xl font-source-serif text-gray-900 leading-tight">
+         <%= t('spree.home_page.gift_section.title') %>
        </h2>
        <p class="mt-4 text-base lg:text-lg text-gray-700 font-inter">
-         Looking for a 40th anniversary gift for the New Yorker who has everything, John won the award for best husband with a gift of art.
+         <%= t('spree.home_page.gift_section.description') %>
        </p>
       <button class="mt-8 px-6 py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300">
-        Browse Gift Collection
+        <%= t('spree.home_page.gift_section.cta_button') %>
       </button>
     </div>
 
@@ -265,20 +273,16 @@
   <div class="container gap-8 grid items-center lg:gap-16 lg:grid-cols-2 max-w-7xl mx-auto px-6">
     <div class="text-gray-800 space-y-4">
              <h1 class="text-h2.5 sm:text-5xl md:text-6xl font-source-serif font-medium leading-tight tracking-tight">
-         We believe that good art<br>
-         bring people together,<br>
-         elevated ling space,<br>
-         and transforms lives.
+         <%= t('spree.home_page.mission.title') %>
        </h1>
     </div>
 
     <div class="text-gray-700 text-lg leading-relaxed">
       <p class="mb-6">
-        Founded by Gallery Director Mike Tran in 2006, Martket has developed a loyal following of art collectors,
-        artists, and interior designers in all 50 states and over 50 countries.
+        <%= t('spree.home_page.mission.description') %>
       </p>
       <div class="inline-flex items-center text-base font-medium underline underline-offset-4 hover:text-gray-900 transition gap-3">
-        <a href="#"> About Us </a>
+        <a href="<%= about_us_path %>"> <%= t('spree.home_page.mission.about_link') %> </a>
         <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
         </svg>
@@ -320,9 +324,9 @@
   <div class="container mx-auto text-center">
     <!-- Tiêu đề -->
          <h2 class="text-h2.5 font-source-serif font-medium text-[#3B382E] mb-2">
-       Discover new art added weekly
+       <%= t('spree.home_page.weekly_art.title') %>
      </h2>
-    <div class="w-24 h-[1px] bg-[#3B382E] mx-auto mb-10"></div>
+    <div class="bg-[#3B382E] h-[1px] mb-10 mx-auto w-1_col-30"></div>
 
     <!-- Grid ảnh -->
     <div class="grid gap-8 mb-10">
@@ -340,7 +344,7 @@
     </div>
 
     <button class="mt-8 px-6 py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300">
-      Browse New Art
+      <%= t('spree.home_page.weekly_art.cta_button') %>
     </button>
   </div>
 </section>

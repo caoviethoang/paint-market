@@ -7,7 +7,7 @@
     <%= form_for resource, as: :spree_user, url: registration_path(resource), html: { class: "space-y-6 mb-12" } do |f| %>
       <div class="text-input">
         <%= f.label :email, "#{t("spree.email")}:" %>
-        <%= f.email_field :email, placeholder: 'name@example.com' %>
+        <%= f.email_field :email, placeholder: t('spree.checkout.email_placeholder') %>
       </div>
 
       <div class="text-input">

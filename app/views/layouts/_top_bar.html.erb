@@ -1,6 +1,30 @@
 <div class="relative flex items-center" data-controller="top-bar">
   <div class="flex items-center gap-x-6">
     <%= render 'shared/search/search_bar', taxons: taxons, taxon: taxon, :locals => { :additional_classes => 'hidden lg:flex' } %>
+    
+    <%
+      available_locales = current_store.available_locales.map do |locale|
+        country_code = locale.to_s.upcase
+        [country_code, locale]
+      end.sort
+    %>
+    <% if available_locales.many? %>
+      <div class="locale-selector" data-controller="locale-selector">
+        <%= form_tag select_locale_path do %>
+          <div class="flex items-center">
+            <%= select_tag(:switch_to_locale, 
+                options_for_select(available_locales, I18n.locale), 
+                class: 'text-sm py-2 bg-white cursor-pointer appearance-none pr-8',
+                style: 'border: none !important;',
+                data: { 
+                  action: "locale-selector#submitForm", 
+                  "locale-selector-target" => "selector" 
+                }) %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    
     <div class='relative w-6 h-6'>
       <svg class='w-6 h-6 fill-black dark:fill-white'>
         <use xlink:href="<%= image_path('remixicon.symbol.svg') %>#ri-shopping-cart-2-line"></use>

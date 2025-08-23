@@ -543,6 +543,23 @@ vi:
         page_view: Trang tĩnh đã được xem
         user:
           signup: Người dùng đăng kí
+      pages:
+        featured_show: Triển Lãm Nổi Bật
+        current_show: Triển Lãm Hiện Tại
+        about_event: Về Sự Kiện
+        statement: Tuyên Bố
+        press_release: Thông Cáo Báo Chí
+        gallery: Phòng Trưng Bày
+        location: Địa Điểm
+        show: Triển Lãm
+        about: Về
+        more_info: THÔNG TIN THÊM
+        discover_art: Khám Phá Và Mua<br />Nghệ Thuật Làm Bạn Xúc Động
+        buy_now: MUA NGAY
+        sign_up: ĐĂNG KÝ
+        view_all: Xem Tất Cả
+        art_works: TÁC PHẨM NGHỆ THUẬT
+        no_art_works: Không Tìm Thấy Tác Phẩm Nghệ Thuật
     exceptions:
       count_on_hand_setter: Không thể thay count_on_hand vì giá trị này được tự động thay bởi recalculate_count_on_hand callback. Xin dùng `update_column(:count_on_hand, value)`.
     exchange_for:
@@ -1253,6 +1270,66 @@ vi:
     artist: Họa sĩ
     menu_taxon: DANH MỤC SẢN PHẨM
     about_us: Về chúng tôi
+    about_us_page:
+      header:
+        line1: "Duyệt qua phòng trưng bày trực tuyến của chúng tôi"
+        line2: "được thiết kế để mang lại cảm giác như một buổi chiều"
+        line3: "thong thả ghé thăm các phòng trưng bày địa phương –"
+        line4: "từ sự thoải mái của ngôi nhà của bạn."
+      story:
+        title: "Câu chuyện của chúng tôi"
+        paragraph1: "Được thành lập bởi Giám đốc Phòng trưng bày Alex Tran vào năm 2006, Martket đã khẳng định vị thế là điểm đến hàng đầu cho những người yêu nghệ thuật và nhà sưu tầm tại Việt Nam."
+        paragraph2: "Sứ mệnh của chúng tôi là kết nối khoảng cách giữa các nghệ sĩ tài năng và nhà sưu tầm sành sỏi, cung cấp một nền tảng trưng bày các tác phẩm nghệ thuật xuất sắc đồng thời thúc đẩy những kết nối có ý nghĩa trong cộng đồng nghệ thuật."
+        paragraph3: "Điều làm nên sự khác biệt của chúng tôi là cam kết tuyển chọn những tác phẩm độc quyền, chất lượng cao đại diện cho bối cảnh nghệ thuật đương đại đa dạng và sôi động. Chúng tôi tin rằng nghệ thuật nên được tiếp cận bởi tất cả mọi người, dù bạn là nhà sưu tầm dày dạn hay chỉ mới bắt đầu hành trình nghệ thuật."
+        paragraph4: "Thông qua phòng trưng bày trực tuyến, chúng tôi mang trải nghiệm thân mật của việc ghé thăm các phòng trưng bày địa phương trực tiếp đến nhà bạn, cho phép bạn khám phá và đánh giá cao nghệ thuật theo nhịp độ của riêng mình, trong không gian của riêng mình."
+        cta_button: "Khám Phá Phòng Trưng Bày"
+      features:
+        curated_selection:
+          title: "Tuyển Chọn Cẩn Thận"
+          description: "Các tác phẩm nghệ thuật được chọn lọc kỹ lưỡng từ các nghệ sĩ mới nổi và đã thành danh"
+        expert_guidance:
+          title: "Hướng Dẫn Chuyên Môn"
+          description: "Tư vấn nghệ thuật chuyên nghiệp và lời khuyên xây dựng bộ sưu tập"
+        secure_transactions:
+          title: "Giao Dịch An Toàn"
+          description: "Xử lý thanh toán an toàn và đáng tin cậy cho tất cả các giao dịch"
+    home_page:
+      banner:
+        title: "Nghệ thuật tốt thay đổi cuộc sống"
+        description: "Mang về nhà tác phẩm nghệ thuật mới để xem trực tiếp. Nếu một tác phẩm không phù hợp với không gian của bạn, hãy trả lại trong vòng bảy ngày kể từ khi nhận đơn hàng và nhận hoàn tiền đầy đủ."
+        cta_button: "ĐI ĐẾN BỘ SƯU TẬP"
+      taxonomies:
+        fallback:
+          paintings: "TRANH VẼ"
+          abstract_art: "NGHỆ THUẬT TRỪU TƯỢNG"
+          oil_paintings: "TRANH SƠN DẦU"
+          landscapes: "PHONG CẢNH"
+          portraits: "CHÂN DUNG"
+          modern_art: "NGHỆ THUẬT HIỆN ĐẠI"
+      celebrate:
+        title: "Kỷ Niệm 15 Năm Khám Phá Nghệ Thuật Bạn Yêu Thích"
+      stats:
+        years: "30"
+        homes: "130,000+"
+        countries: "153"
+        artists: "100,000+"
+        artworks: "330,000+"
+        artist_countries: "143"
+      gift_section:
+        title: "Người chồng hoàn hảo"
+        description: "Tìm kiếm món quà kỷ niệm 40 năm cho người New Yorker đã có tất cả, John đã giành giải thưởng người chồng tốt nhất với món quà nghệ thuật."
+        cta_button: "Bộ Sưu Tập"
+      mission:
+        title: "Chúng tôi tin rằng nghệ thuật tốt mang mọi người lại gần nhau, nâng cao không gian sống và thay đổi cuộc sống."
+        description: "Được thành lập bởi Giám đốc Phòng trưng bày Mike Tran vào năm 2006, Martket đã phát triển một cộng đồng trung thành gồm các nhà sưu tầm nghệ thuật, nghệ sĩ và nhà thiết kế nội thất tại tất cả 50 tiểu bang và hơn 50 quốc gia."
+        about_link: "Về Chúng Tôi"
+      weekly_art:
+        title: "Khám phá nghệ thuật mới được thêm vào hàng tuần"
+        cta_button: "Mua ngay"
+      search_section:
+        title: "Tìm kiếm điều gì đó đặc biệt?"
+        subtitle: "Bắt đầu tìm kiếm với các đặc điểm cụ thể và thu hẹp lựa chọn của bạn."
+      shop_button: "Bộ sưu tập"
     celebrate: Kỷ Niệm 15 Năm Khám Phá Nghệ Thuật Mà Bạn Yêu Thích
     made_easy: "NĂM SỐNG CÙNG NGHỆ THUẬT, THẬT DỄ DÀNG"
     home_with_art: NGÔI NHÀ CÓ TRANH NGHỆ THUẬT
@@ -1260,6 +1337,23 @@ vi:
     artists_collected: HỌA SĨ TRONG BỘ SƯU TẬP
     artworks_sold: TÁC PHẨM ĐÃ ĐƯỢC BÁN
     artist_countries: QUỐC GIA CỦA CÁC HỌA SĨ
+    checkout:
+      customer_email: Email khách hàng
+      email_placeholder: name@example.com
+    product:
+      artist: Họa sĩ
+      size: Kích thước
+      description: Mô tả
+      no_image: Không có hình ảnh
+      more_work_title: "Đây là những tác phẩm khác từ %{artist_name} mà bạn có thể thích"
+    admin:
+      artist_information: Thông tin họa sĩ
+      artist_start_year_help: Nhập năm họa sĩ bắt đầu làm việc
+      reset: Đặt lại
+      taxonomy_description: Mô tả
+      taxonomy_description_placeholder: Nhập mô tả phân loại...
+      taxonomy_description_help: Mô tả tùy chọn cho danh mục phân loại này
+      event_description: Mô tả
     footer:
       information: Thông tin
       our_company: Công ty

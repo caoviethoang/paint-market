@@ -1,5 +1,5 @@
 <% @body_id = 'product-details' %>
-<% @title = "Here's more work from #{@artist.name} you may enjoy" %>
+<% @title = t('spree.product.more_work_title', artist_name: @artist.name) %>
 
 <% cache [I18n.locale, current_pricing_options, @product] do %>
   <section itemscope itemtype="http://schema.org/Product" class="px-6">
@@ -29,7 +29,7 @@
               class: "w-full h-auto" %>
           <% else %>
             <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
-              <span class="text-gray-500">No image</span>
+              <span class="text-gray-500"><%= t('spree.product.no_image') %></span>
             </div>
           <% end %>
         </div>
