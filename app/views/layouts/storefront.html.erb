@@ -22,6 +22,71 @@
       document.documentElement.classList.add(lsTheme)
     </script>
 
+    <!-- Fallback JavaScript for production -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Fallback JavaScript loaded');
+        
+        // Fallback for locale selector
+        const localeSelectors = document.querySelectorAll('select[name="switch_to_locale"]');
+        localeSelectors.forEach(function(selector) {
+          selector.addEventListener('change', function() {
+            const selectedLocale = this.value;
+            console.log('Locale change requested:', selectedLocale);
+            if (selectedLocale) {
+              const form = this.closest('form');
+              if (form) {
+                console.log('Submitting form');
+                form.submit();
+              } else {
+                console.log('Form not found, redirecting directly');
+                window.location.href = '/locale/set?switch_to_locale=' + selectedLocale;
+              }
+            }
+          });
+        });
+
+        // Fallback for cart link
+        const cartLinks = document.querySelectorAll('#link-to-cart');
+        cartLinks.forEach(function(cartLink) {
+          cartLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Cart link clicked');
+            window.location.href = '/cart';
+          });
+        });
+
+        // Fallback for user account link
+        const userLinks = document.querySelectorAll('a[href*="login"], a[href*="account"]');
+        userLinks.forEach(function(userLink) {
+          userLink.addEventListener('click', function(e) {
+            console.log('User link clicked:', this.href);
+            // Let the default link behavior work
+          });
+        });
+
+        // Debug information
+        console.log('Locale selectors found:', localeSelectors.length);
+        console.log('Cart links found:', cartLinks.length);
+        console.log('User links found:', userLinks.length);
+      });
+
+      // Additional fallback for when DOMContentLoaded might not fire
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          console.log('DOMContentLoaded fired');
+        });
+      } else {
+        console.log('Document already loaded');
+      }
+
+      // Test function for debugging
+      window.testLocaleFunction = function() {
+        console.log('Test function called');
+        alert('JavaScript is working! Current locale: ' + (document.querySelector('select[name="switch_to_locale"]')?.value || 'unknown'));
+      };
+    </script>
+
     <%= yield :head %>
   </head>
 
