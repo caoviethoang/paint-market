@@ -121,9 +121,9 @@
       <div class="flex justify-center">
         <button class="border-2 border-gray-800 px-8 py-4 text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300">
           <% if spree_user_signed_in? %>
-            <%= t('spree.events.pages.buy_now') %>
+            <%= link_to t('spree.events.pages.buy_now'), products_path %>
           <% else %>
-            <%= t('spree.events.pages.sign_up') %>
+            <%= link_to t('spree.events.pages.sign_up'), signup_path %>
           <% end %>
         </button>
       </div>
