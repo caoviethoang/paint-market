@@ -6,7 +6,7 @@ Rails.application.config.after_initialize do
   current_service = Rails.application.config.active_storage.service
   Rails.logger.info "🚀 Active Storage Service: #{current_service}"
   
-  # Log S3 configuration if using S3
+  # Only configure AWS if using S3 service
   if current_service.to_s.start_with?('amazon_')
     # Check if AWS credentials are properly configured
     bucket_name = ENV['AWS_BUCKET_PROD'] || ENV['AWS_BUCKET_DEV']
@@ -40,6 +40,20 @@ Rails.application.config.after_initialize do
       rescue => e
         Rails.logger.error "❌ S3 connection failed: #{e.message}"
         Rails.logger.error "Please check your AWS credentials and bucket configuration"
+      end
+    end
+  else
+    # Local storage configuration
+    if current_service == :local
+      storage_path = Rails.root.join('storage')
+      Rails.logger.info "📁 Local Storage Configuration:"
+      Rails.logger.info "  Path: #{storage_path}"
+      Rails.logger.info "  Service: Local Disk"
+      
+      # Ensure storage directory exists
+      unless Dir.exist?(storage_path)
+        Dir.mkdir(storage_path)
+        Rails.logger.info "✅ Created storage directory: #{storage_path}"
       end
     end
   end
