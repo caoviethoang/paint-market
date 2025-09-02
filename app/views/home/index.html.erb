@@ -1,25 +1,40 @@
 <section class="banner relative flex w-full">
   <div class="inset-0">
-    <%= image_tag image_path("banner.png"), class: "w-full object-cover" %>
+    <%= image_tag image_path("banner.png"), class: "w-full h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] xl:h-[900px] object-cover" %>
   </div>
 
-  <div class="bg-[#F5F3F0] absolute z-10 flex items-center w-1_col-3 left-8 bottom-8" style="left: 5%; bottom: 10%;">
+  <!-- Desktop Layout -->
+  <div class="hidden md:block bg-[#F5F3F0] absolute z-10 flex items-center w-1/3 left-8 bottom-8" style="left: 5%; bottom: 10%;">
     <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-12">
       <div class="max-w-lg">
-                 <h1 class="text-h2.5 md:text-5xl lg:text-6xl font-source-serif text-black leading-tight mb-6">
-           <%= t('spree.home_page.banner.title') %>
-         </h1>
-
-         <p class="text-base md:text-lg text-black leading-relaxed mb-8 max-w-md font-inter">
-           <%= t('spree.home_page.banner.description') %>
-         </p>
-
-                 <%= link_to products_path, class: "border-b-2 hover:text-primary inline-block py-3 text-black tracking-wide underline font-inter-medium" do %>
-           <%= t('spree.home_page.banner.cta_button') %>
-         <% end %>
+        <h1 class="text-h2.5 md:text-5xl lg:text-6xl font-source-serif text-black leading-tight mb-6">
+          <%= t('spree.home_page.banner.title') %>
+        </h1>
+        <p class="text-base md:text-lg text-black leading-relaxed mb-8 max-w-md font-inter">
+          <%= t('spree.home_page.banner.description') %>
+        </p>
+        <%= link_to products_path, class: "hover:text-primary inline-block py-3 text-black tracking-wide underline font-inter-medium" do %>
+          <%= t('spree.home_page.banner.cta_button') %>
+        <% end %>
       </div>
     </div>
   </div>
+</section>
+
+<!-- Mobile Layout - Separate section below banner -->
+<section class="md:hidden py-8 px-6">
+  <div>
+    <h1 class="text-h2.5 font-source-serif text-black leading-tight mb-4">
+      <%= t('spree.home_page.banner.title') %>
+    </h1>
+    <p class="text-sm sm:text-base text-black leading-relaxed mb-6 font-inter">
+      <%= t('spree.home_page.banner.description') %>
+    </p>
+    <%= link_to products_path, class: "hover:text-primary inline-block py-2 text-black tracking-wide underline font-inter-medium text-sm text-h6" do %>
+      <%= t('spree.home_page.banner.cta_button') %>
+    <% end %>
+  </div>
+</section>
 
   <%# <div class="absolute bottom-8 flex right-[3px] space-x-2">
     <button class="w-10 h-10 bg-white bg-opacity-90 hover:bg-opacity-100 transition-all duration-300 flex items-center justify-center border border-black">
@@ -35,9 +50,45 @@
   </div> %>
 </section>
 
-<section class="taxonomies-menu py-8 pt-7 bg-white">
-  <div class="mx-auto">
-    <div class="flex flex-wrap justify-center gap-4" id="taxonomies-container">
+<section class="taxonomies-menu py-6 sm:py-8 pt-4 sm:pt-7 bg-white">
+  <div class="mx-auto px-4 sm:px-6">
+    <!-- Mobile Layout - 2 columns -->
+    <div class="md:hidden grid grid-cols-2 gap-3" id="taxonomies-container-mobile">
+      <% if @taxonomies.present? %>
+        <% @taxonomies.first(6).each_with_index do |taxonomy, index| %>
+          <% if taxonomy.root.present? %>
+            <%= link_to products_path(taxon: taxonomy.root.id),
+                class: "px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-xs font-medium tracking-wide uppercase text-center",
+                data: { taxonomy_id: taxonomy.id } do %>
+              <%= taxonomy.name.upcase %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <!-- Fallback buttons if no taxonomies -->
+        <button class="px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-xs font-medium tracking-wide uppercase text-center">
+          <%= t('spree.home_page.taxonomies.fallback.paintings') %>
+        </button>
+        <button class="px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-xs font-medium tracking-wide uppercase text-center">
+          <%= t('spree.home_page.taxonomies.fallback.abstract_art') %>
+        </button>
+        <button class="px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-xs font-medium tracking-wide uppercase text-center">
+          <%= t('spree.home_page.taxonomies.fallback.oil_paintings') %>
+        </button>
+        <button class="px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-xs font-medium tracking-wide uppercase text-center">
+          <%= t('spree.home_page.taxonomies.fallback.landscapes') %>
+        </button>
+        <button class="px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-xs font-medium tracking-wide uppercase text-center">
+          <%= t('spree.home_page.taxonomies.fallback.portraits') %>
+        </button>
+        <button class="px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-xs font-medium tracking-wide uppercase text-center">
+          <%= t('spree.home_page.taxonomies.fallback.modern_art') %>
+        </button>
+      <% end %>
+    </div>
+
+    <!-- Desktop Layout -->
+    <div class="hidden md:flex flex-wrap justify-center gap-4" id="taxonomies-container">
       <% if @taxonomies.present? %>
         <% @taxonomies.first(7).each_with_index do |taxonomy, index| %>
           <% if taxonomy.root.present? %>
@@ -63,8 +114,8 @@
     </div>
   </div>
 
-  <div class="celebrate-15-years flex justify-center mb-12 mt-6 pt-12 text-center">
-        <h2 class="text-h2.5 font-source-serif-medium text-gray-900">
+  <div class="celebrate-15-years flex justify-center mb-8 sm:mb-12 mt-4 sm:mt-6 pt-8 sm:pt-12 text-center px-4">
+        <h2 class="text-h2.5 font-source-serif-medium text-gray-900 leading-tight">
          <% 
            celebrate_text = t('spree.celebrate')
            if I18n.locale == :vi
@@ -79,8 +130,9 @@
 </section>
 
 <section class="bg-cream">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-       <div class="7-images mt-4 flex flex-nowrap justify-center gap-6 px-6 py-6 w-full"  
+  <div class="max-w-7xl mx-auto text-center">
+       <!-- Mobile Layout - Hidden on mobile -->
+       <div class="hidden md:flex 7-images mt-4 flex-nowrap justify-center gap-6 py-6 w-full"  
           data-controller="image-optimization"
           data-image-optimization-preload-count-value="3"
           data-image-optimization-lazy-load-threshold-value="0.1">
@@ -123,39 +175,64 @@
       <% end %>
     </div>
 
-        <div class="gap-4 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 mt-12 sm:grid-cols-2 text-center mx-auto max-w-4xl">
-          <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.years') %></p>
-            <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.made_easy') %></p>
-          </div>
-          <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.homes') %></p>
-            <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.home_with_art') %></p>
-          </div>
-          <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.countries') %></p>
-            <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.collector_countries') %></p>
-          </div>
-          <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.artists') %></p>
-            <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.artists_collected') %></p>
-          </div>
-          <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.artworks') %></p>
-            <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.artworks_sold') %></p>
-          </div>
-          <div class="p-4 border-l border-gray-400" style="border-left-width: 4px;">
-            <p class="text-h3 font-inter-semibold text-gray-900 mb-2"><%= t('spree.home_page.stats.artist_countries') %></p>
-            <p class="text-xs uppercase tracking-wider font-inter-medium"><%= t('spree.artist_countries') %></p>
-          </div>
+    <!-- Mobile Layout - Swipe Carousel (2 images + peek) -->
+    <div class="md:hidden 7-images-mobile mt-4 px-4 py-4 w-full" data-controller="mobile-carousel">
+      <div class="relative overflow-hidden">
+        <div class="flex transition-transform gap-3 duration-300 ease-in-out" id="mobile-carousel">
+          <% (1..7).each do |index| %>
+            <div class="flex-shrink-0 px-1" style="width: 45%;">
+              <div class="relative overflow-hidden shadow-md">
+                <%= image_tag image_path("image_#{index}.png"),
+                    class: "w-full h-32 object-cover",
+                    alt: "Art Image #{index}",
+                    loading: "eager" %>
+              </div>
+            </div>
+          <% end %>
         </div>
+      </div>
+      
+      <!-- Carousel Indicators -->
+      <div class="flex justify-center mt-4 space-x-2">
+        <% (1..6).each do |index| %>
+          <div class="w-2 h-2 rounded-full bg-gray-300 carousel-indicator" data-slide="<%= index - 1 %>"></div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="gap-3 sm:gap-4 grid grid-cols-2 lg:grid-cols-3 md:grid-cols-3 md:mt-8 sm:mt-12 text-left mx-auto max-w-4xl px-4 md:bg-transparent">
+      <div class="p-3 sm:p-4 border-l border-gray-400" style="border-left-width: 4px;">
+        <p class="text-h3 font-bold text-gray-900 mb-1 sm:mb-2"><%= t('spree.home_page.stats.years') %></p>
+        <p class="text-xs uppercase tracking-wider font-medium"><%= t('spree.made_easy') %></p>
+      </div>
+      <div class="p-3 sm:p-4 border-l border-gray-400" style="border-left-width: 4px;">
+        <p class="text-h3 font-bold text-gray-900 mb-1 sm:mb-2"><%= t('spree.home_page.stats.homes') %></p>
+        <p class="text-xs uppercase tracking-wider font-medium"><%= t('spree.home_with_art') %></p>
+      </div>
+      <div class="p-3 sm:p-4 border-l border-gray-400" style="border-left-width: 4px;">
+        <p class="text-h3 font-bold text-gray-900 mb-1 sm:mb-2"><%= t('spree.home_page.stats.countries') %></p>
+        <p class="text-xs uppercase tracking-wider font-medium"><%= t('spree.collector_countries') %></p>
+      </div>
+      <div class="p-3 sm:p-4 border-l border-gray-400" style="border-left-width: 4px;">
+        <p class="text-h3 font-bold text-gray-900 mb-1 sm:mb-2"><%= t('spree.home_page.stats.artists') %></p>
+        <p class="text-xs uppercase tracking-wider font-medium"><%= t('spree.artists_collected') %></p>
+      </div>
+      <div class="p-3 sm:p-4 border-l border-gray-400" style="border-left-width: 4px;">
+        <p class="text-h3 font-bold text-gray-900 mb-1 sm:mb-2"><%= t('spree.home_page.stats.artworks') %></p>
+        <p class="text-xs uppercase tracking-wider font-medium"><%= t('spree.artworks_sold') %></p>
+      </div>
+      <div class="p-3 sm:p-4 border-l border-gray-400" style="border-left-width: 4px;">
+        <p class="text-h3 font-bold text-gray-900 mb-1 sm:mb-2"><%= t('spree.home_page.stats.artist_countries') %></p>
+        <p class="text-xs uppercase tracking-wider font-medium"><%= t('spree.artist_countries') %></p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="example-taxonomies" class="py-12 px-6 bg-white border-b-2 border-gray-300">
+<section id="example-taxonomies" class="py-8 sm:py-12 px-4 sm:px-6 bg-white border-b-2 border-gray-300">
   <% if @example_taxonomies.present? %>
     <div class="container mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         <% @example_taxonomies.each do |taxonomy_data| %>
           <div class="flex flex-col">
 
@@ -206,15 +283,15 @@
   <% end %>
 </section>
 
-<section id="all-taxos" class="bg-[#fdf3e2] py-16 px-6">
+<section id="all-taxos" class="bg-[#fdf3e2] py-12 sm:py-16 px-4 sm:px-6 border-t-2 border-dashed border-gray-400">
   <div class="container mx-auto max-w-6xl text-center">
     <% if @taxonomies.present? %>
       <%# Display all taxonomies in a single horizontal row with clickable links %>
-      <div class="flex flex-wrap justify-center gap-6 mb-8">
+      <div class="flex flex-col md:flex-row md:flex-wrap justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
         <% @taxonomies.each do |taxonomy| %>
           <% if taxonomy.root.present? %>
             <%= link_to products_path(taxon: taxonomy.root.id), 
-                class: "hover:text-primary mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer" do %>
+                class: "hover:text-primary font-bold mx-1 sm:mx-2 my-1 sm:my-2 text-lg sm:text-2xl md:text-h2.5 lg:text-4xl xl:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer" do %>
               <%= taxonomy.name %>
             <% end %>
           <% end %>
@@ -222,32 +299,32 @@
       </div>
     <% else %>
       <%# Fallback if no taxonomies available %>
-      <div class="flex flex-wrap justify-center gap-6 mb-8">
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.paintings') %></a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.abstract_art') %></a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.oil_paintings') %></a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.landscapes') %></a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.portraits') %></a>
-        <a href="#" class="mx-2 my-2 text-h2.5 sm:text-4xl md:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.modern_art') %></a>
+      <div class="flex flex-col md:flex-row md:flex-wrap justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 font-bold">
+        <a href="#" class="mx-1 sm:mx-2 my-1 sm:my-2 text-lg sm:text-2xl md:text-h2.5 lg:text-4xl xl:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.paintings') %></a>
+        <a href="#" class="mx-1 sm:mx-2 my-1 sm:my-2 text-lg sm:text-2xl md:text-h2.5 lg:text-4xl xl:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.abstract_art') %></a>
+        <a href="#" class="mx-1 sm:mx-2 my-1 sm:my-2 text-lg sm:text-2xl md:text-h2.5 lg:text-4xl xl:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.oil_paintings') %></a>
+        <a href="#" class="mx-1 sm:mx-2 my-1 sm:my-2 text-lg sm:text-2xl md:text-h2.5 lg:text-4xl xl:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.landscapes') %></a>
+        <a href="#" class="mx-1 sm:mx-2 my-1 sm:my-2 text-lg sm:text-2xl md:text-h2.5 lg:text-4xl xl:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.portraits') %></a>
+        <a href="#" class="mx-1 sm:mx-2 my-1 sm:my-2 text-lg sm:text-2xl md:text-h2.5 lg:text-4xl xl:text-5xl font-source-serif text-gray-800 hover:text-gray-600 transition-colors duration-300 cursor-pointer"><%= t('spree.home_page.taxonomies.fallback.modern_art') %></a>
       </div>
     <% end %>
 
-    <p class="text-h6 text-gray-700 mt-8 font-inter">
+    <p class="text-sm sm:text-h6 text-gray-700 mt-6 sm:mt-8 font-inter px-4">
       <%= t('spree.home_page.search_section.title') %></br><%= t('spree.home_page.search_section.subtitle') %>
     </p>
   </div>
 </section>
 
-<section class="bg-white py-12 lg:py-20">
-  <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-    <div class="max-w-xl mx-auto lg:mx-0">
-             <h2 class="text-h3 lg:text-6xl font-source-serif text-gray-900 leading-tight">
+<section class="bg-white py-8 sm:py-12 lg:py-20">
+  <div class="container mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center">
+    <div class="max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
+             <h2 class="text-xl sm:text-2xl md:text-h3 lg:text-6xl font-source-serif text-gray-900 leading-tight">
          <%= t('spree.home_page.gift_section.title') %>
        </h2>
-       <p class="mt-4 text-base lg:text-lg text-gray-700 font-inter">
+       <p class="mt-4 text-sm sm:text-base lg:text-lg text-gray-700 font-inter">
          <%= t('spree.home_page.gift_section.description') %>
        </p>
-      <button class="mt-8 px-6 py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300">
+      <button class="mt-6 sm:mt-8 px-4 sm:px-6 py-2 sm:py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300 text-sm sm:text-base">
         <%= t('spree.home_page.gift_section.cta_button') %>
       </button>
     </div>
@@ -269,21 +346,21 @@
   </div>
 </section>
 
-<section class="bg-[#fdf3e2] py-16 px-6">
-  <div class="container gap-8 grid items-center lg:gap-16 lg:grid-cols-2 max-w-7xl mx-auto px-6">
-    <div class="text-gray-800 space-y-4">
-             <h1 class="text-h2.5 sm:text-5xl md:text-6xl font-source-serif font-medium leading-tight tracking-tight">
+<section class="bg-[#fdf3e2] py-12 sm:py-16 px-4 sm:px-6">
+  <div class="container gap-6 sm:gap-8 grid items-center lg:gap-16 lg:grid-cols-2 max-w-7xl mx-auto">
+    <div class="text-gray-800 space-y-4 text-left">
+             <h1 class="text-xl text-h6 sm:text-2xl md:text-h2.5 lg:text-5xl xl:text-6xl font-source-serif font-medium leading-tight tracking-tight">
          <%= t('spree.home_page.mission.title') %>
        </h1>
     </div>
 
-    <div class="text-gray-700 text-lg leading-relaxed">
-      <p class="mb-6">
+    <div class="text-gray-700 text-sm sm:text-base lg:text-lg leading-relaxed text-left">
+      <p class="mb-4 sm:mb-6">
         <%= t('spree.home_page.mission.description') %>
       </p>
-      <div class="inline-flex items-center text-base font-medium underline underline-offset-4 hover:text-gray-900 transition gap-3">
+      <div class="inline-flex items-center text-sm sm:text-base font-medium underline underline-offset-4 hover:text-gray-900 transition gap-2 sm:gap-3">
         <a href="<%= about_us_path %>"> <%= t('spree.home_page.mission.about_link') %> </a>
-        <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <svg class="ml-1 w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
         </svg>
       </div>
@@ -294,7 +371,7 @@
 
 <section class="banner-2 flex justify-center w-full">
   <div class="relative inset-0">
-    <%= image_tag image_path("together.png"), class: "object-cover" %>
+    <%= image_tag image_path("together.png"), class: "w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover" %>
   </div>
 </section>
 
@@ -320,17 +397,17 @@
   <%# </div> %>
 <%# </section> %>
 
-<section class="bg-[#F8F4ED] py-16 weekly-art">
-  <div class="container mx-auto text-center">
+<section class="bg-[#F8F4ED] py-12 sm:py-16 weekly-art">
+  <div class="container mx-auto text-center px-4 sm:px-6">
     <!-- Tiêu đề -->
-         <h2 class="text-h2.5 font-source-serif font-medium text-[#3B382E] mb-2">
+         <h2 class="text-xl sm:text-2xl md:text-h2.5 font-source-serif font-medium text-[#3B382E] mb-2">
        <%= t('spree.home_page.weekly_art.title') %>
      </h2>
-    <div class="bg-[#3B382E] h-[1px] mb-10 mx-auto w-1_col-30"></div>
+    <div class="bg-[#3B382E] h-[1px] mb-6 sm:mb-10 mx-auto w-1_col-30"></div>
 
     <!-- Grid ảnh -->
-    <div class="grid gap-8 mb-10">
-      <ul class="gap-7 flex text-left">
+    <div class="grid gap-6 sm:gap-8 mb-6 sm:mb-10">
+      <ul class="gap-4 sm:gap-7 flex flex-col sm:flex-row text-left">
         <% @new_arrivals.each do |product| %>
           <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
             <%= render ProductCardComponent.new(
@@ -343,7 +420,7 @@
       </ul>
     </div>
 
-    <button class="mt-8 px-6 py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300">
+    <button class="mt-6 sm:mt-8 px-4 sm:px-6 py-2 sm:py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300 text-sm sm:text-base">
       <%= t('spree.home_page.weekly_art.cta_button') %>
     </button>
   </div>
