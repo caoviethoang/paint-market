@@ -47,7 +47,7 @@
         });
 
         // Fallback for cart link
-        const cartLinks = document.querySelectorAll('#link-to-cart');
+        const cartLinks = document.querySelectorAll('#link-to-cart, #link-to-cart-mobile');
         cartLinks.forEach(function(cartLink) {
           cartLink.addEventListener('click', function(e) {
             e.preventDefault();
@@ -65,10 +65,97 @@
           });
         });
 
+        // Fallback for hamburger menu
+        const hamburgerButtons = document.querySelectorAll('[data-action*="drawer#toggle"]');
+        hamburgerButtons.forEach(function(button) {
+          button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Hamburger menu clicked');
+            const drawer = document.querySelector('[data-drawer-target="drawer"]');
+            const overlay = document.getElementById('overlay');
+            
+            if (drawer && overlay) {
+              drawer.classList.toggle('-translate-x-full');
+              overlay.classList.toggle('hidden');
+              console.log('Drawer toggled');
+            }
+          });
+        });
+
+        // Fallback for mobile carousel
+        const carouselContainer = document.getElementById('mobile-carousel');
+        if (carouselContainer) {
+          console.log('Mobile carousel found, setting up touch events');
+          
+          let startX = 0;
+          let currentX = 0;
+          let isDragging = false;
+          let currentSlide = 0;
+          const totalSlides = 6;
+          
+          function updateCarousel() {
+            const translateX = -currentSlide * 45;
+            carouselContainer.style.transform = `translateX(${translateX}%)`;
+            updateIndicators();
+          }
+          
+          function updateIndicators() {
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            indicators.forEach((indicator, index) => {
+              if (index === currentSlide) {
+                indicator.classList.remove('bg-gray-300');
+                indicator.classList.add('bg-gray-700');
+              } else {
+                indicator.classList.remove('bg-gray-700');
+                indicator.classList.add('bg-gray-300');
+              }
+            });
+          }
+          
+          carouselContainer.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            carouselContainer.style.transition = 'none';
+          });
+          
+          carouselContainer.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+            const diffX = currentX - startX;
+            const translateX = -currentSlide * 45 + (diffX / window.innerWidth) * 45;
+            carouselContainer.style.transform = `translateX(${translateX}%)`;
+          });
+          
+          carouselContainer.addEventListener('touchend', function(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            const diffX = currentX - startX;
+            const threshold = window.innerWidth * 0.2;
+            
+            carouselContainer.style.transition = 'transform 0.3s ease-in-out';
+            
+            if (Math.abs(diffX) > threshold) {
+              if (diffX > 0) {
+                // Swipe right - go to previous slide
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+              } else {
+                // Swipe left - go to next slide
+                currentSlide = (currentSlide + 1) % totalSlides;
+              }
+            }
+            updateCarousel();
+          });
+          
+          // Initialize
+          updateCarousel();
+        }
+
         // Debug information
         console.log('Locale selectors found:', localeSelectors.length);
         console.log('Cart links found:', cartLinks.length);
         console.log('User links found:', userLinks.length);
+        console.log('Hamburger buttons found:', hamburgerButtons.length);
+        console.log('Carousel container found:', carouselContainer ? 'Yes' : 'No');
       });
 
       // Additional fallback for when DOMContentLoaded might not fire
@@ -110,7 +197,7 @@
         <%= yield %>
       </main>
       <%= render 'layouts/footer' %>
-      <div id="overlay" class="z-30 fixed top-0 left-0 w-full h-full bg-black opacity-50 hidden" data-action="click->drawer#toggle"></div>
+      <div id="overlay" class="z-40 fixed top-0 left-0 w-full h-full bg-black opacity-50 hidden" data-action="click->drawer#toggle"></div>
     </div>
   </body>
 </html>
