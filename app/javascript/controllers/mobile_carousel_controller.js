@@ -5,11 +5,12 @@ export default class extends Controller {
   
   connect() {
     this.currentSlide = 0
-    this.totalSlides = 6 // 7 images but showing 2 at a time = 6 slides
+    this.totalSlides = 6 // 7 images but showing 2 at a time = 6 slides (0-5)
     this.startX = 0
     this.currentX = 0
     this.isDragging = false
     
+    console.log('Mobile carousel connected, total slides:', this.totalSlides)
     this.updateCarousel()
     this.updateIndicators()
     this.addTouchListeners()
@@ -81,13 +82,23 @@ export default class extends Controller {
   }
   
   next() {
-    this.currentSlide = (this.currentSlide + 1) % this.totalSlides
+    if (this.currentSlide < this.totalSlides - 1) {
+      this.currentSlide++
+    } else {
+      this.currentSlide = 0 // Loop back to first slide
+    }
+    console.log('Next slide:', this.currentSlide)
     this.updateCarousel()
     this.updateIndicators()
   }
   
   prev() {
-    this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides
+    if (this.currentSlide > 0) {
+      this.currentSlide--
+    } else {
+      this.currentSlide = this.totalSlides - 1 // Loop to last slide
+    }
+    console.log('Previous slide:', this.currentSlide)
     this.updateCarousel()
     this.updateIndicators()
   }
@@ -100,6 +111,7 @@ export default class extends Controller {
   
   updateCarousel() {
     const translateX = -this.currentSlide * 45 // 45% per slide since each image is 45% width
+    console.log('Updating carousel - slide:', this.currentSlide, 'translateX:', translateX)
     if (this.hasCarouselTarget) {
       this.carouselTarget.style.transform = `translateX(${translateX}%)`
     }

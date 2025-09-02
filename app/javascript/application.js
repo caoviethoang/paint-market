@@ -77,10 +77,11 @@ function setupInteractiveElements() {
     let currentX = 0;
     let isDragging = false;
     let currentSlide = 0;
-    const totalSlides = 6;
+    const totalSlides = 6; // 7 images but showing 2 at a time = 6 slides (0-5)
     
     function updateCarousel() {
       const translateX = -currentSlide * 45;
+      console.log('Fallback carousel - slide:', currentSlide, 'translateX:', translateX);
       carouselContainer.style.transform = `translateX(${translateX}%)`;
       updateIndicators();
     }
@@ -96,6 +97,26 @@ function setupInteractiveElements() {
           indicator.classList.add('bg-gray-300');
         }
       });
+    }
+    
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+      } else {
+        currentSlide = 0; // Loop back to first slide
+      }
+      console.log('Fallback next slide:', currentSlide);
+      updateCarousel();
+    }
+    
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+      } else {
+        currentSlide = totalSlides - 1; // Loop to last slide
+      }
+      console.log('Fallback previous slide:', currentSlide);
+      updateCarousel();
     }
     
     carouselContainer.addEventListener('touchstart', function(e) {
@@ -123,13 +144,15 @@ function setupInteractiveElements() {
       if (Math.abs(diffX) > threshold) {
         if (diffX > 0) {
           // Swipe right - go to previous slide
-          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+          prevSlide();
         } else {
           // Swipe left - go to next slide
-          currentSlide = (currentSlide + 1) % totalSlides;
+          nextSlide();
         }
+      } else {
+        // Snap back to current slide
+        updateCarousel();
       }
-      updateCarousel();
     });
     
     // Initialize
