@@ -178,7 +178,7 @@
     <!-- Mobile Layout - Swipe Carousel (2 images + peek) -->
     <div class="md:hidden 7-images-mobile mt-4 px-4 py-4 w-full" data-controller="mobile-carousel">
       <div class="relative overflow-hidden">
-        <div class="flex transition-transform gap-3 duration-300 ease-in-out" id="mobile-carousel">
+        <div class="flex transition-transform duration-300 ease-in-out gap-3" data-mobile-carousel-target="carousel">
           <% (1..7).each do |index| %>
             <div class="flex-shrink-0 px-1" style="width: 45%;">
               <div class="relative overflow-hidden shadow-md">
@@ -195,7 +195,7 @@
       <!-- Carousel Indicators -->
       <div class="flex justify-center mt-4 space-x-2">
         <% (1..6).each do |index| %>
-          <div class="w-2 h-2 rounded-full bg-gray-300 carousel-indicator" data-slide="<%= index - 1 %>"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300" data-mobile-carousel-target="indicator" data-slide="<%= index - 1 %>"></div>
         <% end %>
       </div>
     </div>

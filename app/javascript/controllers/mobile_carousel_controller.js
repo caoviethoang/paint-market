@@ -20,29 +20,26 @@ export default class extends Controller {
   }
   
   addTouchListeners() {
-    const carousel = document.getElementById('mobile-carousel')
-    if (carousel) {
-      carousel.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false })
-      carousel.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false })
-      carousel.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false })
+    if (this.hasCarouselTarget) {
+      this.carouselTarget.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false })
+      this.carouselTarget.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false })
+      this.carouselTarget.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false })
     }
   }
   
   removeTouchListeners() {
-    const carousel = document.getElementById('mobile-carousel')
-    if (carousel) {
-      carousel.removeEventListener('touchstart', this.handleTouchStart.bind(this))
-      carousel.removeEventListener('touchmove', this.handleTouchMove.bind(this))
-      carousel.removeEventListener('touchend', this.handleTouchEnd.bind(this))
+    if (this.hasCarouselTarget) {
+      this.carouselTarget.removeEventListener('touchstart', this.handleTouchStart.bind(this))
+      this.carouselTarget.removeEventListener('touchmove', this.handleTouchMove.bind(this))
+      this.carouselTarget.removeEventListener('touchend', this.handleTouchEnd.bind(this))
     }
   }
   
   handleTouchStart(e) {
     this.startX = e.touches[0].clientX
     this.isDragging = true
-    const carousel = document.getElementById('mobile-carousel')
-    if (carousel) {
-      carousel.style.transition = 'none'
+    if (this.hasCarouselTarget) {
+      this.carouselTarget.style.transition = 'none'
     }
   }
   
@@ -53,9 +50,8 @@ export default class extends Controller {
     const diffX = this.currentX - this.startX
     const translateX = -this.currentSlide * 45 + (diffX / window.innerWidth) * 45
     
-    const carousel = document.getElementById('mobile-carousel')
-    if (carousel) {
-      carousel.style.transform = `translateX(${translateX}%)`
+    if (this.hasCarouselTarget) {
+      this.carouselTarget.style.transform = `translateX(${translateX}%)`
     }
   }
   
@@ -66,9 +62,8 @@ export default class extends Controller {
     const diffX = this.currentX - this.startX
     const threshold = window.innerWidth * 0.2 // 20% of screen width
     
-    const carousel = document.getElementById('mobile-carousel')
-    if (carousel) {
-      carousel.style.transition = 'transform 0.3s ease-in-out'
+    if (this.hasCarouselTarget) {
+      this.carouselTarget.style.transition = 'transform 0.3s ease-in-out'
     }
     
     if (Math.abs(diffX) > threshold) {
@@ -105,22 +100,22 @@ export default class extends Controller {
   
   updateCarousel() {
     const translateX = -this.currentSlide * 45 // 45% per slide since each image is 45% width
-    const carousel = document.getElementById('mobile-carousel')
-    if (carousel) {
-      carousel.style.transform = `translateX(${translateX}%)`
+    if (this.hasCarouselTarget) {
+      this.carouselTarget.style.transform = `translateX(${translateX}%)`
     }
   }
   
   updateIndicators() {
-    const indicators = document.querySelectorAll('.carousel-indicator')
-    indicators.forEach((indicator, index) => {
-      if (index === this.currentSlide) {
-        indicator.classList.remove('bg-gray-300')
-        indicator.classList.add('bg-gray-700')
-      } else {
-        indicator.classList.remove('bg-gray-700')
-        indicator.classList.add('bg-gray-300')
-      }
-    })
+    if (this.hasIndicatorTargets) {
+      this.indicatorTargets.forEach((indicator, index) => {
+        if (index === this.currentSlide) {
+          indicator.classList.remove('bg-gray-300')
+          indicator.classList.add('bg-gray-700')
+        } else {
+          indicator.classList.remove('bg-gray-700')
+          indicator.classList.add('bg-gray-300')
+        }
+      })
+    }
   }
 }
