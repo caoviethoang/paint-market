@@ -159,10 +159,10 @@ function setupInteractiveElements() {
     updateCarousel();
   }
 
-  // Setup event detail carousel
+  // Setup event detail carousel (swipe-based like 7-images)
   const eventCarouselContainer = document.querySelector('[data-controller*="carousel"]');
   if (eventCarouselContainer) {
-    console.log('Setting up event detail carousel');
+    console.log('Setting up event detail carousel with swipe');
     
     let eventCurrentSlide = 0;
     const eventSlides = eventCarouselContainer.querySelectorAll('[data-carousel-target="slide"]');
@@ -171,20 +171,38 @@ function setupInteractiveElements() {
     if (eventSlides.length > 0 && eventSlidesWrapper) {
       console.log('Event carousel found with', eventSlides.length, 'slides');
       
+      // Calculate how many slides to show at once based on screen size
+      function getSlidesToShow() {
+        if (window.innerWidth < 640) return 1; // sm: 1 slide
+        if (window.innerWidth < 1024) return 2; // lg: 2 slides  
+        return 3; // xl: 3 slides
+      }
+      
       function updateEventCarousel() {
         if (eventSlides.length === 0) return;
         
+        const slidesToShow = getSlidesToShow();
+        const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
+        
+        // Clamp current slide to valid range
+        if (eventCurrentSlide > maxSlide) {
+          eventCurrentSlide = maxSlide;
+        }
+        
         const slideWidth = eventSlides[0].offsetWidth;
-        const gap = 8; // gap-2 = 8px
+        const gap = window.innerWidth < 640 ? 8 : 16; // gap-2 (8px) on mobile, gap-4 (16px) on desktop
         const translateX = -eventCurrentSlide * (slideWidth + gap);
         
-        console.log('Event carousel - slide:', eventCurrentSlide, 'translateX:', translateX);
+        console.log('Event carousel - slide:', eventCurrentSlide, 'translateX:', translateX, 'slidesToShow:', slidesToShow);
         eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
         eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
       }
       
       function nextEventSlide() {
-        if (eventCurrentSlide < eventSlides.length - 1) {
+        const slidesToShow = getSlidesToShow();
+        const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
+        
+        if (eventCurrentSlide < maxSlide) {
           eventCurrentSlide++;
         } else {
           eventCurrentSlide = 0; // Loop back to first slide
@@ -194,16 +212,19 @@ function setupInteractiveElements() {
       }
       
       function prevEventSlide() {
+        const slidesToShow = getSlidesToShow();
+        const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
+        
         if (eventCurrentSlide > 0) {
           eventCurrentSlide--;
         } else {
-          eventCurrentSlide = eventSlides.length - 1; // Loop to last slide
+          eventCurrentSlide = maxSlide; // Loop to last valid slide
         }
         console.log('Event carousel prev slide:', eventCurrentSlide);
         updateEventCarousel();
       }
       
-      // Setup prev/next buttons
+      // Setup prev/next buttons (desktop only)
       const prevButton = eventCarouselContainer.querySelector('[data-action*="carousel#prev"]');
       const nextButton = eventCarouselContainer.querySelector('[data-action*="carousel#next"]');
       
@@ -223,15 +244,18 @@ function setupInteractiveElements() {
         });
       }
       
-      // Setup touch/swipe support
+      // Enhanced touch/swipe support (primary interaction on mobile)
       let eventStartX = 0;
       let eventCurrentX = 0;
       let eventIsDragging = false;
+      let eventStartTime = 0;
       
       eventSlidesWrapper.addEventListener('touchstart', function(e) {
         eventStartX = e.touches[0].clientX;
+        eventStartTime = Date.now();
         eventIsDragging = true;
         eventSlidesWrapper.style.transition = 'none';
+        console.log('Event carousel touch start');
       });
       
       eventSlidesWrapper.addEventListener('touchmove', function(e) {
@@ -239,7 +263,7 @@ function setupInteractiveElements() {
         eventCurrentX = e.touches[0].clientX;
         const diffX = eventCurrentX - eventStartX;
         const slideWidth = eventSlides[0].offsetWidth;
-        const gap = 8;
+        const gap = window.innerWidth < 640 ? 8 : 16;
         const translateX = -eventCurrentSlide * (slideWidth + gap) + diffX;
         eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
       });
@@ -247,12 +271,16 @@ function setupInteractiveElements() {
       eventSlidesWrapper.addEventListener('touchend', function(e) {
         if (!eventIsDragging) return;
         eventIsDragging = false;
+        
         const diffX = eventCurrentX - eventStartX;
-        const threshold = window.innerWidth * 0.2;
+        const diffTime = Date.now() - eventStartTime;
+        const threshold = window.innerWidth * 0.15; // 15% of screen width
+        const velocity = Math.abs(diffX) / diffTime; // pixels per ms
         
         eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
         
-        if (Math.abs(diffX) > threshold) {
+        // Check for swipe gesture (distance or velocity)
+        if (Math.abs(diffX) > threshold || velocity > 0.5) {
           if (diffX > 0) {
             // Swipe right - go to previous slide
             prevEventSlide();
@@ -264,6 +292,53 @@ function setupInteractiveElements() {
           // Snap back to current slide
           updateEventCarousel();
         }
+        
+        console.log('Event carousel touch end - diffX:', diffX, 'velocity:', velocity);
+      });
+      
+      // Mouse support for desktop (optional)
+      let mouseStartX = 0;
+      let mouseIsDragging = false;
+      
+      eventSlidesWrapper.addEventListener('mousedown', function(e) {
+        mouseStartX = e.clientX;
+        mouseIsDragging = true;
+        eventSlidesWrapper.style.transition = 'none';
+        e.preventDefault();
+      });
+      
+      eventSlidesWrapper.addEventListener('mousemove', function(e) {
+        if (!mouseIsDragging) return;
+        const diffX = e.clientX - mouseStartX;
+        const slideWidth = eventSlides[0].offsetWidth;
+        const gap = 16;
+        const translateX = -eventCurrentSlide * (slideWidth + gap) + diffX;
+        eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
+      });
+      
+      eventSlidesWrapper.addEventListener('mouseup', function(e) {
+        if (!mouseIsDragging) return;
+        mouseIsDragging = false;
+        
+        const diffX = e.clientX - mouseStartX;
+        const threshold = 100; // 100px threshold for mouse
+        
+        eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
+        
+        if (Math.abs(diffX) > threshold) {
+          if (diffX > 0) {
+            prevEventSlide();
+          } else {
+            nextEventSlide();
+          }
+        } else {
+          updateEventCarousel();
+        }
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        updateEventCarousel();
       });
       
       // Initialize
