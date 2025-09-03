@@ -4,18 +4,21 @@ export default class extends Controller {
   static targets = ["slides", "slide", "scrollbar"]
 
   connect() {
+    console.log('Carousel controller connected');
     this.currentIndex = 0;
     this.showSlide();
     this.updateScrollbar()
   }
 
   next() {
+    console.log('Carousel next clicked');
     this.currentIndex = (this.currentIndex < this.slideTargets.length - 1) ? this.currentIndex + 1 : 0;
     this.showSlide();
     this. updateScrollbar();
   }
 
   prev() {
+    console.log('Carousel prev clicked');
     this.currentIndex = (this.currentIndex > 0) ? this.currentIndex - 1 : this.slideTargets.length - 1;
     this.showSlide();
     this. updateScrollbar();
@@ -28,8 +31,14 @@ export default class extends Controller {
   }
 
   showSlide() {
+    if (this.slideTargets.length === 0) return;
+    
     const slideWidth = this.slideTargets[0].offsetWidth;
-    this.slidesTarget.style.transform = `translateX(${-this.currentIndex * slideWidth}px)`;
+    const gap = 8; // 2 * 4px gap (gap-2 = 8px)
+    const translateX = -this.currentIndex * (slideWidth + gap);
+    
+    console.log('Showing slide:', this.currentIndex, 'translateX:', translateX);
+    this.slidesTarget.style.transform = `translateX(${translateX}px)`;
   }
 
   updateScrollbar() {

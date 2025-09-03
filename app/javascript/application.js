@@ -158,4 +158,116 @@ function setupInteractiveElements() {
     // Initialize
     updateCarousel();
   }
+
+  // Setup event detail carousel
+  const eventCarouselContainer = document.querySelector('[data-controller*="carousel"]');
+  if (eventCarouselContainer) {
+    console.log('Setting up event detail carousel');
+    
+    let eventCurrentSlide = 0;
+    const eventSlides = eventCarouselContainer.querySelectorAll('[data-carousel-target="slide"]');
+    const eventSlidesWrapper = eventCarouselContainer.querySelector('[data-carousel-target="slides"]');
+    
+    if (eventSlides.length > 0 && eventSlidesWrapper) {
+      console.log('Event carousel found with', eventSlides.length, 'slides');
+      
+      function updateEventCarousel() {
+        if (eventSlides.length === 0) return;
+        
+        const slideWidth = eventSlides[0].offsetWidth;
+        const gap = 8; // gap-2 = 8px
+        const translateX = -eventCurrentSlide * (slideWidth + gap);
+        
+        console.log('Event carousel - slide:', eventCurrentSlide, 'translateX:', translateX);
+        eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
+        eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
+      }
+      
+      function nextEventSlide() {
+        if (eventCurrentSlide < eventSlides.length - 1) {
+          eventCurrentSlide++;
+        } else {
+          eventCurrentSlide = 0; // Loop back to first slide
+        }
+        console.log('Event carousel next slide:', eventCurrentSlide);
+        updateEventCarousel();
+      }
+      
+      function prevEventSlide() {
+        if (eventCurrentSlide > 0) {
+          eventCurrentSlide--;
+        } else {
+          eventCurrentSlide = eventSlides.length - 1; // Loop to last slide
+        }
+        console.log('Event carousel prev slide:', eventCurrentSlide);
+        updateEventCarousel();
+      }
+      
+      // Setup prev/next buttons
+      const prevButton = eventCarouselContainer.querySelector('[data-action*="carousel#prev"]');
+      const nextButton = eventCarouselContainer.querySelector('[data-action*="carousel#next"]');
+      
+      if (prevButton) {
+        prevButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Event carousel prev button clicked');
+          prevEventSlide();
+        });
+      }
+      
+      if (nextButton) {
+        nextButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Event carousel next button clicked');
+          nextEventSlide();
+        });
+      }
+      
+      // Setup touch/swipe support
+      let eventStartX = 0;
+      let eventCurrentX = 0;
+      let eventIsDragging = false;
+      
+      eventSlidesWrapper.addEventListener('touchstart', function(e) {
+        eventStartX = e.touches[0].clientX;
+        eventIsDragging = true;
+        eventSlidesWrapper.style.transition = 'none';
+      });
+      
+      eventSlidesWrapper.addEventListener('touchmove', function(e) {
+        if (!eventIsDragging) return;
+        eventCurrentX = e.touches[0].clientX;
+        const diffX = eventCurrentX - eventStartX;
+        const slideWidth = eventSlides[0].offsetWidth;
+        const gap = 8;
+        const translateX = -eventCurrentSlide * (slideWidth + gap) + diffX;
+        eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
+      });
+      
+      eventSlidesWrapper.addEventListener('touchend', function(e) {
+        if (!eventIsDragging) return;
+        eventIsDragging = false;
+        const diffX = eventCurrentX - eventStartX;
+        const threshold = window.innerWidth * 0.2;
+        
+        eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
+        
+        if (Math.abs(diffX) > threshold) {
+          if (diffX > 0) {
+            // Swipe right - go to previous slide
+            prevEventSlide();
+          } else {
+            // Swipe left - go to next slide
+            nextEventSlide();
+          }
+        } else {
+          // Snap back to current slide
+          updateEventCarousel();
+        }
+      });
+      
+      // Initialize
+      updateEventCarousel();
+    }
+  }
 }

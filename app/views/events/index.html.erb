@@ -1,7 +1,7 @@
 <!-- Featured Show Section -->
-<section class="py-12 border-b-2 border-dashed border-gray-300">
-  <div class="mx-auto px-6 lg:px-8">
-    <h2 class="text-h3 font-bold text-gray-900 mb-8 text-left relative">
+<section class="py-8 lg:py-12 border-b-2 border-dashed border-gray-300">
+  <div class="mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-xl sm:text-2xl lg:text-h3 font-bold text-gray-900 mb-6 lg:mb-8 text-left relative">
       <span class="inline-block relative">
         <%= t('spree.events.pages.featured_show') %>
         <div class="absolute bg-gray-400 border-[1px] h-0.5 left-0 w-full"></div>
@@ -10,20 +10,20 @@
     
     <% if @featured_events&.any? %>
       <!-- Main Featured Events (2 events) -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-8 lg:mb-12">
         <% @featured_events.first(2).each do |event| %>
           <div class="group">
             <%= link_to detail_event_path(event), class: "block" do %>
               <div class="relative overflow-hidden group-hover:shadow-xl transition-shadow duration-300">
                 <%= image_tag event_image_url(event, :large),
-                    class: "object-cover group-hover:scale-105 transition-transform duration-300",
+                    class: "w-full h-48 sm:h-64 lg:h-80 object-cover group-hover:scale-105 transition-transform duration-300",
                     alt: event.title %>
               </div>
-              <div class="mt-4">
-                <h3 class="text-h5 font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+              <div class="mt-3 lg:mt-4">
+                <h3 class="text-lg sm:text-xl lg:text-h5 font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                   <%= event.title %>
                 </h3>
-                <p class="text-gray-600 mt-1">
+                <p class="text-sm sm:text-base text-gray-600 mt-1">
                   Ha Noi, <%= event.display_duration %>
                 </p>
               </div>
@@ -33,20 +33,20 @@
       </div>
 
       <!-- Secondary Featured Events (3 events) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <% @featured_events.drop(2).first(3).each do |event| %>
           <div class="group">
             <%= link_to detail_event_path(event), class: "block" do %>
               <div class="relative overflow-hidden shadow-md group-hover:transition-shadow duration-300">
                 <%= image_tag event_image_url(event, :medium),
-                    class: "object-cover group-hover:scale-105 transition-transform duration-300",
+                    class: "w-full h-40 sm:h-48 lg:h-56 object-cover group-hover:scale-105 transition-transform duration-300",
                     alt: event.title %>
               </div>
-              <div class="mt-3">
-                <h3 class="text-h5 font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+              <div class="mt-2 lg:mt-3">
+                <h3 class="text-base sm:text-lg lg:text-h5 font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
                   <%= event.title %>
                 </h3>
-                <p class="text-gray-600 text-sm mt-1">
+                <p class="text-xs sm:text-sm text-gray-600 mt-1">
                   Ha Noi, <%= event.display_duration %>
                 </p>
               </div>
@@ -61,35 +61,35 @@
 
 <!-- Current Show Section -->
 <% if @current_event %>
-  <section class="py-16">
-    <div class="mx-auto px-6">
-      <h2 class="text-h3 font-bold text-gray-900 mb-8 text-left relative">
+  <section class="py-8 lg:py-16">
+    <div class="mx-auto px-4 sm:px-6">
+      <h2 class="text-xl sm:text-2xl lg:text-h3 font-bold text-gray-900 mb-6 lg:mb-8 text-left relative">
         <span class="inline-block relative">
           <%= t('spree.events.pages.current_show') %>
           <div class="absolute bg-gray-400 border-[1px] h-0.5 left-0 w-full"></div>
         </span>
       </h2>
       
-      <div class="shadow-sm">
+      <div class="shadow-sm p-4 lg:p-6">
         <div>
-          <h3 class="text-h4 font-bold text-gray-900 mb-4">
+          <h3 class="text-lg sm:text-xl lg:text-h4 font-bold text-gray-900 mb-3 lg:mb-4">
             <%= @current_event.title %>
           </h3>
           
-          <div class="text-gray-600 mb-6">
-            <p class="text-h6">
+          <div class="text-gray-600 mb-4 lg:mb-6">
+            <p class="text-sm sm:text-base lg:text-h6">
               <%= "#{@current_event.start_time.strftime('%B %d')} - #{@current_event.end_time.strftime('%B %d, %Y')}" %>
             </p>
           </div>
           
           <% if @current_event.location.present? %>
-            <div class="text-gray-700 mb-4">
-              <p><%= @current_event.location %></p>
+            <div class="text-gray-700 mb-3 lg:mb-4">
+              <p class="text-sm sm:text-base"><%= @current_event.location %></p>
             </div>
           <% end %>
           
           <div class="text-gray-700">
-            <p><%= @current_event.display_operating_hours %></p>
+            <p class="text-sm sm:text-base"><%= @current_event.display_operating_hours %></p>
           </div>
         </div>
       </div>
@@ -97,15 +97,15 @@
   </section>
 <% end %>
 
-<div class="mt-8 mb-8 mx-auto px-6">
-  <h2 class="mb-6 text-2xl font-bold text-gray-900"><%= @all_products.count %> <%= t('spree.events.pages.art_works') %></h2>
+<div class="mt-6 lg:mt-8 mb-6 lg:mb-8 mx-auto px-4 sm:px-6">
+  <h2 class="mb-4 lg:mb-6 text-lg sm:text-xl lg:text-2xl font-bold text-gray-900"><%= @all_products.count %> <%= t('spree.events.pages.art_works') %></h2>
   <%= render 'products/products', products: @all_products, taxon: nil %>
   
   <!-- View All Button -->
-  <div class="text-center mt-8">
-    <%= link_to products_path, class: "bg-[#424242] font-medium hover:bg-gray-800 inline-flex items-center px-6 py-3 text-white transition-colors" do %>
+  <div class="text-center mt-6 lg:mt-8">
+    <%= link_to products_path, class: "bg-[#424242] font-medium hover:bg-gray-800 inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base text-white transition-colors" do %>
       <%= t('spree.events.pages.view_all') %>
-      <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="ml-2 -mr-1 w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
       </svg>
     <% end %>
@@ -114,12 +114,12 @@
 
 <div class="mt-4 bg-[#fdf3e2] overflow-hidden">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
-    <div class="flex flex-col justify-center lg:p-16 p-12 text-center">
-      <h2 class="font-bold font-serif leading-tight lg:text-5xl mb-8 text-gray-900 text-h2.5">
+    <div class="flex flex-col justify-center lg:p-16 p-6 sm:p-8 lg:p-12 text-center">
+      <h2 class="font-bold font-serif leading-tight text-2xl sm:text-3xl lg:text-5xl mb-6 lg:mb-8 text-gray-900">
         <%= t('spree.events.pages.discover_art').html_safe %>
       </h2>
       <div class="flex justify-center">
-        <button class="border-2 border-gray-800 px-8 py-4 text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300">
+        <button class="border-2 border-gray-800 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300">
           <% if spree_user_signed_in? %>
             <%= link_to t('spree.events.pages.buy_now'), products_path %>
           <% else %>
@@ -129,13 +129,13 @@
       </div>
     </div>
     
-      <div class="min-h-[50vh]" style="height: 315px;">
+      <div class="min-h-[40vh] sm:min-h-[50vh]" style="height: 250px; sm:height: 315px;">
       <iframe
         src="<%= youtube_embed_url(@current_event.youtube_url) %>"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
-        class="w-1/2 h-full w-full"
+        class="w-full h-full"
       ></iframe>
     </div>
   </div>
