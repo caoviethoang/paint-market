@@ -1,5 +1,5 @@
 <header class="product-header mt-12 lg:mt-3">
-  <div class="grid grid-cols-2 border-t border-dashed border-gray-500 py-3">
+  <div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-3">
     <!-- Cột trái: Label -->
     <span class="font-sans-sm text-gray-600">Title</span>
 
@@ -10,7 +10,7 @@
   </div>
 
   <% if product.price_for_options(current_pricing_options)&.money && !product.price.nil? %>
-    <div class="grid grid-cols-2 border-t border-dashed border-gray-500 py-3">
+    <div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-3">
       <!-- Label -->
       <span class="font-sans-sm text-gray-600">Price</span>
 
