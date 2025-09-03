@@ -176,14 +176,21 @@
     </div>
 
     <!-- Mobile Layout - Swipe Carousel (2 images + peek) -->
-    <div class="md:hidden 7-images-mobile mt-4 px-4 py-4 w-full" data-controller="mobile-carousel">
+    <div class="md:hidden 7-images-mobile px-4 w-full" data-controller="mobile-carousel">
       <div class="relative overflow-hidden">
-        <div class="flex transition-transform duration-300 ease-in-out" id="mobile-carousel" data-mobile-carousel-target="carousel" style="touch-action: pan-y;">
+        <div class="flex transition-transform duration-300 ease-in-out gap-3" id="mobile-carousel" data-mobile-carousel-target="carousel" style="touch-action: pan-x;">
           <% (1..7).each do |index| %>
             <div class="flex-shrink-0 px-1" style="width: 45%;">
-              <div class="relative overflow-hidden shadow-md">
+              <div class="relative overflow-hidden shadow-md" style="<%= case index
+                          when 1, 3, 5, 7
+                            'height: 252px;'
+                          when 2, 6
+                            'height: 280px;'
+                          when 4
+                            'height: 200px;'
+                          end %>">
                 <%= image_tag image_path("image_#{index}.png"),
-                    class: "w-full h-32 object-cover",
+                    class: "w-full h-full object-cover",
                     alt: "Art Image #{index}",
                     loading: "eager" %>
               </div>
@@ -194,8 +201,8 @@
 
       <!-- Carousel Indicators -->
       <div class="flex justify-center mt-4 space-x-2">
-        <% (1..6).each do |index| %>
-          <div class="w-2 h-2 rounded-full bg-gray-300" data-mobile-carousel-target="indicator" data-slide="<%= index - 1 %>"></div>
+        <% (0..5).each do |index| %>
+          <div class="w-2 h-2 rounded-full bg-gray-300 carousel-indicator cursor-pointer" data-mobile-carousel-target="indicator" data-slide="<%= index %>" data-action="click->mobile-carousel#goToSlide"></div>
         <% end %>
       </div>
     </div>
