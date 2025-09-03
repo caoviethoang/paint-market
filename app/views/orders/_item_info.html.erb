@@ -9,31 +9,31 @@
   class_names = classes.push(base_class).join(" ")
 %>
 
-<div class="<%= class_names %> flex flex-col gap-y-2">
-  <h3 class="<%= base_class %>__name text-lg font-semibold text-gray-900 hover:text-red-600 transition-colors">
+<div class="<%= class_names %> flex flex-col gap-y-3 lg:gap-y-2">
+  <h3 class="<%= base_class %>__name text-body-lg lg:text-lg lg:font-semibold lg:text-gray-900 lg:hover:text-red-600 lg:transition-colors">
     <%= link_to line_item.name, product_path(variant.product) %>
   </h3>
 
   <% if defined?(line_item.single_money) %>
-    <p class="text-sm text-gray-600">
+    <p class="font-sans-md text-body-sm lg:text-sm lg:text-gray-600">
       <%= line_item.single_money.to_html %>
     </p>
   <% end %>
 
   <% if line_item.product.property('size').present? %>
-    <p class="<%= base_class %>__options text-sm text-gray-600">
+    <p class="<%= base_class %>__options text-body lg:text-sm lg:text-gray-600">
       <%= line_item.product.property('size') %>
     </p>
   <% end %>
 
   <% if variant.options_text.present? %>
-    <p class="<%= base_class %>__options text-sm text-gray-600">
+    <p class="<%= base_class %>__options text-body lg:text-sm lg:text-gray-600">
       <%= variant.options_text %>
     </p>
   <% end %>
 
   <% if stock_info && line_item.insufficient_stock? %>
-    <p class="<%= base_class %>__stock text-sm font-medium text-red-600">
+    <p class="<%= base_class %>__stock font-sans text-body-sm lg:text-sm lg:font-medium lg:text-red-600">
       <%= t('spree.out_of_stock') %>
     </p>
   <% end %>

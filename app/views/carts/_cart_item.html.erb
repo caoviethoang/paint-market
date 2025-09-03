@@ -1,8 +1,9 @@
 <% variant = line_item.variant %>
 
 <%= order_form.fields_for :line_items, line_item do |item_form| %>
-  <article class="cart-item py-6 border-b-[1px] border-b-gray-200 grid-container">
-    <div class="aspect-square col-span-1 flex items-center justify-center md:col-span-3 min-h-[60px] min-w-[60px] p-2">
+  <article class="cart-item py-6 lg:py-6 border-b-[1px] border-b-gray-200 grid-container">
+    <!-- Desktop Layout: Grid -->
+    <div class="hidden lg:block aspect-square col-span-1 flex items-center justify-center md:col-span-3 min-h-[60px] min-w-[60px] p-2">
       <%= link_to(
         render(ImageComponent.new(
           image: variant.gallery.images.first || variant.product.gallery.images.first,
@@ -12,7 +13,7 @@
       ) %>
     </div>
 
-    <div class="flex justify-between items-center col-span-3 md:col-span-5">
+    <div class="hidden lg:flex justify-between items-center col-span-3 md:col-span-5">
       <%= render(
         'orders/item_info',
         line_item: line_item,
@@ -24,7 +25,7 @@
       </div>
     </div>
 
-    <div class="flex sm:col-span-4">
+    <div class="hidden lg:flex sm:col-span-4">
       <div class="flex items-center justify-between w-full">
         <div class="cart-item__price hidden md:block col-span-2">
           <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
@@ -37,6 +38,51 @@
 
       <div class="hidden md:flex items-center justify-end gap-x-2">
         <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
+      </div>
+    </div>
+
+    <!-- Mobile Layout: Stack vertically -->
+    <div class="lg:hidden flex flex-col sm:flex-row gap-4">
+      <!-- Product Image -->
+      <div class="flex-shrink-0 w-full sm:w-24 h-24 flex items-center justify-center bg-gray-100 rounded-lg">
+        <%= link_to(
+          render(ImageComponent.new(
+            image: variant.gallery.images.first || variant.product.gallery.images.first,
+            size: :small,
+            class: 'w-full h-full object-cover rounded-lg'
+          )),
+          variant.product
+        ) %>
+      </div>
+
+      <!-- Product Info -->
+      <div class="flex-1 min-w-0">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+          <!-- Product Details -->
+          <div class="flex-1 min-w-0">
+            <%= render(
+              'orders/item_info',
+              line_item: line_item,
+              variant: variant,
+              classes: ['cart-item__info']
+            ) %>
+          </div>
+
+          <!-- Price and Actions -->
+          <div class="flex items-center justify-between sm:flex-col sm:items-end gap-2">
+            <!-- Price -->
+            <div class="cart-item__price">
+              <p class="font-bold text-lg text-gray-900">
+                <%= line_item.display_amount.to_html unless line_item.quantity.nil? %>
+              </p>
+            </div>
+
+            <!-- Remove Button -->
+            <div class="flex items-center gap-x-2">
+              <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </article>
