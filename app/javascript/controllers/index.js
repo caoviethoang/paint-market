@@ -14,6 +14,7 @@ import ImageOptimizationController from "./image_optimization_controller"
 import LightboxController from "./lightbox_controller"
 import LocaleSelectorController from "./locale_selector_controller"
 import MobileCarouselController from "./mobile_carousel_controller"
+import MobileFilterController from "./mobile_filter_controller"
 import SearchController from "./search_controller"
 import ThemeSwitcherController from "./theme_switcher_controller"
 import TopBarController from "./top_bar_controller"
@@ -30,6 +31,7 @@ application.register("image-optimization", ImageOptimizationController)
 application.register("lightbox", LightboxController)
 application.register("locale-selector", LocaleSelectorController)
 application.register("mobile-carousel", MobileCarouselController)
+application.register("mobile-filter", MobileFilterController)
 application.register("search", SearchController)
 application.register("theme-switcher", ThemeSwitcherController)
 application.register("top-bar", TopBarController)

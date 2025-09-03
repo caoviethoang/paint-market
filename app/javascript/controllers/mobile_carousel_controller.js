@@ -7,7 +7,9 @@ export default class extends Controller {
     this.currentSlide = 0
     this.totalImages = 7
     this.imagesPerView = 2.2 // Show 2 full images + 0.2 peek of next
-    this.totalSlides = this.totalImages - this.imagesPerView + 1 // 7 - 2.2 + 1 = 5.8 ≈ 6 slides
+    // Calculate total slides: with 7 images at 45% width each, we need to scroll to show all
+    // Total width = 7 * 45% = 315%, visible = 100%, so we need 5 slides to show all images
+    this.totalSlides = 5 // 0, 1, 2, 3, 4 (5 positions to show all 7 images)
     this.startX = 0
     this.currentX = 0
     this.isDragging = false
@@ -183,11 +185,20 @@ export default class extends Controller {
   }
   
   updateCarousel() {
-    // Calculate translateX based on image width (45%) and current slide
+    // Calculate translateX to show all images
+    // With 7 images at 45% width each, total width is 315%
+    // We need to scroll to show the last image (image 7)
+    // Last slide should show images 6 and 7, so translateX = -4 * 45% = -180%
     const translateX = -this.currentSlide * 45 // 45% per slide since each image is 45% width
     console.log('Updating carousel - slide:', this.currentSlide, 'translateX:', translateX)
     if (this.hasCarouselTarget) {
       this.carouselTarget.style.transform = `translateX(${translateX}%)`
+    }
+    
+    // Update slide counter
+    const slideCounter = document.getElementById('current-slide')
+    if (slideCounter) {
+      slideCounter.textContent = this.currentSlide
     }
   }
   

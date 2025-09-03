@@ -13,9 +13,20 @@
   </section>
 <% end %>
 
-<div class="mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-20">
+<div class="mx-auto px-4 sm:px-6 lg:px-8 mt-2 mb-20" data-controller="mobile-filter">
+  <!-- Mobile Filter Button -->
+  <div class="md:hidden mb-4">
+    <button class="flex items-center gap-2 px-4 py-2 border border-gray-300 w-full bg-white hover:bg-gray-50 transition-colors" data-action="click->mobile-filter#toggle">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <span class="text-sm font-medium">FILTERD BY</span>
+    </button>
+  </div>
+
   <div class="flex flex-col lg:flex-row gap-8">
-    <aside class="wrapper">
+    <!-- Desktop Filter Sidebar -->
+    <aside class="wrapper hidden md:block">
       <% if "products" == params[:controller] && @taxon %>
         <%= render 'shared/search/filters', taxon: @taxon %>
       <% else %>
@@ -23,6 +34,31 @@
         <%= render 'shared/search/filters', taxon: @taxon %>
       <% end %>
     </aside>
+
+    <!-- Mobile Filter Modal -->
+    <div id="mobile-filter-modal" class="fixed inset-0 z-50 hidden" data-mobile-filter-modal-target="modal">
+      <div class="fixed inset-0 bg-black bg-opacity-50" data-action="click->mobile-filter#toggle"></div>
+      <div class="fixed right-0 top-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out" data-mobile-filter-sidebar-target="sidebar">
+        <div class="p-4 border-b">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">Filtered by</h3>
+            <button class="p-2 hover:bg-gray-100 rounded-full" data-action="click->mobile-filter#toggle">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="p-4 overflow-y-auto">
+          <% if "products" == params[:controller] && @taxon %>
+            <%= render 'shared/search/filters', taxon: @taxon %>
+          <% else %>
+            <%= render 'shared/navigation/taxonomies', taxon: @taxon %>
+            <%= render 'shared/search/filters', taxon: @taxon %>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
     <!-- Main Content -->
     <section class="flex-1">
