@@ -54,7 +54,7 @@ group :development, :test do
   gem "factory_bot", ">= 4.8"
   gem "factory_bot_rails"
   gem "ffaker", "~> 2.13"
-  gem "rubocop", "~> 1.0"
+  gem "rubocop", "~> 1.80"
   gem "rubocop-performance", "~> 1.5"
   gem "rubocop-rails", "~> 2.3"
   gem "rubocop-rspec", "~> 2.0"
