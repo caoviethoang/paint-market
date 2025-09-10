@@ -8,11 +8,11 @@
       padding: 0;
       margin: 0;
     }
-    
+
     .pagination li {
       margin: 0;
     }
-    
+
     /* Đảm bảo spacing đẹp */
     .pagination .inline-flex {
       margin: 0 2px;
@@ -22,21 +22,21 @@
   <% if @event.display_image_urls(:medium).present? %>
     <div class="relative" data-controller="carousel lightbox">
       <!-- Nút Prev -->
-      <button data-action="click->carousel#prev" 
+      <button data-action="click->carousel#prev"
               class="absolute left-1 sm:left-0 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 bg-white rounded-full shadow-md z-10">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6" fill="none" 
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-      
+
       <!-- Nút Next -->
-      <button data-action="click->carousel#next" 
+      <button data-action="click->carousel#next"
               class="absolute right-1 sm:right-0 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 bg-white rounded-full shadow-md z-10">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6" fill="none" 
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M9 5l7 7-7 7" />
         </svg>
       </button>
@@ -44,7 +44,7 @@
       <!-- Carousel -->
       <div class="overflow-hidden">
         <!-- slides wrapper (bắt buộc cho Stimulus carousel) -->
-        <div data-carousel-target="slides" 
+        <div data-carousel-target="slides"
             class="flex flex-1 gap-2 sm:gap-4 transition-transform duration-300 ease-in-out">
           <% @event.display_image_urls(:medium).each_with_index do |url, index| %>
             <%= image_tag url,
@@ -64,27 +64,27 @@
           data-action="click->lightbox#closeBackground"
           class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999] hidden">
         <div class="relative">
-          <img data-lightbox-target="image" src="" alt="Ảnh phóng to" 
+          <img data-lightbox-target="image" src="" alt="Ảnh phóng to"
               class="max-w-[90%] max-h-[90%] transition-transform duration-200">
-          <button data-action="lightbox#close" 
+          <button data-action="lightbox#close"
                   class="absolute mr-4 right-0 text-h2.5 top-0">&times;</button>
 
           <!-- Nút Zoom -->
           <div class="absolute flex items-center bg-black bg-opacity-50 rounded-full text-white z-20">
-            <button data-action="lightbox#zoomIn" 
+            <button data-action="lightbox#zoomIn"
                     class="p-1 hover:bg-opacity-75 rounded-l-full">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" 
+              <svg class="w-5 h-5" fill="none" stroke="currentColor"
                   viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M12 4v16m8-8H4"></path>
               </svg>
             </button>
             <div class="h-5 w-px bg-white bg-opacity-50"></div>
-            <button data-action="lightbox#zoomOut" 
+            <button data-action="lightbox#zoomOut"
                     class="p-1 hover:bg-opacity-75 rounded-r-full">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" 
+              <svg class="w-5 h-5" fill="none" stroke="currentColor"
                   viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M20 12H4"></path>
               </svg>
             </button>
@@ -100,10 +100,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           <div>
             <h3 class="text-base sm:text-lg text-gray-500"><%= t('spree.events.pages.show') %></h3>
-            <h2 class="text-xl sm:text-2xl lg:text-h3 font-serif leading-tight">
+            <h2 class="text-xl sm:text-2xl lg:text-h3 leading-tight">
               <%= @event.title %>
             </h2>
-            <p class="text-lg sm:text-xl lg:text-h4 font-serif text-gray-500 mt-3 sm:mt-4">
+            <p class="text-lg sm:text-xl lg:text-h4 text-gray-500 mt-3 sm:mt-4">
               <%= @event.start_time.strftime('%B %e') %> – <%= @event.end_time.strftime('%B %e, %Y') %>
             </p>
 
@@ -140,7 +140,7 @@
 <div class="mt-4 bg-[#fdf3e2] overflow-hidden">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
     <div class="flex flex-col justify-center lg:p-16 p-6 sm:p-8 lg:p-12 text-center">
-      <h2 class="font-bold font-serif leading-tight text-2xl sm:text-3xl lg:text-5xl mb-6 lg:mb-8 text-gray-900">
+      <h2 class="font-bold leading-tight text-2xl sm:text-3xl lg:text-5xl mb-6 lg:mb-8 text-gray-900">
         <%= t('spree.events.pages.discover_art').html_safe %>
       </h2>
       <div class="flex justify-center">
@@ -153,7 +153,7 @@
         </button>
       </div>
     </div>
-    
+
       <div class="min-h-[40vh] sm:min-h-[50vh]" style="height: 250px; sm:height: 315px;">
       <iframe
         src="<%= youtube_embed_url(@event.youtube_url) %>"

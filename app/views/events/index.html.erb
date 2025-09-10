@@ -7,7 +7,7 @@
         <div class="absolute bg-gray-400 border-[1px] h-0.5 left-0 w-full"></div>
       </span>
     </h2>
-    
+
     <% if @featured_events&.any? %>
       <!-- Main Featured Events (2 events) -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-8 lg:mb-12">
@@ -69,25 +69,25 @@
           <div class="absolute bg-gray-400 border-[1px] h-0.5 left-0 w-full"></div>
         </span>
       </h2>
-      
+
       <div class="shadow-sm p-4 lg:p-6">
         <div>
           <h3 class="text-lg sm:text-xl lg:text-h4 font-bold text-gray-900 mb-3 lg:mb-4">
             <%= @current_event.title %>
           </h3>
-          
+
           <div class="text-gray-600 mb-4 lg:mb-6">
             <p class="text-sm sm:text-base lg:text-h6">
               <%= "#{@current_event.start_time.strftime('%B %d')} - #{@current_event.end_time.strftime('%B %d, %Y')}" %>
             </p>
           </div>
-          
+
           <% if @current_event.location.present? %>
             <div class="text-gray-700 mb-3 lg:mb-4">
               <p class="text-sm sm:text-base"><%= @current_event.location %></p>
             </div>
           <% end %>
-          
+
           <div class="text-gray-700">
             <p class="text-sm sm:text-base"><%= @current_event.display_operating_hours %></p>
           </div>
@@ -100,7 +100,7 @@
 <div class="mt-6 lg:mt-8 mb-6 lg:mb-8 mx-auto px-4 sm:px-6">
   <h2 class="mb-4 lg:mb-6 text-lg sm:text-xl lg:text-2xl font-bold text-gray-900"><%= @all_products.count %> <%= t('spree.events.pages.art_works') %></h2>
   <%= render 'products/products', products: @all_products, taxon: nil %>
-  
+
   <!-- View All Button -->
   <div class="text-center mt-6 lg:mt-8">
     <%= link_to products_path, class: "bg-[#424242] font-medium hover:bg-gray-800 inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base text-white transition-colors" do %>
@@ -115,7 +115,7 @@
 <div class="mt-4 bg-[#fdf3e2] overflow-hidden">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
     <div class="flex flex-col justify-center lg:p-16 p-6 sm:p-8 lg:p-12 text-center">
-      <h2 class="font-bold font-serif leading-tight text-2xl sm:text-3xl lg:text-5xl mb-6 lg:mb-8 text-gray-900">
+      <h2 class="font-bold leading-tight text-2xl sm:text-3xl lg:text-5xl mb-6 lg:mb-8 text-gray-900">
         <%= t('spree.events.pages.discover_art').html_safe %>
       </h2>
       <div class="flex justify-center">
@@ -128,7 +128,7 @@
         </button>
       </div>
     </div>
-    
+
       <div class="min-h-[40vh] sm:min-h-[50vh]" style="height: 250px; sm:height: 315px;">
       <iframe
         src="<%= youtube_embed_url(@current_event.youtube_url) %>"
