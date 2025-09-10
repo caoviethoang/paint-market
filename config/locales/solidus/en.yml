@@ -2470,6 +2470,7 @@ en:
       customer_email: Customer email
       email_placeholder: name@example.com
     product:
+      title: Title
       artist: Artist
       size: Size
       description: Description

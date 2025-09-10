@@ -1351,6 +1351,7 @@ vi:
       customer_email: Email khách hàng
       email_placeholder: name@example.com
     product:
+      title: Tên tranh
       artist: Họa sĩ
       size: Kích thước
       description: Mô tả
