@@ -10,12 +10,12 @@
 <% end %>
 
 <% if products.empty? %>
-  <span class="products__results-title font-serif-md text-body-20 mb-6 lg:text-body-lg">
+  <span class="products__results-title text-body-20 mb-6 lg:text-body-lg">
     <%= t('spree.no_products_found') %>
   </span>
 <% else %>
   <% if params.key?(:keywords) %>
-    <span class="products__results-title font-serif-md text-body-20 mb-6 lg:text-body-lg">
+    <span class="products__results-title text-body-20 mb-6 lg:text-body-lg">
       <%= t('spree.search_results', keywords: h(params[:keywords])) %>
     </span>
   <% end %>

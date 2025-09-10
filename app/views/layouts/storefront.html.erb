@@ -26,7 +26,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         console.log('Fallback JavaScript loaded');
-        
+
         // Fallback for locale selector
         const localeSelectors = document.querySelectorAll('select[name="switch_to_locale"]');
         localeSelectors.forEach(function(selector) {
@@ -73,7 +73,7 @@
             console.log('Hamburger menu clicked');
             const drawer = document.querySelector('[data-drawer-target="drawer"]');
             const overlay = document.getElementById('overlay');
-            
+
             if (drawer && overlay) {
               drawer.classList.toggle('-translate-x-full');
               overlay.classList.toggle('hidden');
@@ -86,20 +86,20 @@
         const carouselContainer = document.getElementById('mobile-carousel');
         if (carouselContainer) {
           console.log('Mobile carousel found, setting up touch events');
-          
+
           let startX = 0;
           let currentX = 0;
           let isDragging = false;
           let currentSlide = 0;
           const totalSlides = 6; // 7 images but showing 2 at a time = 6 slides (0-5)
-          
+
           function updateCarousel() {
             const translateX = -currentSlide * 45;
             console.log('Storefront fallback carousel - slide:', currentSlide, 'translateX:', translateX);
             carouselContainer.style.transform = `translateX(${translateX}%)`;
             updateIndicators();
           }
-          
+
           function updateIndicators() {
             const indicators = document.querySelectorAll('.carousel-indicator');
             indicators.forEach((indicator, index) => {
@@ -112,7 +112,7 @@
               }
             });
           }
-          
+
           function nextSlide() {
             if (currentSlide < totalSlides - 1) {
               currentSlide++;
@@ -122,7 +122,7 @@
             console.log('Storefront fallback next slide:', currentSlide);
             updateCarousel();
           }
-          
+
           function prevSlide() {
             if (currentSlide > 0) {
               currentSlide--;
@@ -132,13 +132,13 @@
             console.log('Storefront fallback previous slide:', currentSlide);
             updateCarousel();
           }
-          
+
           carouselContainer.addEventListener('touchstart', function(e) {
             startX = e.touches[0].clientX;
             isDragging = true;
             carouselContainer.style.transition = 'none';
           });
-          
+
           carouselContainer.addEventListener('touchmove', function(e) {
             if (!isDragging) return;
             currentX = e.touches[0].clientX;
@@ -146,15 +146,15 @@
             const translateX = -currentSlide * 45 + (diffX / window.innerWidth) * 45;
             carouselContainer.style.transform = `translateX(${translateX}%)`;
           });
-          
+
           carouselContainer.addEventListener('touchend', function(e) {
             if (!isDragging) return;
             isDragging = false;
             const diffX = currentX - startX;
             const threshold = window.innerWidth * 0.2;
-            
+
             carouselContainer.style.transition = 'transform 0.3s ease-in-out';
-            
+
             if (Math.abs(diffX) > threshold) {
               if (diffX > 0) {
                 // Swipe right - go to previous slide
@@ -168,7 +168,7 @@
               updateCarousel();
             }
           });
-          
+
           // Initialize
           updateCarousel();
         }
@@ -200,7 +200,7 @@
     <%= yield :head %>
   </head>
 
-  <body class="<%= body_class %> font-serif" id="<%= @body_id || 'default' %>" data-turbo="false"  data-controller="drawer">
+  <body class="<%= body_class %> " id="<%= @body_id || 'default' %>" data-turbo="false"  data-controller="drawer">
     <div class="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <%= render 'layouts/header', taxons: @taxons, taxon: @taxon %>
       <main>
