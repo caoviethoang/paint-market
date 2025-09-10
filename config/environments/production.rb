@@ -29,6 +29,10 @@ Rails.application.configure do
   end
   config.active_storage.variant_processor = :mini_magick
   
+  # Optimize image processing to reduce memory usage
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
+  config.active_storage.draw_routes = false
+  
   # Disable ActiveRecord encryption for Heroku
   config.active_record.encryption.primary_key = nil
   config.active_record.encryption.deterministic_key = nil
@@ -61,8 +65,8 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :memory_store
+  # Use memory store with size limit to prevent memory leaks
+  config.cache_store = :memory_store, { size: 16.megabytes }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
