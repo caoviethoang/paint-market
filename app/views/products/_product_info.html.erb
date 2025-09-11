@@ -9,11 +9,17 @@
 
 <div class="border-t border-dashed border-gray-500 py-3 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
-  <span class="font-sans-sm text-gray-600"><%= t('spree.product.size') %></span>
+  <span class="font-sans-sm text-gray-600"><%= t('spree.product.details') %></span>
   <!-- Value -->
-  <p class="font-sans text-body" itemprop="name">
-    <%= product.property('size') rescue t('spree.product_has_no_name') %>
-  </p>
+  <div class="font-sans text-body">
+    <% if product.properties.any? %>
+      <% product.properties.each do |property| %>
+        <div class="mb-2"><%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= product.property(property.name) rescue 'N/A' %></div>
+      <% end %>
+    <% else %>
+      <%= t('spree.product.no_details') %>
+    <% end %>
+  </div>
 </div>
 
 <div class="border-t border-dashed border-gray-500 py-3 grid lg:grid-cols-2 md:grid-cols-2">

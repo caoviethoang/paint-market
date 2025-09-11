@@ -287,7 +287,7 @@ vi:
     add_state: Thêm bang
     add_stock: Thêm hàng hoá
     add_stock_management: Tạo quản lý hàng
-    add_to_cart: Cho vào sọt
+    add_to_cart: Thêm vào giỏ hàng
     add_variant: Tạo biến thể
     additional_item: Giá phải trả thêm
     address1: "Địa chỉ"
@@ -395,7 +395,7 @@ vi:
     card_number: Số thẻ
     card_type:
     card_type_is: Loại thẻ là
-    cart: Sọt hàng
+    cart: Giỏ hàng
     cart_subtotal:
     categories: Loại mặt hàng
     category: Loại mặt hàng
@@ -525,7 +525,7 @@ vi:
         not_first_order:
     email: Email
     empty: Trống
-    empty_cart: Làm rỗng sọt
+    empty_cart: Giỏ hàng trống
     enable_mail_delivery: Cho phép vận chuyển thư
     end: Kết thúc
     ending_in: Kết thúc trong
@@ -543,7 +543,7 @@ vi:
     events:
       spree:
         cart:
-          add: Cho vào sọt
+          add: Thêm vào giỏ hàng
         checkout:
           coupon_code_added: Mã coupon đã được thêm vào
         content:
@@ -639,7 +639,7 @@ vi:
     invalid_promotion_rule: Luật khuyến mại không đúng.
     inventory: Hàng
     inventory_adjustment: "Điều chỉnh hàng tồn"
-    inventory_error_flash_for_insufficient_quantity: Một sản phẩm trong sọt của bạn đã cháy hàng.
+    inventory_error_flash_for_insufficient_quantity: Một sản phẩm trong giỏ hàng của bạn đã cháy hàng.
     inventory_state:
     is_not_available_to_shipment_address: không thể chuyển đến địa chỉ chỉ định
     iso_name: Tên ISO
@@ -1095,7 +1095,7 @@ vi:
     shipping_price_sack: Xô giá
     shipping_total:
     shop_by_taxonomy: Mua theo %{taxonomy}
-    shopping_cart: Sọt mua sắm
+    shopping_cart: Giỏ hàng
     show: Xem
     show_active: Liệt kê đơn còn hiệu lực
     show_deleted: Hiện đơn hàng đã xóa
@@ -1266,7 +1266,7 @@ vi:
     width: Rộng
     year: Năm
     you_have_no_orders_yet: You have no orders yet.
-    your_cart_is_empty: Sọt hàng rỗng
+    your_cart_is_empty: Giỏ hàng rỗng
     you_have_no_items_in_your_shopping_cart: Đơn hàng của bạn rỗng, xin hay tìm và thêm vào sản phẩm
     your_order_is_empty_add_product: "Đơn hàng của bạn rỗng, xin hay tìm và thêm vào sản phẩm như trên"
     zip: Mã bưu điện
@@ -1355,8 +1355,52 @@ vi:
       artist: Họa sĩ
       size: Kích thước
       description: Mô tả
+      details: Thông tin chi tiết
+      no_details: Không có thông tin chi tiết
       no_image: Không có hình ảnh
       more_work_title: "Đây là những tác phẩm khác từ %{artist_name} mà bạn có thể thích"
+    properties:
+      # Kích thước và vật lý
+      size: Kích thước
+      dimensions: Kích thước
+      weight: Trọng lượng
+      thickness: Độ dày
+      
+      # Chất liệu và kỹ thuật
+      material: Chất liệu
+      medium: Chất liệu vẽ
+      technique: Kỹ thuật vẽ
+      support: Chất liệu nền
+      frame: Khung tranh
+      
+      # Thông tin nghệ thuật
+      year: Năm sáng tác
+      period: Thời kỳ
+      style: Phong cách
+      movement: Trào lưu nghệ thuật
+      genre: Thể loại
+      
+      # Màu sắc và ánh sáng
+      color: Màu sắc
+      color_scheme: Bảng màu
+      lighting: Ánh sáng
+      
+      # Tình trạng và bảo quản
+      condition: Tình trạng
+      conservation: Bảo quản
+      restoration: Phục chế
+      authenticity: Tính xác thực
+      
+      # Thông tin pháp lý
+      provenance: Nguồn gốc
+      certificate: Giấy chứng nhận
+      copyright: Bản quyền
+      
+      # Thông tin thương mại
+      edition: Phiên bản
+      limited_edition: Phiên bản giới hạn
+      price_range: Khoảng giá
+      investment_value: Giá trị đầu tư
     admin:
       artist_information: Thông tin họa sĩ
       artist_start_year_help: Nhập năm họa sĩ bắt đầu làm việc

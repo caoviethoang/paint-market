@@ -2474,8 +2474,52 @@ en:
       artist: Artist
       size: Size
       description: Description
+      details: Product Details
+      no_details: No details available
       no_image: No image
       more_work_title: "Here's more work from %{artist_name} you may enjoy"
+    properties:
+      # Physical dimensions
+      size: Size
+      dimensions: Dimensions
+      weight: Weight
+      thickness: Thickness
+      
+      # Materials and techniques
+      material: Material
+      medium: Medium
+      technique: Technique
+      support: Support
+      frame: Frame
+      
+      # Artistic information
+      year: Year
+      period: Period
+      style: Style
+      movement: Art Movement
+      genre: Genre
+      
+      # Colors and lighting
+      color: Color
+      color_scheme: Color Scheme
+      lighting: Lighting
+      
+      # Condition and conservation
+      condition: Condition
+      conservation: Conservation
+      restoration: Restoration
+      authenticity: Authenticity
+      
+      # Legal information
+      provenance: Provenance
+      certificate: Certificate
+      copyright: Copyright
+      
+      # Commercial information
+      edition: Edition
+      limited_edition: Limited Edition
+      price_range: Price Range
+      investment_value: Investment Value
     admin:
       artist_information: Artist Information
       artist_start_year_help: Enter the year when the artist started working
