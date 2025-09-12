@@ -1365,42 +1365,87 @@ vi:
       dimensions: Kích thước
       weight: Trọng lượng
       thickness: Độ dày
-      
+
       # Chất liệu và kỹ thuật
       material: Chất liệu
       medium: Chất liệu vẽ
       technique: Kỹ thuật vẽ
       support: Chất liệu nền
       frame: Khung tranh
-      
+
       # Thông tin nghệ thuật
       year: Năm sáng tác
       period: Thời kỳ
       style: Phong cách
       movement: Trào lưu nghệ thuật
       genre: Thể loại
-      
+
       # Màu sắc và ánh sáng
       color: Màu sắc
       color_scheme: Bảng màu
       lighting: Ánh sáng
-      
+
       # Tình trạng và bảo quản
       condition: Tình trạng
       conservation: Bảo quản
       restoration: Phục chế
       authenticity: Tính xác thực
-      
+
       # Thông tin pháp lý
       provenance: Nguồn gốc
       certificate: Giấy chứng nhận
       copyright: Bản quyền
-      
+
       # Thông tin thương mại
       edition: Phiên bản
       limited_edition: Phiên bản giới hạn
       price_range: Khoảng giá
       investment_value: Giá trị đầu tư
+    filters:
+      orientation: Hướng
+      vertical: Dọc
+      horizontal: Ngang
+      square: Vuông
+      height: Chiều cao
+      width: Chiều rộng
+      color: Màu sắc
+      blue: Xanh dương
+      green: Xanh lá
+      orange: Cam
+      pink: Hồng
+      grey: Xám
+      beige: Be
+      brown: Nâu
+      yellow: Vàng
+      white: Trắng
+      red: Đỏ
+      purple: Tím
+      black: Đen
+      material: Chất liệu
+      oil_paint: Sơn dầu
+      acrylic: Acrylic
+      watercolor: Màu nước
+      canvas: Canvas
+      paper: Giấy
+      wood: Gỗ
+      style: Phong cách
+      abstract: Trừu tượng
+      realism: Hiện thực
+      impressionism: Ấn tượng
+      expressionism: Biểu hiện
+      contemporary: Đương đại
+      classical: Cổ điển
+      price: Giá
+      under_10m: "< 10 triệu"
+      10m_to_15m: "10 triệu - 15 triệu"
+      15m_to_30m: "15 triệu - 30 triệu"
+      over_30m: "> 30 triệu"
+      small: Nhỏ
+      medium: Trung bình
+      large: Lớn
+      extra_large: Rất lớn
+      min: Tối thiểu
+      max: Tối đa
     admin:
       artist_information: Thông tin họa sĩ
       artist_start_year_help: Nhập năm họa sĩ bắt đầu làm việc

@@ -2520,6 +2520,51 @@ en:
       limited_edition: Limited Edition
       price_range: Price Range
       investment_value: Investment Value
+    filters:
+      orientation: Orientation
+      vertical: Vertical
+      horizontal: Horizontal
+      square: Square
+      height: Height
+      width: Width
+      color: Color
+      blue: Blue
+      green: Green
+      orange: Orange
+      pink: Pink
+      grey: Grey
+      beige: Beige
+      brown: Brown
+      yellow: Yellow
+      white: White
+      red: Red
+      purple: Purple
+      black: Black
+      material: Material
+      oil_paint: Oil Paint
+      acrylic: Acrylic
+      watercolor: Watercolor
+      canvas: Canvas
+      paper: Paper
+      wood: Wood
+      style: Style
+      abstract: Abstract
+      realism: Realism
+      impressionism: Impressionism
+      expressionism: Expressionism
+      contemporary: Contemporary
+      classical: Classical
+      price: Price
+      under_10m: "< 10M VND"
+      10m_to_15m: "10M - 15M VND"
+      15m_to_30m: "15M - 30M VND"
+      over_30m: "> 30M VND"
+      small: Small
+      medium: Medium
+      large: Large
+      extra_large: Extra Large
+      min: Min
+      max: Max
     admin:
       artist_information: Artist Information
       artist_start_year_help: Enter the year when the artist started working

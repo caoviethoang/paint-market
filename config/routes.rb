@@ -20,6 +20,12 @@ Rails.application.routes.draw do
       resources :events
       resources :artists
       resources :taxonomies
+      resources :properties do
+        member do
+          get :values
+        end
+        resources :property_values
+      end
     end
   end
 end

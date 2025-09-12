@@ -22,11 +22,11 @@ module ApplicationHelper
     if event.background_image.attached?
       case size
       when :large
-        url_for(event.background_image.variant(resize_to_fill: [800, 600]).processed)
+        Rails.application.routes.url_helpers.rails_blob_path(event.background_image.variant(resize_to_fill: [800, 600]).processed, only_path: true)
       when :medium
-        url_for(event.background_image.variant(resize_to_fill: [600, 450]).processed)
+        Rails.application.routes.url_helpers.rails_blob_path(event.background_image.variant(resize_to_fill: [600, 450]).processed, only_path: true)
       else
-        url_for(event.background_image.variant(resize_to_fill: [400, 300]).processed)
+        Rails.application.routes.url_helpers.rails_blob_path(event.background_image.variant(resize_to_fill: [400, 300]).processed, only_path: true)
       end
     elsif event.has_images?
       event.display_image_urls(size).first

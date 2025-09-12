@@ -1,0 +1,129 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to "Edit Property", edit_admin_property_path(@property), class: 'btn btn-primary' %>
+  </li>
+  <li>
+    <%= link_to "Back to Properties", admin_properties_path, class: 'btn btn-default' %>
+  </li>
+<% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>Property: <%= @property.name %></h3>
+    <p class="text-muted">Presentation: <%= @property.presentation %></p>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Property Details</h4>
+        <table class="table table-striped">
+          <tr>
+            <td><strong>Name:</strong></td>
+            <td><%= @property.name %></td>
+          </tr>
+          <tr>
+            <td><strong>Presentation:</strong></td>
+            <td><%= @property.presentation %></td>
+          </tr>
+          <tr>
+            <td><strong>Created:</strong></td>
+            <td><%= @property.created_at.strftime('%B %d, %Y at %I:%M %p') %></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h4>Property Values</h4>
+        <% property_values = PropertyValue.where(property: @property).order(:position, :display_name) %>
+        <% if property_values.any? %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Position</th>
+                <th>Value</th>
+                <th>Display Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% property_values.each do |value| %>
+                <tr>
+                  <td><%= value.position %></td>
+                  <td><%= value.value %></td>
+                  <td><%= value.display_name %></td>
+                  <td>
+                    <%= link_to "Edit", edit_admin_property_property_value_path(@property, value), class: 'btn btn-primary btn-sm' %>
+                    <%= link_to "Delete", admin_property_property_value_path(@property, value), 
+                        method: :delete, 
+                        data: { confirm: 'Are you sure?' }, 
+                        class: 'btn btn-danger btn-sm' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="alert alert-info">
+            <p>No property values found.</p>
+          </div>
+        <% end %>
+        
+        <div class="mt-3">
+          <button type="button" class="btn btn-success" onclick="toggleAddForm()">
+            Add Property Value
+          </button>
+        </div>
+        
+        <!-- Add Property Value Form -->
+        <div id="addValueForm" style="display: none;" class="mt-3">
+          <div class="card">
+            <div class="card-header">
+              <h5>Add New Property Value</h5>
+            </div>
+            <div class="card-body">
+              <%= form_with model: [@property, PropertyValue.new], url: admin_property_property_values_path(@property), local: true, class: 'form' do |form| %>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <%= form.label :value, "Value", class: 'form-label' %>
+                      <%= form.text_field :value, class: 'form-control', required: true %>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <%= form.label :display_name, "Display Name", class: 'form-label' %>
+                      <%= form.text_field :display_name, class: 'form-control', required: true %>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <%= form.label :position, "Position", class: 'form-label' %>
+                      <%= form.number_field :position, class: 'form-control', value: PropertyValue.where(property: @property).maximum(:position).to_i + 1, min: 0 %>
+                    </div>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-end">
+                    <div class="form-group">
+                      <%= form.submit "Add Value", class: 'btn btn-primary me-2' %>
+                      <button type="button" class="btn btn-secondary" onclick="toggleAddForm()">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          function toggleAddForm() {
+            var form = document.getElementById('addValueForm');
+            if (form.style.display === 'none') {
+              form.style.display = 'block';
+            } else {
+              form.style.display = 'none';
+            }
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>

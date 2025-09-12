@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_22_030020) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_11_033449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -100,6 +100,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_030020) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "property_values", force: :cascade do |t|
+    t.bigint "property_id", null: false
+    t.string "value", null: false
+    t.string "display_name", null: false
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id", "position"], name: "index_property_values_on_property_id_and_position"
+    t.index ["property_id", "value"], name: "index_property_values_on_property_id_and_value", unique: true
+    t.index ["property_id"], name: "index_property_values_on_property_id"
   end
 
   create_table "spree_addresses", id: :serial, force: :cascade do |t|
@@ -1279,6 +1291,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_030020) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "property_values", "spree_properties", column: "property_id"
   add_foreign_key "spree_orders_promotions", "spree_orders", column: "order_id", on_delete: :cascade, validate: false
   add_foreign_key "spree_products", "artists", on_delete: :nullify
   add_foreign_key "spree_products", "events"
