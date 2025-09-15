@@ -8,7 +8,7 @@ module Spree
         accepts_nested_attributes_for :property_values, allow_destroy: true
         
         # Scope to get properties with values
-        scope :with_values, -> { joins(:property_values).distinct }
+        scope :having_values, -> { joins(:property_values).distinct }
         
         # Get ordered values for this property
         def ordered_values
