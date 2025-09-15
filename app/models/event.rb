@@ -44,10 +44,14 @@ class Event < Spree::Base
     return [] unless has_images?
     
     images.map do |image|
-      if image.representable?
-        Rails.application.routes.url_helpers.rails_blob_path(image.variant(resize_to_fill: [800, 600]).processed, only_path: true)
+      processed_image = image.representable? ? 
+        image.variant(resize_to_fill: [800, 600]).processed : 
+        image
+
+      if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
+        processed_image.url
       else
-        Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true)
+        "/rails/active_storage/blobs/redirect/#{processed_image.signed_id}/#{processed_image.filename}"
       end
     end
   end
@@ -88,13 +92,19 @@ class Event < Spree::Base
 
   def display_image_url(size = :medium)
     if background_image.attached?
-      case size
+      processed_image = case size
       when :large
-        "/rails/active_storage/blobs/redirect/#{background_image.signed_id}/#{background_image.filename}"
+        background_image.variant(resize_to_fill: [800, 600]).processed
       when :medium
-        "/rails/active_storage/blobs/redirect/#{background_image.signed_id}/#{background_image.filename}"
+        background_image.variant(resize_to_fill: [600, 450]).processed
       else
-        "/rails/active_storage/blobs/redirect/#{background_image.signed_id}/#{background_image.filename}"
+        background_image.variant(resize_to_fill: [400, 300]).processed
+      end
+
+      if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
+        processed_image.url
+      else
+        "/rails/active_storage/blobs/redirect/#{processed_image.signed_id}/#{processed_image.filename}"
       end
     elsif has_images?
       display_image_urls(size).first

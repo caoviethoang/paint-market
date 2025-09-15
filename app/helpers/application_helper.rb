@@ -19,20 +19,7 @@ module ApplicationHelper
 
 
   def event_image_url(event, size = :medium)
-    if event.background_image.attached?
-      case size
-      when :large
-        "/rails/active_storage/blobs/redirect/#{event.background_image.signed_id}/#{event.background_image.filename}"
-      when :medium
-        "/rails/active_storage/blobs/redirect/#{event.background_image.signed_id}/#{event.background_image.filename}"
-      else
-        "/rails/active_storage/blobs/redirect/#{event.background_image.signed_id}/#{event.background_image.filename}"
-      end
-    elsif event.has_images?
-      event.display_image_urls(size).first
-    else
-      event.youtube_thumbnail_url
-    end
+    event.display_image_url(size)
   end
 
   def pagination_info(collection)
