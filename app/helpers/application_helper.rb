@@ -1,6 +1,6 @@
 module ApplicationHelper
   include ImageOptimizationHelper
-  
+
   def youtube_embed_url(youtube_url)
     if youtube_url[/youtu\.be\/([^\?]*)/]
       youtube_id = $1
@@ -22,11 +22,11 @@ module ApplicationHelper
     if event.background_image.attached?
       case size
       when :large
-        Rails.application.routes.url_helpers.rails_blob_path(event.background_image.variant(resize_to_fill: [800, 600]).processed, only_path: true)
+        "/rails/active_storage/blobs/redirect/#{event.background_image.signed_id}/#{event.background_image.filename}"
       when :medium
-        Rails.application.routes.url_helpers.rails_blob_path(event.background_image.variant(resize_to_fill: [600, 450]).processed, only_path: true)
+        "/rails/active_storage/blobs/redirect/#{event.background_image.signed_id}/#{event.background_image.filename}"
       else
-        Rails.application.routes.url_helpers.rails_blob_path(event.background_image.variant(resize_to_fill: [400, 300]).processed, only_path: true)
+        "/rails/active_storage/blobs/redirect/#{event.background_image.signed_id}/#{event.background_image.filename}"
       end
     elsif event.has_images?
       event.display_image_urls(size).first
@@ -37,7 +37,7 @@ module ApplicationHelper
 
   def pagination_info(collection)
     return "No results found" unless collection.present?
-    
+
     if collection.respond_to?(:total_count)
       "Showing #{collection.offset_value + 1} to #{collection.offset_value + collection.length} of #{collection.total_count} results"
     else
