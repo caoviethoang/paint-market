@@ -68,35 +68,162 @@ function setupInteractiveElements() {
     });
   });
 
-  // Setup collapse functionality
-  const collapseTriggers = document.querySelectorAll('[data-action*="collapse#toggle"]');
-  collapseTriggers.forEach(function(trigger) {
-    console.log('Setting up collapse trigger');
-    trigger.addEventListener('click', function(e) {
+  // Setup collapse functionality - multiple selectors to catch different patterns
+  function setupCollapse() {
+    console.log('Setting up collapse functionality...');
+    
+    // Try multiple selectors for collapse triggers
+    const collapseSelectors = [
+      '[data-action*="collapse#toggle"]',
+      '[data-collapse-target="trigger"]',
+      '.collapse-trigger',
+      '[data-toggle="collapse"]',
+      '.filter-toggle'
+    ];
+    
+    let collapseTriggers = [];
+    collapseSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      console.log(`Found ${elements.length} elements with selector: ${selector}`);
+      collapseTriggers = collapseTriggers.concat(Array.from(elements));
+    });
+    
+    // Remove duplicates
+    collapseTriggers = [...new Set(collapseTriggers)];
+    console.log(`Total unique collapse triggers: ${collapseTriggers.length}`);
+    
+    collapseTriggers.forEach(function(trigger, index) {
+      console.log(`Setting up collapse trigger ${index + 1}:`, trigger);
+      
+      // Remove any existing listeners
+      trigger.removeEventListener('click', handleCollapseClick);
+      
+      // Add new listener
+      trigger.addEventListener('click', handleCollapseClick);
+    });
+    
+    function handleCollapseClick(e) {
       e.preventDefault();
-      console.log('Collapse trigger clicked');
+      e.stopPropagation();
+      console.log('Collapse trigger clicked:', this);
       
-      const content = document.querySelector('[data-collapse-target="content"]');
-      const icon = document.querySelector('[data-collapse-target="icon"]');
+      // Try to find content and icon in the same container
+      const container = this.closest('[data-controller*="collapse"]') || this.closest('.filter-item') || this.parentElement;
+      console.log('Container found:', container);
       
-      if (content && icon) {
+      let content = null;
+      let icon = null;
+      
+      // Try multiple selectors for content
+      const contentSelectors = [
+        '[data-collapse-target="content"]',
+        '.collapse-content',
+        '.filter-content',
+        '.hidden'
+      ];
+      
+      for (const selector of contentSelectors) {
+        content = container ? container.querySelector(selector) : document.querySelector(selector);
+        if (content) {
+          console.log('Content found with selector:', selector);
+          break;
+        }
+      }
+      
+      // Try multiple selectors for icon
+      const iconSelectors = [
+        '[data-collapse-target="icon"]',
+        '.collapse-icon',
+        '.filter-icon',
+        'svg'
+      ];
+      
+      for (const selector of iconSelectors) {
+        icon = container ? container.querySelector(selector) : this.querySelector(selector);
+        if (icon) {
+          console.log('Icon found with selector:', selector);
+          break;
+        }
+      }
+      
+      if (content) {
         const isVisible = !content.classList.contains('hidden');
+        console.log('Content visibility:', isVisible ? 'visible' : 'hidden');
         
         if (isVisible) {
           // Hide content
           content.classList.add('hidden');
-          // Change icon from - to +
-          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
           console.log('Content hidden');
         } else {
           // Show content
           content.classList.remove('hidden');
-          // Change icon from + to -
-          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
           console.log('Content shown');
         }
+        
+        // Update icon if found
+        if (icon) {
+          if (isVisible) {
+            // Change icon from - to +
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
+          } else {
+            // Change icon from + to -
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
+          }
+          console.log('Icon updated');
+        }
+      } else {
+        console.log('No content found for collapse');
       }
-    });
+    }
+  }
+  
+  // Setup collapse immediately
+  setupCollapse();
+  
+  // Also setup collapse after a delay to catch dynamically loaded content
+  setTimeout(setupCollapse, 1000);
+  
+  // Event delegation approach - catch all clicks and check if they should trigger collapse
+  document.addEventListener('click', function(e) {
+    const target = e.target;
+    
+    // Check if clicked element or its parent should trigger collapse
+    const collapseTrigger = target.closest('[data-action*="collapse"], [data-collapse-target="trigger"], .collapse-trigger, [data-toggle="collapse"], .filter-toggle');
+    
+    if (collapseTrigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Collapse triggered via event delegation:', collapseTrigger);
+      
+      // Find the closest container
+      const container = collapseTrigger.closest('[data-controller*="collapse"]') || 
+                       collapseTrigger.closest('.filter-item') || 
+                       collapseTrigger.parentElement;
+      
+      // Find content to toggle
+      let content = container ? container.querySelector('.hidden, [data-collapse-target="content"], .collapse-content, .filter-content') : null;
+      
+      if (content) {
+        const isVisible = !content.classList.contains('hidden');
+        console.log('Toggling content visibility:', isVisible ? 'hide' : 'show');
+        
+        if (isVisible) {
+          content.classList.add('hidden');
+        } else {
+          content.classList.remove('hidden');
+        }
+        
+        // Update icon if found
+        const icon = collapseTrigger.querySelector('svg') || container?.querySelector('svg');
+        if (icon) {
+          if (isVisible) {
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
+          } else {
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
+          }
+        }
+      }
+    }
   });
 
   // Setup mobile carousel
