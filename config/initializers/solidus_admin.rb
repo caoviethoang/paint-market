@@ -30,4 +30,10 @@ SolidusAdmin::Config.configure do |config|
     route: -> { spree.admin_artists_path },
     position: 71
   }
+
+  config.menu_items << {
+    key: :properties,
+    route: -> { spree.admin_properties_path },
+    position: 72
+  }
 end
