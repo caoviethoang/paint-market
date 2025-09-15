@@ -1,0 +1,50 @@
+<%# Override SolidusAdmin property values edit view %>
+
+<div class="bg-white shadow rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Edit Property Value</h1>
+        <p class="text-gray-600">Property: <%= @property.name %></p>
+      </div>
+      <%= link_to "Back to Property", solidus_admin_property_path(@property), 
+          class: "bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+
+    <div class="max-w-2xl">
+      <%= form_with model: [@property, @property_value], local: true, class: 'space-y-6' do |f| %>
+        <div class="bg-gray-50 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Property Value Details</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <%= f.label :value, "Value", class: 'block text-sm font-medium text-gray-700 required' %>
+              <%= f.text_field :value, class: 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', required: true %>
+              <p class="mt-1 text-sm text-gray-500">The actual value stored in the database</p>
+            </div>
+            
+            <div>
+              <%= f.label :display_name, "Display Name", class: 'block text-sm font-medium text-gray-700 required' %>
+              <%= f.text_field :display_name, class: 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', required: true %>
+              <p class="mt-1 text-sm text-gray-500">The name shown to users in filters</p>
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <div class="max-w-xs">
+              <%= f.label :position, "Position", class: 'block text-sm font-medium text-gray-700' %>
+              <%= f.number_field :position, class: 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', min: 0 %>
+              <p class="mt-1 text-sm text-gray-500">Order in which this value appears (0 = first)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-3">
+          <%= f.submit "Update Property Value", class: 'bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+          <%= link_to "Cancel", solidus_admin_property_path(@property), 
+              class: 'bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
