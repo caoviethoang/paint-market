@@ -5,7 +5,7 @@ module Spree
     def self.prepended(base)
       base.class_eval do
         def initialize(params = {})
-          super
+          super(params)
           @properties = params[:search] || {}
         end
 
