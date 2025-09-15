@@ -68,6 +68,37 @@ function setupInteractiveElements() {
     });
   });
 
+  // Setup collapse functionality
+  const collapseTriggers = document.querySelectorAll('[data-action*="collapse#toggle"]');
+  collapseTriggers.forEach(function(trigger) {
+    console.log('Setting up collapse trigger');
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Collapse trigger clicked');
+      
+      const content = document.querySelector('[data-collapse-target="content"]');
+      const icon = document.querySelector('[data-collapse-target="icon"]');
+      
+      if (content && icon) {
+        const isVisible = !content.classList.contains('hidden');
+        
+        if (isVisible) {
+          // Hide content
+          content.classList.add('hidden');
+          // Change icon from - to +
+          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
+          console.log('Content hidden');
+        } else {
+          // Show content
+          content.classList.remove('hidden');
+          // Change icon from + to -
+          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
+          console.log('Content shown');
+        }
+      }
+    });
+  });
+
   // Setup mobile carousel
   const carouselContainer = document.getElementById('mobile-carousel');
   if (carouselContainer) {
