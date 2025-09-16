@@ -82,6 +82,29 @@
           });
         });
 
+        // Fallback for collapse in filters
+        const collapseContainers = document.querySelectorAll('[data-controller="collapse"], [data-controller*="collapse"]');
+        collapseContainers.forEach(function(container) {
+          const trigger = container.querySelector('[data-action*="collapse#toggle"]');
+          const content = container.querySelector('[data-collapse-target="content"], .collapse-content');
+          const icon = container.querySelector('[data-collapse-target="icon"], .collapse-icon, svg');
+
+          if (!trigger || !content) return;
+
+          trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isVisible = !content.classList.contains('hidden');
+            if (isVisible) {
+              content.classList.add('hidden');
+              if (icon) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
+            } else {
+              content.classList.remove('hidden');
+              if (icon) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
+            }
+          });
+        });
+
         // Fallback for mobile carousel
         const carouselContainer = document.getElementById('mobile-carousel');
         if (carouselContainer) {
