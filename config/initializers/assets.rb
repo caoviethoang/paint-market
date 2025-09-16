@@ -8,11 +8,9 @@ Rails.application.config.assets.version = "1.0"
 Rails.application.config.assets.paths << Rails.root.join('app', 'javascript')
 
 # Ensure importmap-pinned controllers are compiled and served in production
-Rails.application.config.assets.precompile += %w[
-  application.js
-  controllers/*.js
-  controllers/**/*.js
-]
+Rails.application.config.assets.precompile += %w[ application.js ]
+Rails.application.config.assets.precompile += Dir.glob(Rails.root.join('app', 'javascript', 'controllers', '**', '*.js'))
+  .map { |p| Pathname.new(p).relative_path_from(Rails.root.join('app', 'javascript')).to_s }
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
