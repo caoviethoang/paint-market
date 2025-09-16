@@ -38,9 +38,14 @@ module TaxonFiltersHelper
     property_values = PropertyValue.where(property: property).order(:position, :display_name)
     
     {
-      name: property.presentation || property.name,
+      name: I18n.t("spree.filters.#{property.name}", default: property.presentation || property.name),
       scope: "#{property.name.parameterize.underscore}_any".to_sym,
-      labels: property_values.pluck(:display_name, :value),
+      labels: property_values.map { |value|
+        [
+          I18n.t("spree.filters.#{value.value}", default: value.display_name),
+          value.value
+        ]
+      },
       conds: property_values.map do |value|
         [value.value, ->(products) { 
           products.joins(:product_properties).where(
