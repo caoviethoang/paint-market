@@ -2521,6 +2521,7 @@ en:
       price_range: Price Range
       investment_value: Investment Value
     filters:
+      filtered_by: Filtered by
       orientation: Orientation
       vertical: Vertical
       horizontal: Horizontal

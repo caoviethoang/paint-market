@@ -129,7 +129,7 @@ function setupInteractiveElements() {
     const target = e.target;
     
     // Check if clicked element or its parent should trigger collapse
-    const collapseTrigger = target.closest('[data-action*="collapse"], [data-collapse-target="trigger"], .collapse-trigger, [data-toggle="collapse"], .filter-toggle');
+    const collapseTrigger = target.closest('[data-action*="collapse#toggle"], [data-collapse-target="trigger"], .collapse-trigger, [data-toggle="collapse"], .filter-toggle');
     
     if (collapseTrigger) {
       e.preventDefault();
@@ -142,7 +142,7 @@ function setupInteractiveElements() {
                        collapseTrigger.parentElement;
       
       // Find content to toggle
-      let content = container ? container.querySelector('.hidden, [data-collapse-target="content"], .collapse-content, .filter-content') : null;
+      let content = container ? container.querySelector('[data-collapse-target="content"], .collapse-content, .filter-content') : null;
       
       if (content) {
         const isVisible = !content.classList.contains('hidden');

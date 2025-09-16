@@ -1402,6 +1402,7 @@ vi:
       price_range: Khoảng giá
       investment_value: Giá trị đầu tư
     filters:
+      filtered_by: Bộ lọc
       orientation: Hướng
       vertical: Dọc
       horizontal: Ngang

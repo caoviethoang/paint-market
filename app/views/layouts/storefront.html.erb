@@ -105,6 +105,43 @@
           });
         });
 
+        // // Fallback for mobile filter modal (Stimulus alternative)
+        // const mobileFilterButtons = document.querySelectorAll('[data-action*="mobile-filter#toggle"]');
+        // const mobileFilterModal = document.querySelector('[data-mobile-filter-target="modal"], #mobile-filter-modal');
+        // const mobileFilterSidebar = document.querySelector('[data-mobile-filter-target="sidebar"]');
+
+        // function toggleMobileFilter(e) {
+        //   if (e) { e.preventDefault(); e.stopPropagation(); }
+        //   if (!mobileFilterModal || !mobileFilterSidebar) return;
+        //   mobileFilterModal.classList.toggle('hidden');
+        //   mobileFilterSidebar.classList.toggle('translate-x-full');
+        // }
+
+        // mobileFilterButtons.forEach(function(btn) {
+        //   btn.addEventListener('click', toggleMobileFilter);
+        // });
+
+        // // Event delegation fallback (handles dynamically loaded or re-rendered nodes)
+        // document.addEventListener('click', function(e) {
+        //   const trigger = e.target.closest('[data-action*="mobile-filter#toggle"]');
+        //   if (!trigger) return;
+        //   // Re-query each time in case DOM changed
+        //   const modal = document.querySelector('[data-mobile-filter-target="modal"], #mobile-filter-modal');
+        //   const sidebar = document.querySelector('[data-mobile-filter-target="sidebar"]');
+        //   if (!modal || !sidebar) return;
+        //   e.preventDefault();
+        //   e.stopPropagation();
+        //   modal.classList.toggle('hidden');
+        //   sidebar.classList.toggle('translate-x-full');
+        // });
+
+        // // Close when clicking overlay (the dark backdrop area)
+        // if (mobileFilterModal) {
+        //   mobileFilterModal.addEventListener('click', function(e) {
+        //     if (e.target === mobileFilterModal) toggleMobileFilter(e);
+        //   });
+        // }
+
         // Fallback for mobile carousel
         const carouselContainer = document.getElementById('mobile-carousel');
         if (carouselContainer) {

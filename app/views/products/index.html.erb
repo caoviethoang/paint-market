@@ -20,7 +20,7 @@
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
-      <span class="text-sm font-medium">FILTERD BY</span>
+      <span class="text-sm font-medium"><%= t('spree.filters.filtered_by') %></span>
     </button>
   </div>
 
@@ -36,26 +36,27 @@
     </aside>
 
     <!-- Mobile Filter Modal -->
-    <div id="mobile-filter-modal" class="fixed inset-0 z-50 hidden" data-mobile-filter-modal-target="modal">
+    <div id="mobile-filter-modal" class="fixed inset-0 z-50 hidden" data-mobile-filter-target="modal">
       <div class="fixed inset-0 bg-black bg-opacity-50" data-action="click->mobile-filter#toggle"></div>
-      <div class="fixed right-0 top-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out" data-mobile-filter-sidebar-target="sidebar">
+      <div class="fixed right-0 top-0 h-full w-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col" data-mobile-filter-target="sidebar">
         <div class="p-4 border-b">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Filtered by</h3>
-            <button class="p-2 hover:bg-gray-100 rounded-full" data-action="click->mobile-filter#toggle">
+            <h3 class="text-lg font-semibold"><%= t('spree.filters.filtered_by') %></h3>
+            <button class="p-2 hover:bg-gray-100 rounded-full" data-action="click->mobile-filter#toggle" aria-label="Close">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
           </div>
         </div>
-        <div class="p-4 overflow-y-auto">
-          <% if "products" == params[:controller] && @taxon %>
-            <%= render 'shared/search/filters', taxon: @taxon %>
-          <% else %>
-            <%= render 'shared/navigation/taxonomies', taxon: @taxon %>
-            <%= render 'shared/search/filters', taxon: @taxon %>
-          <% end %>
+        <div class="p-4 overflow-y-auto flex-1">
+          <%= render 'shared/search/filters', taxon: @taxon %>
+        </div>
+        <div class="p-4 border-t bg-white">
+          <div class="grid grid-cols-2 gap-3">
+            <button type="button" class="w-full border border-gray-300 py-2 rounded-md" data-action="click->mobile-filter#toggle"><%= t('spree.cancel') %></button>
+            <button type="submit" form="sidebar_products_search" class="w-full bg-red-600 text-white py-2 rounded-md"><%= t('spree.search') %></button>
+          </div>
         </div>
       </div>
     </div>
