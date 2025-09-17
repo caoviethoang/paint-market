@@ -14,7 +14,7 @@
   <div class="font-sans text-body">
     <% if product.properties.any? %>
       <% product.properties.each do |property| %>
-        <div class="mb-2"><%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= product.property(property.name) rescue 'N/A' %></div>
+        <div class="mb-2"><%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= t("spree.product.#{product.property(property.name)}") rescue 'N/A' %></div>
       <% end %>
     <% else %>
       <%= t('spree.product.no_details') %>

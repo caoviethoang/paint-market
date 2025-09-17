@@ -1359,6 +1359,52 @@ vi:
       no_details: Không có thông tin chi tiết
       no_image: Không có hình ảnh
       more_work_title: "Đây là những tác phẩm khác từ %{artist_name} mà bạn có thể thích"
+      filtered_by: Bộ lọc
+      orientation: Hướng
+      vertical: Dọc
+      horizontal: Ngang
+      square: Vuông
+      height: Chiều cao
+      width: Chiều rộng
+      color: Màu sắc
+      blue: Xanh dương
+      green: Xanh lá
+      orange: Cam
+      pink: Hồng
+      grey: Xám
+      beige: Be
+      brown: Nâu
+      yellow: Vàng
+      white: Trắng
+      red: Đỏ
+      purple: Tím
+      black: Đen
+      material: Chất liệu
+      oil: Sơn dầu
+      oil_paint: Sơn dầu
+      acrylic: Acrylic
+      watercolor: Màu nước
+      canvas: Canvas
+      paper: Giấy
+      wood: Gỗ
+      style: Phong cách
+      abstract: Trừu tượng
+      realism: Hiện thực
+      impressionism: Ấn tượng
+      expressionism: Biểu hiện
+      contemporary: Đương đại
+      classical: Cổ điển
+      price: Giá
+      under_10m: "< 10 triệu"
+      10m_to_15m: "10 triệu - 15 triệu"
+      15m_to_30m: "15 triệu - 30 triệu"
+      over_30m: "> 30 triệu"
+      small: Nhỏ
+      medium: Trung bình
+      large: Lớn
+      extra_large: Rất lớn
+      min: Tối thiểu
+      max: Tối đa
     properties:
       # Kích thước và vật lý
       size: Kích thước
