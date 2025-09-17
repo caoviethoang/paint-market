@@ -8,15 +8,15 @@ module TaxonFiltersHelper
     base_filters = [
       :price_filter
     ]
-    
+
     # Add dynamic property filters from database
     dynamic_filters = properties_with_values.map do |property|
       create_property_filter(property)
     end
-    
+
     # Combine base and dynamic filters
     all_filters = base_filters + dynamic_filters
-    
+
     all_filters.map do |filter_name|
       case filter_name
       when :price_filter
@@ -36,7 +36,7 @@ module TaxonFiltersHelper
   def create_property_filter(property)
     # Get property values ordered by position and display_name
     property_values = PropertyValue.where(property: property).order(:position, :display_name)
-    
+
     {
       name: I18n.t("spree.filters.#{property.name}", default: property.presentation || property.name),
       scope: "#{property.name.parameterize.underscore}_any".to_sym,
@@ -47,13 +47,13 @@ module TaxonFiltersHelper
         ]
       },
       conds: property_values.map do |value|
-        [value.value, ->(products) { 
+        [value.value, ->(products) {
           products.joins(:product_properties).where(
-            spree_product_properties: { 
-              property_id: property.id, 
-              value: value.value 
-            } 
-          ) 
+            spree_product_properties: {
+              property_id: property.id,
+              value: value.value
+            }
+          )
         }]
       end
     }
@@ -76,8 +76,6 @@ module TaxonFiltersHelper
     }
   end
 
-
-
   def material_filter
     {
       name: I18n.t('spree.filters.material'),
@@ -95,9 +93,6 @@ module TaxonFiltersHelper
       conds: style_conditions
     }
   end
-
-
-
 
   def material_labels
     [

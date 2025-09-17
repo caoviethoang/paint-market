@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_11_033449) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_17_101827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -512,9 +512,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_11_033449) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "position", default: 0
+    t.bigint "property_value_id"
     t.index ["position"], name: "index_spree_product_properties_on_position"
     t.index ["product_id"], name: "index_product_properties_on_product_id"
     t.index ["property_id"], name: "index_spree_product_properties_on_property_id"
+    t.index ["property_value_id"], name: "index_spree_product_properties_on_property_value_id"
   end
 
   create_table "spree_products", id: :serial, force: :cascade do |t|
@@ -1293,6 +1295,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_11_033449) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "property_values", "spree_properties", column: "property_id"
   add_foreign_key "spree_orders_promotions", "spree_orders", column: "order_id", on_delete: :cascade, validate: false
+  add_foreign_key "spree_product_properties", "property_values"
   add_foreign_key "spree_products", "artists", on_delete: :nullify
   add_foreign_key "spree_products", "events"
   add_foreign_key "spree_products", "spree_taxons", column: "primary_taxon_id"
