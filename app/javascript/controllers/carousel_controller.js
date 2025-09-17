@@ -14,20 +14,20 @@ export default class extends Controller {
     console.log('Carousel next clicked');
     this.currentIndex = (this.currentIndex < this.slideTargets.length - 1) ? this.currentIndex + 1 : 0;
     this.showSlide();
-    this. updateScrollbar();
+    this.updateScrollbar();
   }
 
   prev() {
     console.log('Carousel prev clicked');
     this.currentIndex = (this.currentIndex > 0) ? this.currentIndex - 1 : this.slideTargets.length - 1;
     this.showSlide();
-    this. updateScrollbar();
+    this.updateScrollbar();
   }
 
   goToSlide(event) {
     this.currentIndex = parseInt(event.currentTarget.dataset.carouselIndex, 10);
     this.showSlide();
-    this. updateScrollbar();
+    this.updateScrollbar();
   }
 
   showSlide() {
