@@ -11,6 +11,11 @@ module SolidusAdmin
       render layout: 'solidus_admin/application'
     end
 
+    def edit
+      @property = resource
+      render layout: 'solidus_admin/application'
+    end
+
     private
 
     def resource_class = Spree::Property
