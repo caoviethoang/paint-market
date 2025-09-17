@@ -3,17 +3,20 @@
 module SolidusAdmin
   class PropertiesController < SolidusAdmin::ResourcesController
     def index
-      # Load collection for search and pagination
       @search = resources_collection.ransack(params[:q])
       @collection = @search.result.page(params[:page]).per(params[:per_page] || 25)
-      
-      # Use SolidusAdmin layout but render custom content
-      render layout: 'solidus_admin/application'
+
+      render layout: "solidus_admin/application"
     end
 
     def edit
       @property = Spree::Property.find(params[:id])
-      render layout: 'solidus_admin/application'
+      render layout: "solidus_admin/application"
+    end
+
+    def values
+      property = Spree::Property.find(params[:id])
+      render json: property.property_values.ordered.as_json(only: [ :id, :value, :display_name ])
     end
 
     private

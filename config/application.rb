@@ -10,7 +10,7 @@ module PaintMarket
   class Application < Rails::Application
     if defined?(FactoryBotRails)
       initializer after: "factory_bot.set_factory_paths" do
-        require 'spree/testing_support/factory_bot'
+        require "spree/testing_support/factory_bot"
 
         # The paths for Solidus' core factories.
         solidus_paths = Spree::TestingSupport::FactoryBot.definition_file_paths
@@ -24,7 +24,7 @@ module PaintMarket
 
         # Your application's own factories.
         app_paths = [
-          Rails.root.join('spec/factories'),
+          Rails.root.join("spec/factories")
         ]
 
         FactoryBot.definition_file_paths = solidus_paths + extension_paths + app_paths
@@ -32,7 +32,7 @@ module PaintMarket
     end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
-    config.i18n.available_locales = [:en, :vi]
+    config.i18n.available_locales = [ :en, :vi ]
     config.i18n.default_locale = :en
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
@@ -47,10 +47,10 @@ module PaintMarket
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    
+
     # Heroku configuration
     config.assets.initialize_on_precompile = false
-    
+
     # Disable credentials in production for Heroku
     if Rails.env.production?
       config.require_master_key = false
@@ -58,5 +58,11 @@ module PaintMarket
       config.active_record.encryption.deterministic_key = nil
       config.active_record.encryption.key_derivation_salt = nil
     end
+  end
+end
+Rails.application.config.to_prepare do
+  # Load all decorators in app
+  Dir.glob(Rails.root.join("app/**/*_decorator*.rb")).each do |c|
+    require_dependency(c)
   end
 end
