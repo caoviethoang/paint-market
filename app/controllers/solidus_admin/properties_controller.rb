@@ -4,7 +4,7 @@ module SolidusAdmin
   class PropertiesController < SolidusAdmin::ResourcesController
     def index
       # Load collection for search and pagination
-      @search = Spree::Property.ransack(params[:q])
+      @search = resources_collection.ransack(params[:q])
       @collection = @search.result.page(params[:page]).per(params[:per_page] || 25)
       
       # Use SolidusAdmin layout but render custom content

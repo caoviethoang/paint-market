@@ -7,7 +7,7 @@
 
     <!-- Search Form -->
     <div class="mb-6">
-      <%= search_form_for [:admin, @search] do |f| %>
+      <%= search_form_for @search, url: properties_path do |f| %>
         <div class="flex gap-4">
           <div class="flex-1">
             <%= f.label :name_cont, "Search all Property Types", class: "block text-sm font-medium text-gray-700 mb-1" %>
