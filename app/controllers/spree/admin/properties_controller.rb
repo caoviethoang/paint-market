@@ -5,6 +5,13 @@ module Spree
     class PropertiesController < ResourceController
       before_action :load_property, only: [:show, :edit, :update, :destroy, :values]
 
+      def index
+        respond_with(@collection) do |format|
+          format.html { render component: "solidus_admin/properties/index", 
+                                locals: { properties: @collection, search: @search } }
+        end
+      end
+
       def values
         @values = PropertyValue.where(property: @property).order(:position, :display_name)
 

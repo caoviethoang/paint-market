@@ -1,0 +1,111 @@
+# frozen_string_literal: true
+
+# Override để sử dụng custom view cho properties index
+Deface::Override.new(
+  virtual_path: "spree/admin/properties/index",
+  name: "override_properties_index",
+  replace: "erb[loud]:contains('admin_layout')",
+  text: <<-HTML
+    <% admin_layout "full-width" %>
+    <% content_for :page_actions do %>
+      <li>
+        <%= link_to t('spree.new_property'), new_admin_property_url, id: 'admin_new_property', class: 'btn btn-primary' %>
+      </li>
+    <% end %>
+
+    <% content_for :table_filter do %>
+      <div data-hook="admin_properties_index_search">
+        <%= search_form_for [:admin, @search] do |f| %>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.label :name_cont, "Name" %>
+                <%= f.text_field :name_cont, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <br>
+                <%= f.submit "Search", class: 'btn btn-primary' %>
+                <%= link_to "Reset", admin_properties_path, class: 'btn btn-default' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div data-hook="admin_properties_index_headers">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <!-- Header row with checkbox and Name -->
+          <div class="row property-header" style="border-bottom: 1px solid #eee; padding: 10px 0; margin-bottom: 10px;">
+            <div class="col-md-1">
+              <input type="checkbox" id="select-all-properties">
+            </div>
+            <div class="col-md-3">
+              <strong>Name</strong>
+            </div>
+            <div class="col-md-4">
+              <strong>Values Count</strong>
+            </div>
+            <div class="col-md-3">
+              <strong>Actions</strong>
+            </div>
+          </div>
+          
+          <!-- Property list items -->
+          <% @collection.each do |property| %>
+            <div class="row property-item" id="<%= spree_dom_id(property) %>" data-hook="admin_properties_index_rows" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+              <div class="col-md-1">
+                <input type="checkbox" class="property-checkbox" value="<%= property.id %>">
+              </div>
+              <div class="col-md-3">
+                <%= link_to property.name, admin_property_path(property), style: "text-decoration: none; color: #333;" %>
+              </div>
+              <div class="col-md-4">
+                <span class="badge badge-info">
+                  <%= PropertyValue.where(property: property).count %> values
+                </span>
+              </div>
+              <div class="col-md-3">
+                <%= link_to "View", admin_property_path(property), class: 'btn btn-info btn-sm' %>
+                <%= link_to "Edit", edit_admin_property_path(property), class: 'btn btn-primary btn-sm' %>
+                <%= link_to_delete property, no_text: true, class: 'btn btn-danger btn-sm' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <% if @collection.empty? %>
+      <div class="alert alert-info no-objects-found">
+        <p>No properties found</p>
+      </div>
+    <% end %>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Select all functionality
+      const selectAllCheckbox = document.getElementById('select-all-properties');
+      const propertyCheckboxes = document.querySelectorAll('.property-checkbox');
+      
+      selectAllCheckbox.addEventListener('change', function() {
+        propertyCheckboxes.forEach(checkbox => {
+          checkbox.checked = this.checked;
+        });
+      });
+      
+      // Individual checkbox change
+      propertyCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const checkedCount = document.querySelectorAll('.property-checkbox:checked').length;
+          selectAllCheckbox.checked = checkedCount === propertyCheckboxes.length;
+          selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < propertyCheckboxes.length;
+        });
+      });
+    });
+    </script>
+  HTML
+)

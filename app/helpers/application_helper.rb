@@ -16,8 +16,6 @@ module ApplicationHelper
     end
   end
 
-
-
   def event_image_url(event, size = :medium)
     event.display_image_url(size)
   end
