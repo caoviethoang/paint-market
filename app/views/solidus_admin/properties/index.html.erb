@@ -1,80 +1,86 @@
-<% content_for :page_actions do %>
-  <li>
-    <%= link_to t('spree.new_property'), new_admin_property_url, id: 'admin_new_property', class: 'btn btn-primary' %>
-  </li>
-<% end %>
+<div class="bg-white shadow rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-900">Properties</h1>
+      <%= link_to "Add new", solidus_admin.new_admin_property_path, class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
 
-<% content_for :table_filter do %>
-  <div data-hook="admin_properties_index_search">
-    <%= search_form_for [:admin, @search] do |f| %>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <%= f.label :name_cont, "Name" %>
-            <%= f.text_field :name_cont, class: 'form-control' %>
+    <!-- Search Form -->
+    <div class="mb-6">
+      <%= search_form_for [:admin, @search] do |f| %>
+        <div class="flex gap-4">
+          <div class="flex-1">
+            <%= f.label :name_cont, "Search all Property Types", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_field :name_cont, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500", placeholder: "Search all Property Types" %>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <br>
-            <%= f.submit "Search", class: 'btn btn-primary' %>
-            <%= link_to "Reset", admin_properties_path, class: 'btn btn-default' %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
-<div data-hook="admin_properties_index_headers">
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <!-- Header row with checkbox and Name -->
-      <div class="row property-header" style="border-bottom: 1px solid #eee; padding: 10px 0; margin-bottom: 10px;">
-        <div class="col-md-1">
-          <input type="checkbox" id="select-all-properties">
-        </div>
-        <div class="col-md-3">
-          <strong>Name</strong>
-        </div>
-        <div class="col-md-4">
-          <strong>Values Count</strong>
-        </div>
-        <div class="col-md-3">
-          <strong>Actions</strong>
-        </div>
-      </div>
-      
-      <!-- Property list items -->
-      <% @collection.each do |property| %>
-        <div class="row property-item" id="<%= spree_dom_id(property) %>" data-hook="admin_properties_index_rows" style="border-bottom: 1px solid #eee; padding: 10px 0;">
-          <div class="col-md-1">
-            <input type="checkbox" class="property-checkbox" value="<%= property.id %>">
-          </div>
-          <div class="col-md-3">
-            <%= link_to property.name, admin_property_path(property), style: "text-decoration: none; color: #333;" %>
-          </div>
-          <div class="col-md-4">
-            <span class="badge badge-info">
-              <%= PropertyValue.where(property: property).count %> values
-            </span>
-          </div>
-          <div class="col-md-3">
-            <%= link_to "View", admin_property_path(property), class: 'btn btn-info btn-sm' %>
-            <%= link_to "Edit", edit_admin_property_path(property), class: 'btn btn-primary btn-sm' %>
-            <%= link_to_delete property, no_text: true, class: 'btn btn-danger btn-sm' %>
+          <div class="flex items-end gap-2">
+            <%= f.submit "Search", class: "bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
+            <%= link_to "Reset", solidus_admin.admin_properties_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" %>
           </div>
         </div>
       <% end %>
     </div>
+
+    <!-- Properties Table -->
+    <div class="overflow-hidden">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <input type="checkbox" id="select-all-properties" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Presentation</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Values Count</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @collection.each do |property| %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <input type="checkbox" class="property-checkbox rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="<%= property.id %>">
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <%= link_to property.name, solidus_admin.admin_property_path(property), class: "text-blue-600 hover:text-blue-900 font-medium" %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <%= property.presentation %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <%= PropertyValue.where(property: property).count %> values
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <div class="flex space-x-2">
+                  <%= link_to "View", solidus_admin.admin_property_path(property), class: "text-blue-600 hover:text-blue-900" %>
+                  <%= link_to "Edit", solidus_admin.edit_admin_property_path(property), class: "text-green-600 hover:text-green-900" %>
+                  <%= link_to "Delete", solidus_admin.admin_property_path(property), method: :delete, 
+                      data: { confirm: "Are you sure?" }, 
+                      class: "text-red-600 hover:text-red-900" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @collection.empty? %>
+      <div class="text-center py-12">
+        <div class="text-gray-500 text-lg">No properties found</div>
+      </div>
+    <% end %>
+
+    <!-- Pagination -->
+    <% if @collection.respond_to?(:current_page) %>
+      <div class="mt-6">
+        <%= paginate @collection %>
+      </div>
+    <% end %>
   </div>
 </div>
-
-<% if @collection.empty? %>
-  <div class="alert alert-info no-objects-found">
-    <p>No properties found</p>
-  </div>
-<% end %>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -82,18 +88,22 @@ document.addEventListener('DOMContentLoaded', function() {
   const selectAllCheckbox = document.getElementById('select-all-properties');
   const propertyCheckboxes = document.querySelectorAll('.property-checkbox');
   
-  selectAllCheckbox.addEventListener('change', function() {
-    propertyCheckboxes.forEach(checkbox => {
-      checkbox.checked = this.checked;
+  if (selectAllCheckbox) {
+    selectAllCheckbox.addEventListener('change', function() {
+      propertyCheckboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+      });
     });
-  });
+  }
   
   // Individual checkbox change
   propertyCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function() {
       const checkedCount = document.querySelectorAll('.property-checkbox:checked').length;
-      selectAllCheckbox.checked = checkedCount === propertyCheckboxes.length;
-      selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < propertyCheckboxes.length;
+      if (selectAllCheckbox) {
+        selectAllCheckbox.checked = checkedCount === propertyCheckboxes.length;
+        selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < propertyCheckboxes.length;
+      }
     });
   });
 });
