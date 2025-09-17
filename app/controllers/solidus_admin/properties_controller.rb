@@ -12,7 +12,7 @@ module SolidusAdmin
     end
 
     def edit
-      @property = resource
+      @property = Spree::Property.find(params[:id])
       render layout: 'solidus_admin/application'
     end
 

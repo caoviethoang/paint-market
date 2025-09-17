@@ -16,7 +16,12 @@ class ProductsController < StoreController
 
   def index
     @searcher = build_searcher(params.merge(include_images: true))
-    @products = @searcher.retrieve_products
+    products = @searcher.retrieve_products
+
+    # Apply dynamic property filters from params[:search]
+    products = apply_property_filters(products, params[:search]) if params[:search].present?
+
+    @products = products
   end
 
   def show
@@ -64,5 +69,37 @@ class ProductsController < StoreController
 
   def load_taxonomies
     @taxonomies = Spree::Taxonomy.includes(:taxons).all
+  end
+
+  # Applies filters coming from dynamic property checkboxes built in TaxonFiltersHelper
+  # Expected param shape: params[:search]["<property_name>_any"] = ["value1", "value2"]
+  def apply_property_filters(products_relation, search_params)
+    filtered = products_relation
+
+    search_params.each do |scope_key, selected_values|
+      next if selected_values.blank?
+
+      # Only handle dynamic "*_any" scopes created from property names
+      scope_str = scope_key.to_s
+      next unless scope_str.end_with?("_any")
+
+      property_key = scope_str.sub(/_any\z/, "")
+      # Properties are stored with names that parameterize to snake_case keys used as scopes
+      property = Spree::Property.find_by(name: property_key) || Spree::Property.find_by("LOWER(name) = ?", property_key)
+      next unless property
+
+      # Ensure array of values
+      values = Array(selected_values).map(&:to_s).reject(&:blank?)
+      next if values.empty?
+
+      filtered = filtered.joins(:product_properties).where(
+        spree_product_properties: {
+          property_id: property.id,
+          value: values
+        }
+      )
+    end
+
+    filtered.distinct
   end
 end
