@@ -2,7 +2,7 @@
   <div class="px-4 py-5 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-900">Properties</h1>
-      <%= link_to "Add new", solidus_admin.new_admin_property_path, class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+      <%= link_to "Add new", solidus_admin.new_property_path, class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
     </div>
 
     <!-- Search Form -->
@@ -15,7 +15,7 @@
           </div>
           <div class="flex items-end gap-2">
             <%= f.submit "Search", class: "bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
-            <%= link_to "Reset", solidus_admin.admin_properties_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" %>
+            <%= link_to "Reset", solidus_admin.properties_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" %>
           </div>
         </div>
       <% end %>
@@ -42,7 +42,7 @@
                 <input type="checkbox" class="property-checkbox rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="<%= property.id %>">
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <%= link_to property.name, solidus_admin.admin_property_path(property), class: "text-blue-600 hover:text-blue-900 font-medium" %>
+                <%= link_to property.name, solidus_admin.edit_property_path(property), class: "text-blue-600 hover:text-blue-900 font-medium" %>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 <%= property.presentation %>
@@ -54,9 +54,9 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <div class="flex space-x-2">
-                  <%= link_to "View", solidus_admin.admin_property_path(property), class: "text-blue-600 hover:text-blue-900" %>
-                  <%= link_to "Edit", solidus_admin.edit_admin_property_path(property), class: "text-green-600 hover:text-green-900" %>
-                  <%= link_to "Delete", solidus_admin.admin_property_path(property), method: :delete, 
+                  <%= link_to "View", solidus_admin.edit_property_path(property), class: "text-blue-600 hover:text-blue-900" %>
+                  <%= link_to "Edit", solidus_admin.edit_property_path(property), class: "text-green-600 hover:text-green-900" %>
+                  <%= link_to "Delete", solidus_admin.property_path(property), method: :delete, 
                       data: { confirm: "Are you sure?" }, 
                       class: "text-red-600 hover:text-red-900" %>
                 </div>
