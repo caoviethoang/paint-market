@@ -1,6 +1,6 @@
 source "https://gems.ruby-china.com/"
 
-gem "rails", "~> 8.0.2"
+gem "rails", "~> 8.0.3"
 gem "propshaft"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
