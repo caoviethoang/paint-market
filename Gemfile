@@ -15,7 +15,7 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
-gem 'aws-sdk-s3', '~> 1.2'
+gem 'aws-sdk-s3', '~> 1.199'
 gem 'image_processing', '~> 1.2'
 gem 'dotenv-rails'
 
