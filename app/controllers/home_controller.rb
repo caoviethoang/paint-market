@@ -18,6 +18,8 @@ class HomeController < StoreController
     @collection_products = homepage_groups[1]
     @cta_collection_products = homepage_groups[2]
     @new_arrivals = @products.last(3)
+
+    @event = Event.active.first
   end
 
   private

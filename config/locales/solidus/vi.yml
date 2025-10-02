@@ -1281,17 +1281,13 @@ vi:
     menu_taxon: DANH MỤC SẢN PHẨM
     about_us: Về chúng tôi
     about_us_page:
-      header:
-        line1: "Duyệt qua phòng trưng bày trực tuyến của chúng tôi"
-        line2: "được thiết kế để mang lại cảm giác như một buổi chiều"
-        line3: "thong thả ghé thăm các phòng trưng bày địa phương –"
-        line4: "từ sự thoải mái của ngôi nhà của bạn."
       story:
         title: "Câu chuyện của chúng tôi"
-        paragraph1: "Được thành lập bởi Giám đốc Phòng trưng bày Alex Tran vào năm 2006, Martket đã khẳng định vị thế là điểm đến hàng đầu cho những người yêu nghệ thuật và nhà sưu tầm tại Việt Nam."
-        paragraph2: "Sứ mệnh của chúng tôi là kết nối khoảng cách giữa các nghệ sĩ tài năng và nhà sưu tầm sành sỏi, cung cấp một nền tảng trưng bày các tác phẩm nghệ thuật xuất sắc đồng thời thúc đẩy những kết nối có ý nghĩa trong cộng đồng nghệ thuật."
-        paragraph3: "Điều làm nên sự khác biệt của chúng tôi là cam kết tuyển chọn những tác phẩm độc quyền, chất lượng cao đại diện cho bối cảnh nghệ thuật đương đại đa dạng và sôi động. Chúng tôi tin rằng nghệ thuật nên được tiếp cận bởi tất cả mọi người, dù bạn là nhà sưu tầm dày dạn hay chỉ mới bắt đầu hành trình nghệ thuật."
-        paragraph4: "Thông qua phòng trưng bày trực tuyến, chúng tôi mang trải nghiệm thân mật của việc ghé thăm các phòng trưng bày địa phương trực tiếp đến nhà bạn, cho phép bạn khám phá và đánh giá cao nghệ thuật theo nhịp độ của riêng mình, trong không gian của riêng mình."
+        paragraph1: "Hà Vy Art Gallery là đơn vị gallery chuyên về tranh độc quyền trên nền tảng e-commerce. Điều làm chúng tôi khác biệt:"
+        paragraph2: "Hàng năm, Hà Vy Art mời các họa sĩ – từ những bậc thầy gạo cội đến tài năng trẻ – về làm việc và sáng tác tại Hà Vy Garden (Ba Vì, Hà Nội)."
+        paragraph3: "Đây không chỉ là một khu nghỉ dưỡng xanh mát, mà còn là không gian sáng tạo nghệ thuật độc đáo, nơi hiện đại giao hòa cùng thiên nhiên."
+        paragraph4: "Với Hà Vy Art, mỗi bức tranh không chỉ là tác phẩm nghệ thuật – mà còn là câu chuyện, trải nghiệm và cảm xúc."
+        paragraph5: "Hãy cùng chúng tôi chờ đón những tác phẩm đầu tiên sẽ được ra mắt ngay trên website thương mại điện tử của Hà Vy Art Gallery trong thời gian tới!"
         cta_button: "Khám Phá Phòng Trưng Bày"
       features:
         curated_selection:
@@ -1509,3 +1505,6 @@ vi:
       showroom: Văn phòng
       phone: Số điện thoại
       address: Địa chỉ
+      address_name:
+        name: Số 32, đường Đồn Din, thôn Muỗi, xã Yên Bài, Hà Nội (Hà Vy Garden)
+

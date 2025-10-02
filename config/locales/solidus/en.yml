@@ -1665,17 +1665,13 @@ en:
     about_us: About Us
     shop_art: Shop Art
     about_us_page:
-      header:
-        line1: "Browsing our online gallery is"
-        line2: "meant to feel like a leisurely"
-        line3: "afternoon visiting local galleries –"
-        line4: "from the comfort of your home."
       story:
         title: "Our story"
-        paragraph1: "Founded by Gallery Director Alex Tran in 2006, Martket has established itself as a premier destination for art enthusiasts and collectors in Vietnam."
-        paragraph2: "Our mission is to bridge the gap between talented artists and discerning collectors, providing a platform that showcases exceptional artwork while fostering meaningful connections within the art community."
-        paragraph3: "What sets us apart is our commitment to curating exclusive, high-quality pieces that represent the diverse and vibrant contemporary art scene. We believe that art should be accessible to everyone, whether you're a seasoned collector or just beginning your artistic journey."
-        paragraph4: "Through our online gallery, we bring the intimate experience of visiting local galleries directly to your home, allowing you to discover and appreciate art at your own pace, in your own space."
+        paragraph1: "Hà Vy Art Gallery is a gallery specializing in exclusive paintings on the e-commerce platform. What sets us apart:"
+        paragraph2: "Every year, Hà Vy Art invites artists – from seasoned masters to young talents – to work and create at Hà Vy Garden (Ba Vì, Hanoi)."
+        paragraph3: "This is not only a refreshing green retreat, but also a unique artistic creative space where modernity harmonizes with nature."
+        paragraph4: "For Hà Vy Art, each painting is not just a work of art – but also a story, an experience, and an emotion."
+        paragraph5: "Join us in looking forward to the very first artworks to be launched soon on Hà Vy Art Gallery’s e-commerce website!"
         cta_button: "Explore Our Gallery"
       features:
         curated_selection:
@@ -2582,6 +2578,8 @@ en:
       showroom: Showroom
       phone: Phone
       address: Address
+      address_name:
+        name: No. 32, Đồn Din Street, Muỗi Hamlet, Yên Bài Commune, Hanoi (Hà Vy Garden)
   time:
     formats:
       solidus:
