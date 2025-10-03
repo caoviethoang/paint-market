@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_17_101827) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_03_155824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -475,7 +475,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_101827) do
 
   create_table "spree_prices", id: :serial, force: :cascade do |t|
     t.integer "variant_id", null: false
-    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.decimal "amount", precision: 15, scale: 2, null: false
     t.string "currency"
     t.datetime "deleted_at", precision: nil
     t.datetime "created_at"
@@ -1244,7 +1244,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_101827) do
     t.datetime "deleted_at", precision: nil
     t.boolean "is_master", default: false
     t.integer "product_id"
-    t.decimal "cost_price", precision: 10, scale: 2
+    t.decimal "cost_price", precision: 15, scale: 2
     t.integer "position"
     t.string "cost_currency"
     t.boolean "track_inventory", default: true
@@ -1289,6 +1289,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_101827) do
     t.integer "zone_members_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
