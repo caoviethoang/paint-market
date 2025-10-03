@@ -8,6 +8,10 @@
     <%= simple_canonical_tag %>
     <%= csrf_meta_tags %>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'solidus_starter_frontend' %>
     <%= stylesheet_link_tag 'solidus_starter_frontend', media: 'screen' %>
@@ -260,7 +264,7 @@
     <%= yield :head %>
   </head>
 
-  <body class="<%= body_class %> " id="<%= @body_id || 'default' %>" data-turbo="false"  data-controller="drawer">
+  <body class="<%= body_class %> font-sans" id="<%= @body_id || 'default' %>" data-turbo="false"  data-controller="drawer">
     <div class="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <%= render 'layouts/header', taxons: @taxons, taxon: @taxon %>
       <main>

@@ -18,6 +18,10 @@ module.exports = {
       '2xl': '1386px',
       '3xl': '1536px',
     },
+    fontFamily: {
+      sans: ['Lato', 'sans-serif'],
+      serif: ['Cormorant Garamond', 'serif'],
+    },
     fontSize: {
       h1: ['4rem', '120%'],
       h2: ['3.375rem', '125%'],
