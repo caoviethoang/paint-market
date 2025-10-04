@@ -22,22 +22,22 @@ Rails.application.configure do
   # config.asset_host = "http://assets.example.com"
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  if ENV['AWS_ACCESS_KEY_ID'].present? && ENV['AWS_SECRET_ACCESS_KEY'].present?
+  if ENV["AWS_ACCESS_KEY_ID"].present? && ENV["AWS_SECRET_ACCESS_KEY"].present?
     config.active_storage.service = :amazon_production
   else
     config.active_storage.service = :local
   end
   config.active_storage.variant_processor = :mini_magick
-  
+
   # Optimize image processing to reduce memory usage
   config.active_storage.resolve_model_to_route = :rails_storage_proxy
   config.active_storage.draw_routes = false
-  
+
   # Disable ActiveRecord encryption for Heroku
   config.active_record.encryption.primary_key = nil
   config.active_record.encryption.deterministic_key = nil
   config.active_record.encryption.key_derivation_salt = nil
-  
+
   # Configure Sprockets for Solidus compatibility
   config.assets.compile = false
   config.assets.precompile = []
@@ -97,7 +97,8 @@ Rails.application.configure do
 
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
-
+  config.hosts << "havyart.com"
+  config.hosts << "www.havyart.com"
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com
