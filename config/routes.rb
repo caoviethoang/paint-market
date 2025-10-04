@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root "home#index"
   mount SolidusAdmin::Engine, at: "/admin", constraints: ->(req) {
     req.cookies["solidus_admin"] != "false" &&
     req.params["solidus_admin"] != "false"
