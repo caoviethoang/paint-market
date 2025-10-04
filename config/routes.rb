@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "home#index"
   mount SolidusAdmin::Engine, at: "/admin", constraints: ->(req) {
     req.cookies["solidus_admin"] != "false" &&
     req.params["solidus_admin"] != "false"
@@ -12,8 +13,8 @@ Rails.application.routes.draw do
       get :detail
     end
   end
-  resources :artists, only: [:index, :show]
-  resources :about_us, only: [:index]
+  resources :artists, only: [ :index, :show ]
+  resources :about_us, only: [ :index ]
 
   Spree::Core::Engine.routes.draw do
     namespace :admin do
