@@ -63,3 +63,5 @@ end
 gem "solidus_admin", ">= 0.2"
 
 gem "kaminari", "~> 1.2"
+
+gem "byebug", "~> 12.0", groups: [:development, :test]

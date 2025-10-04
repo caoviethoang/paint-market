@@ -121,6 +121,10 @@
             <% end %>
           </div>
         </div>
+
+        <% if @products.respond_to?(:total_pages) %>
+          <%= paginate @products %>
+        <% end %>
       <% end %>
     </section>
   </div>

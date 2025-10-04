@@ -116,6 +116,7 @@ GEM
     brakeman (7.1.0)
       racc
     builder (3.3.0)
+    byebug (12.0.0)
     cancancan (3.6.1)
     capybara (3.40.0)
       addressable
@@ -629,6 +630,7 @@ DEPENDENCIES
   aws-sdk-s3 (~> 1.2)
   bootsnap
   brakeman
+  byebug (~> 12.0)
   capybara
   capybara-screenshot (~> 1.0)
   database_cleaner (~> 2.0)
@@ -672,4 +674,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.6.7
+   2.7.2
