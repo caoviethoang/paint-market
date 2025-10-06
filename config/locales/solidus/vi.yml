@@ -1343,6 +1343,7 @@ vi:
     artists_collected: HỌA SĨ TRONG BỘ SƯU TẬP
     artworks_sold: TÁC PHẨM ĐÃ ĐƯỢC BÁN
     artist_countries: QUỐC GIA CỦA CÁC HỌA SĨ
+    checkout: Đặt hàng
     checkout:
       customer_email: Email khách hàng
       email_placeholder: name@example.com

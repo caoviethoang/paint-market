@@ -3,7 +3,7 @@
 <%= order_form.fields_for :line_items, line_item do |item_form| %>
   <article class="cart-item py-6 lg:py-6 border-b-[1px] border-b-gray-200 grid-container">
     <!-- Desktop Layout: Grid -->
-    <div class="hidden lg:block aspect-square col-span-1 flex items-center justify-center md:col-span-3 min-h-[60px] min-w-[60px] p-2">
+    <div class="hidden lg:block col-span-1 flex items-center justify-center md:col-span-3 min-h-[60px] min-w-[60px] p-2">
       <%= link_to(
         render(ImageComponent.new(
           image: variant.gallery.images.first || variant.product.gallery.images.first,
