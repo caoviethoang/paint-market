@@ -1,13 +1,14 @@
 <% variant = line_item.variant %>
 
 <%= order_form.fields_for :line_items, line_item do |item_form| %>
-  <article class="cart-item py-6 lg:py-6 border-b-[1px] border-b-gray-200 grid-container">
+  <article class="cart-item py-6 lg:py-6 border-b-[1px] border-b-gray-200 grid-container flex gap-8">
     <!-- Desktop Layout: Grid -->
-    <div class="hidden lg:block col-span-1 flex items-center justify-center md:col-span-3 min-h-[60px] min-w-[60px] p-2">
+    <div class="hidden lg:block col-span-1 flex items-center justify-center md:col-span-3 min-h-[60px] min-w-[60px] p-2 custom-img-width">
       <%= link_to(
         render(ImageComponent.new(
           image: variant.gallery.images.first || variant.product.gallery.images.first,
-          size: :small
+          size: :small,
+          classes: "w-full"
         )),
         variant.product
       ) %>
@@ -25,7 +26,7 @@
       </div>
     </div>
 
-    <div class="hidden lg:flex sm:col-span-4">
+    <div class="hidden lg:flex sm:col-span-4 gap-8">
       <div class="flex items-center justify-between w-full">
         <div class="cart-item__price hidden md:block col-span-2">
           <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
@@ -87,3 +88,12 @@
     </div>
   </article>
 <% end %>
+
+<style>
+  @media (min-width: 992px) {
+    .custom-img-width {
+      width: 200px;
+      height: 200px;
+    }
+  }
+</style>
