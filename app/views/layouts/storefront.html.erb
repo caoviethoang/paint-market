@@ -265,7 +265,7 @@
   </head>
 
   <body class="<%= body_class %> font-sans" id="<%= @body_id || 'default' %>" data-turbo="false"  data-controller="drawer">
-    <div class="min-h-screen">
+    <div class="min-h-screen flex flex-col">
       <%= render 'layouts/header', taxons: @taxons, taxon: @taxon %>
       <main>
         <% if controller_name == 'products' %>

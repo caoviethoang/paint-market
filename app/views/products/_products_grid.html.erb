@@ -1,4 +1,4 @@
-<ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-6 products-grid">
+<ul class="grid grid-cols-1 sm:grid-cols-2 custom-lg-grid gap-4 md:gap-6 products-grid">
   <% products.each do |product| %>
     <% cache [I18n.locale, current_pricing_options, taxon, product] do %>
       <%= render ProductCardComponent.new(
@@ -9,3 +9,11 @@
     <% end %>
   <% end %>
 </ul>
+
+<style>
+  @media (min-width: 992px) {
+    .custom-lg-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -78,16 +78,16 @@
 
         <!-- Custom Products Grid -->
         <div class="products-grid">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 custom-lg-grid gap-6">
             <% @products.each do |product| %>
               <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
-                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden" style="cursor: pointer;">
                   <!-- Product Image -->
                   <div class="aspect-[4/3] w-full overflow-hidden bg-gray-100">
                     <% if product.gallery&.images&.any? %>
                       <%= image_tag product.gallery.images.first.attachment.url(:medium),
-                          class: "w-full h-full object-cover hover:scale-105 transition-transform duration-300",
-                          alt: product.name %>
+                        class: "w-full h-full object-cover hover:scale-105 transition-transform duration-300",
+                        alt: product.name %>
                     <% else %>
                       <div class="w-full h-full flex items-center justify-center text-gray-400">
                         <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@
                   </div>
 
                   <!-- Product Info -->
-                  <div class="p-4">
+                  <div class="mt-4">
                     <h3 class="font-semibold text-gray-800 hover:text-red-600 transition-colors duration-200 mb-2">
                       <%= link_to truncate(product.name, length: 50), product_path(product),
                           class: "hover:text-red-600", title: product.name %>
@@ -129,3 +129,11 @@
     </section>
   </div>
 </div>
+
+<style>
+  @media (min-width: 992px) {
+    .custom-lg-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -22,7 +22,7 @@ class Event < Spree::Base
   scope :recent, -> { order(created_at: :desc) }
   scope :active, -> { where(status: :active) }
   scope :inactive, -> { where(status: :inactive) }
-  
+
   # Scopes for frontend - sử dụng tên cột mới
   scope :current, -> { active.where('start_time <= ? AND end_time >= ?', Time.current, Time.current) }
   scope :upcoming, -> { active.where('start_time > ?', Time.current).order(:start_time) }
@@ -42,10 +42,10 @@ class Event < Spree::Base
 
   def display_image_urls(size = :medium)
     return [] unless has_images?
-    
+
     images.map do |image|
-      processed_image = image.representable? ? 
-        image.variant(resize_to_fill: [800, 600]).processed : 
+      processed_image = image.representable? ?
+        image.variant(resize_to_fill: [800, 600]).processed :
         image
 
       if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
@@ -64,10 +64,10 @@ class Event < Spree::Base
 
   def youtube_thumbnail_url
     return nil unless youtube_url.present?
-    
+
     video_id = extract_youtube_video_id(youtube_url)
     return nil unless video_id
-    
+
     "https://img.youtube.com/vi/#{video_id}/maxresdefault.jpg"
   end
 
@@ -76,7 +76,7 @@ class Event < Spree::Base
     if active?
       "#{location} - Ongoing"
     else
-      "#{start_time.strftime('%B %d')} - #{end_time.strftime('%B %d, %Y')}"
+      "#{start_time&.strftime('%B %d')} - #{end_time&.strftime('%B %d, %Y')}"
     end
   end
 
@@ -125,19 +125,19 @@ class Event < Spree::Base
 
   def extract_youtube_video_id(url)
     return nil unless url.present?
-    
+
     # Handle different YouTube URL formats
     patterns = [
       /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
       /youtube\.com\/v\/([^&\n?#]+)/,
       /youtube\.com\/watch\?.*v=([^&\n?#]+)/
     ]
-    
+
     patterns.each do |pattern|
       match = url.match(pattern)
       return match[1] if match
     end
-    
+
     nil
   end
 end

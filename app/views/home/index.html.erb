@@ -3,7 +3,7 @@
     <%= link_to detail_event_path(@event), class: "block" do %>
       <div class="relative overflow-hidden group-hover:shadow-xl transition-shadow duration-300">
         <%= image_tag event_image_url(@event, :large),
-            class: "w-full h-48 sm:h-64 lg:h-80 object-cover group-hover:scale-105 transition-transform duration-300",
+            class: "w-full h-48 sm:h-64 custom-lg-height object-cover group-hover:scale-105 transition-transform duration-300",
             alt: @event.title %>
       </div>
     <% end %>
@@ -11,7 +11,7 @@
 
   <!-- Desktop Layout -->
   <div class="hidden md:block bg-[#F5F3F0] absolute z-10 flex items-center left-8 bottom-8" style="left: 5%; bottom: 10%;">
-    <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-12">
+    <div class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-12 mt-4">
       <div class="max-w-lg">
         <h1 class="text-h5 md:text-h5 lg:text-h5 font-source-serif text-black leading-tight mb-6">
           <%= @event.title %>
@@ -96,7 +96,7 @@
     <!-- Desktop Layout -->
     <div class="hidden md:flex flex-wrap justify-center gap-4" id="taxonomies-container">
       <% if @taxonomies.present? %>
-        <% @taxonomies.first(7).each_with_index do |taxonomy, index| %>
+        <% @taxonomies.each_with_index do |taxonomy, index| %>
           <% if taxonomy.root.present? %>
             <%= link_to products_path(taxon: taxonomy.root.id),
                 class: "px-4 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-sm font-medium tracking-wide uppercase whitespace-nowrap",
@@ -147,7 +147,7 @@
               </div>
             </div>
 
-            <div class="mb-6 h-full">
+            <div class="mb-6">
               <h3 class="text-h4 font-semibold text-gray-900 mb-3">
                 <%= taxonomy_data[:taxonomy].name %>
               </h3>
@@ -176,7 +176,7 @@
   <% end %>
 </section>
 
-<section class="bg-[#F8F4ED] py-12 sm:py-16 weekly-art">
+<section class="bg-[#F8F4ED] sm:py-12 weekly-art">
   <div class="md:container mx-auto text-center px-4 sm:px-4">
     <!-- Tiêu đề -->
          <h2 class="text-xl sm:text-2xl md:text-h2.5 font-source-serif font-medium text-[#3B382E] mb-2">
@@ -199,9 +199,16 @@
       </ul>
     </div>
 
-    <button class="mt-6 sm:mt-8 px-4 sm:px-4 py-2 sm:py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300 text-sm sm:text-base">
+    <button class="px-4 sm:px-4 py-2 sm:py-3 bg-[#424242] text-white font-medium rounded-md hover:bg-gray-700 transition duration-300 text-sm sm:text-base">
       <%= t('spree.home_page.weekly_art.cta_button') %>
     </button>
   </div>
 </section>
 
+<style>
+  @media (min-width: 992px) {
+    .custom-lg-height {
+      height: 30rem !important;
+    }
+  }
+</style>

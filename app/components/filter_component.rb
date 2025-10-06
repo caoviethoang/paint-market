@@ -60,7 +60,7 @@ class FilterComponent < ViewComponent::Base
   end
 
   def title
-    filter[:name]
+    filter[:name].titleize
   end
 
   def labels

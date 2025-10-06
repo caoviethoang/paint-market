@@ -44,7 +44,7 @@
             <%= link_to t('spree.shop_art'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200 text-2xl font-bold' %>
             <%= link_to t('spree.event'), events_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200 text-2xl font-bold' %>
             <%= link_to t('spree.about_us'), about_us_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200 text-2xl font-bold' %>
-            
+
             <!-- Login/Logout Link -->
             <% unless spree_current_user %>
               <%= link_to t('spree.login'), login_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200 text-2xl font-bold' %>
@@ -68,32 +68,6 @@
     <div class="flex items-center gap-x-4">
       <!-- Mobile Icons - Locale + Cart (left of hamburger) -->
       <div class="flex items-center gap-x-3 lg:hidden">
-        <!-- Locale Selector -->
-        <%
-          available_locales = current_store.available_locales.map do |locale|
-            country_code = locale.to_s.upcase
-            [country_code, locale]
-          end.sort
-        %>
-        <% if available_locales.many? %>
-          <div class="locale-selector relative z-10" data-controller="locale-selector">
-            <%= form_tag select_locale_path, method: :post, id: 'locale-form-mobile' do %>
-              <div class="flex items-center">
-                <%= select_tag(:switch_to_locale, 
-                    options_for_select(available_locales, I18n.locale), 
-                    class: 'text-sm py-1 bg-white cursor-pointer appearance-none pr-6 relative z-50',
-                    style: 'border: none !important; position: relative; z-index: 50; pointer-events: auto;',
-                    id: 'locale-select-mobile',
-                    data: { 
-                      action: "locale-selector#submitForm change->locale-selector#switchLocale", 
-                      "locale-selector-target" => "selector" 
-                    }) %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-        
-        <!-- Shopping Cart Icon -->
         <div class='relative w-6 h-6 z-10'>
           <svg class='w-6 h-6 fill-black dark:fill-white'>
             <use xlink:href="<%= image_path('remixicon.symbol.svg') %>#ri-shopping-cart-2-line"></use>
@@ -105,12 +79,12 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Top Bar - Hidden on mobile, visible on desktop -->
       <div class="hidden lg:flex items-center">
         <%= render 'layouts/top_bar', taxons: taxons, taxon: taxon %>
       </div>
-      
+
       <!-- Hamburger Menu - Right side on mobile -->
       <div class="flex items-center justify-center w-8 h-8 lg:hidden">
         <button type="button" class="inline-flex flex-col gap-y-2 items-center p-2 w-10 h-10 justify-center rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500" aria-controls="navbar-default" aria-expanded="false" data-action="click->drawer#toggle">

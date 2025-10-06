@@ -78,7 +78,7 @@
 
           <div class="text-gray-600 mb-4 lg:mb-6">
             <p class="text-sm sm:text-base lg:text-h6">
-              <%= "#{@current_event.start_time.strftime('%B %d')} - #{@current_event.end_time.strftime('%B %d, %Y')}" %>
+              <%= "#{@current_event.start_time&.strftime('%B %d')} - #{@current_event&.end_time.strftime('%B %d, %Y')}" %>
             </p>
           </div>
 
