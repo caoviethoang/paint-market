@@ -127,7 +127,7 @@
     <div class="md:container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         <% @example_taxonomies.each do |taxonomy_data| %>
-          <div class="flex flex-col">
+          <div class="flex flex-col justify-between">
 
             <!-- Single product image -->
             <div class="mb-6">
@@ -159,16 +159,16 @@
             </div>
 
             <!-- Shop button -->
-            <% if taxonomy_data[:taxonomy].root.present? %>
-              <%= link_to products_path(taxon: taxonomy_data[:taxonomy].root.id),
-                  class: "mt-4 px-4 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" do %>
-                <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
+              <% if taxonomy_data[:taxonomy].root.present? %>
+                <%= link_to products_path(taxon: taxonomy_data[:taxonomy].root.id),
+                    class: "px-4 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" do %>
+                  <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
+                <% end %>
+              <% else %>
+                <a href="#" class="px-4 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                  <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
+                </a>
               <% end %>
-            <% else %>
-              <a href="#" class="mt-4 px-4 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
-              </a>
-            <% end %>
           </div>
         <% end %>
       </div>
