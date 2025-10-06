@@ -19,6 +19,7 @@ class ProductsController < StoreController
     products = @searcher.retrieve_products
 
     products = apply_property_filters(products, params[:search]) if params[:search].present?
+    products = apply_price_filter(products, params[:search][:price_range_any]) if params[:search][:price_range_any].present?
 
     # Add distinct and paginate manually
     @products = products.distinct.page(params[:page]).per(12)
@@ -98,6 +99,26 @@ class ProductsController < StoreController
           value: values
         }
       )
+    end
+
+    filtered.distinct
+  end
+
+  def apply_price_filter(products_relation, selected_ranges)
+    filtered = products_relation
+    values = Array(selected_ranges).map(&:to_s).reject(&:blank?)
+
+    values.each do |range|
+      case range
+      when "under_10m"
+        filtered = filtered.joins(master: :prices).where("spree_prices.amount < ?", 10_000_000)
+      when "10m_to_50m"
+        filtered = filtered.joins(master: :prices).where("spree_prices.amount >= ? AND spree_prices.amount < ?", 10_000_000, 50_000_000)
+      when "50m_to_100m"
+        filtered = filtered.joins(master: :prices).where("spree_prices.amount >= ? AND spree_prices.amount < ?", 50_000_000, 100_000_000)
+      when "over_100m"
+        filtered = filtered.joins(master: :prices).where("spree_prices.amount >= ?", 100_000_000)
+      end
     end
 
     filtered.distinct

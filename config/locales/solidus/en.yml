@@ -2553,9 +2553,9 @@ en:
       classical: Classical
       price: Price
       under_10m: "< 10M VND"
-      10m_to_15m: "10M - 15M VND"
-      15m_to_30m: "15M - 30M VND"
-      over_30m: "> 30M VND"
+      10m_to_50m: "10M - 15M VND"
+      50m_to_100m: "15M - 30M VND"
+      over_100m: "> 30M VND"
       small: Small
       medium: Medium
       large: Large

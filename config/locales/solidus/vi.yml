@@ -1394,9 +1394,9 @@ vi:
       classical: Cổ điển
       price: Giá
       under_10m: "< 10 triệu"
-      10m_to_15m: "10 triệu - 15 triệu"
-      15m_to_30m: "15 triệu - 30 triệu"
-      over_30m: "> 30 triệu"
+      10m_to_50m: "10 triệu - 50 triệu"
+      50m_to_100m: "50 triệu - 100 triệu"
+      over_100m: "> 100 triệu"
       small: Nhỏ
       medium: Trung bình
       large: Lớn
@@ -1482,9 +1482,9 @@ vi:
       classical: Cổ điển
       price: Giá
       under_10m: "< 10 triệu"
-      10m_to_15m: "10 triệu - 15 triệu"
-      15m_to_30m: "15 triệu - 30 triệu"
-      over_30m: "> 30 triệu"
+      10m_to_50m: "10 triệu - 50 triệu"
+      50m_to_100m: "50 triệu - 100 triệu"
+      over_100m: "> 100 triệu"
       small: Nhỏ
       medium: Trung bình
       large: Lớn
