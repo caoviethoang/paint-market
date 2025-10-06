@@ -18,10 +18,10 @@ class ProductsController < StoreController
     @searcher = build_searcher(params.merge(include_images: true))
     products = @searcher.retrieve_products
 
-    # Apply dynamic property filters from params[:search]
     products = apply_property_filters(products, params[:search]) if params[:search].present?
 
-    @products = products
+    # Add distinct and paginate manually
+    @products = products.distinct.page(params[:page]).per(12)
   end
 
   def show
