@@ -131,7 +131,7 @@
 
             <!-- Single product image -->
             <div class="mb-6">
-              <div class="aspect-square overflow-hidden shadow-md">
+              <div class="custom-square">
                 <% if taxonomy_data[:image].present? %>
                   <%= image_tag taxonomy_data[:image].url(:small),
                       class: 'w-full h-full object-cover hover:scale-110 transition-transform duration-300',
@@ -147,7 +147,7 @@
               </div>
             </div>
 
-            <div>
+            <div class="mb-6">
               <h3 class="text-h4 font-semibold text-gray-900 mb-3">
                 <%= taxonomy_data[:taxonomy].name %>
               </h3>
@@ -209,6 +209,10 @@
   @media (min-width: 992px) {
     .custom-lg-height {
       height: 30rem !important;
+    }
+
+    .custom-square {
+      aspect-ratio: 1.5 / 1;
     }
   }
 </style>
