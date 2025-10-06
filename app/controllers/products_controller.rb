@@ -19,7 +19,7 @@ class ProductsController < StoreController
     products = @searcher.retrieve_products
 
     products = apply_property_filters(products, params[:search]) if params[:search].present?
-    products = apply_price_filter(products, params[:search][:price_range_any]) if params[:search][:price_range_any].present?
+    products = apply_price_filter(products, params.dig("search", "price_range_any")) if params.dig("search", "price_range_any").present?
 
     # Add distinct and paginate manually
     @products = products.distinct.page(params[:page]).per(12)
