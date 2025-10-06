@@ -1,4 +1,4 @@
-<div class="border-t border-dashed border-gray-500 py-3 grid lg:grid-cols-2 md:grid-cols-2">
+<div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
   <span class="font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>
   <!-- Value -->
@@ -7,14 +7,20 @@
   </p>
 </div>
 
-<div class="border-t border-dashed border-gray-500 py-3 grid lg:grid-cols-2 md:grid-cols-2">
+<div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
   <span class="font-sans-sm text-gray-600"><%= t('spree.product.details') %></span>
   <!-- Value -->
   <div class="font-sans text-body">
     <% if product.properties.any? %>
       <% product.properties.each do |property| %>
-        <div class="mb-2"><%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= t("spree.product.#{product.property(property.name)}") rescue 'N/A' %></div>
+        <% value = product.property(property.name).presence %>
+        <% translated = value.present? ? I18n.t("spree.product.#{value}", default: "") : "" %>
+        <% if translated.present? %>
+          <div class="mb-2">
+            <%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= translated %>
+          </div>
+        <% end %>
       <% end %>
     <% else %>
       <%= t('spree.product.no_details') %>
@@ -22,7 +28,7 @@
   </div>
 </div>
 
-<div class="border-t border-dashed border-gray-500 py-3 grid lg:grid-cols-2 md:grid-cols-2">
+<div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
   <span class="font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
   <!-- Value -->

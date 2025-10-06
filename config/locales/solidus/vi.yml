@@ -1348,6 +1348,7 @@ vi:
       email_placeholder: name@example.com
     product:
       title: Tên tranh
+      price: Giá tiền
       artist: Họa sĩ
       size: Kích thước
       description: Mô tả
