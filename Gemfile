@@ -15,9 +15,10 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
-gem 'aws-sdk-s3', '~> 1.2'
-gem 'image_processing', '~> 1.2'
-gem 'dotenv-rails'
+gem "aws-sdk-s3", "~> 1.2"
+gem "image_processing", "~> 1.2"
+gem "dotenv-rails"
+gem "ruby-vips"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -64,4 +65,4 @@ gem "solidus_admin", ">= 0.2"
 
 gem "kaminari", "~> 1.2"
 
-gem "byebug", "~> 12.0", groups: [:development, :test]
+gem "byebug", "~> 12.0", groups: [ :development, :test ]

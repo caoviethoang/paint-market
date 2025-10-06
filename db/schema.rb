@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_03_155824) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_06_170932) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -152,7 +152,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_155824) do
     t.integer "source_id"
     t.string "adjustable_type"
     t.integer "adjustable_id", null: false
-    t.decimal "amount", precision: 10, scale: 2
+    t.decimal "amount", precision: 15, scale: 2
     t.string "label"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -284,15 +284,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_155824) do
     t.integer "variant_id"
     t.integer "order_id"
     t.integer "quantity", null: false
-    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "price", precision: 15, scale: 2, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal "cost_price", precision: 10, scale: 2
+    t.decimal "cost_price", precision: 15, scale: 2
     t.integer "tax_category_id"
-    t.decimal "adjustment_total", precision: 10, scale: 2, default: "0.0"
-    t.decimal "additional_tax_total", precision: 10, scale: 2, default: "0.0"
-    t.decimal "promo_total", precision: 10, scale: 2, default: "0.0"
-    t.decimal "included_tax_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "adjustment_total", precision: 15, scale: 2, default: "0.0"
+    t.decimal "additional_tax_total", precision: 15, scale: 2, default: "0.0"
+    t.decimal "promo_total", precision: 15, scale: 2, default: "0.0"
+    t.decimal "included_tax_total", precision: 15, scale: 2, default: "0.0", null: false
     t.jsonb "customer_metadata", default: {}
     t.jsonb "admin_metadata", default: {}
     t.index ["order_id"], name: "index_spree_line_items_on_order_id"
@@ -352,15 +352,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_155824) do
 
   create_table "spree_orders", id: :serial, force: :cascade do |t|
     t.string "number", limit: 32
-    t.decimal "item_total", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "total", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "item_total", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "total", precision: 15, scale: 2, default: "0.0", null: false
     t.string "state"
-    t.decimal "adjustment_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "adjustment_total", precision: 15, scale: 2, default: "0.0", null: false
     t.integer "user_id"
     t.datetime "completed_at", precision: nil
     t.integer "bill_address_id"
     t.integer "ship_address_id"
-    t.decimal "payment_total", precision: 10, scale: 2, default: "0.0"
+    t.decimal "payment_total", precision: 15, scale: 2, default: "0.0"
     t.string "shipment_state"
     t.string "payment_state"
     t.string "email"
@@ -370,11 +370,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_155824) do
     t.string "currency"
     t.string "last_ip_address"
     t.integer "created_by_id"
-    t.decimal "shipment_total", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "additional_tax_total", precision: 10, scale: 2, default: "0.0"
-    t.decimal "promo_total", precision: 10, scale: 2, default: "0.0"
+    t.decimal "shipment_total", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "additional_tax_total", precision: 15, scale: 2, default: "0.0"
+    t.decimal "promo_total", precision: 15, scale: 2, default: "0.0"
     t.string "channel", default: "spree"
-    t.decimal "included_tax_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "included_tax_total", precision: 15, scale: 2, default: "0.0", null: false
     t.integer "item_count", default: 0
     t.integer "approver_id"
     t.datetime "approved_at", precision: nil
@@ -818,17 +818,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_155824) do
   create_table "spree_shipments", id: :serial, force: :cascade do |t|
     t.string "tracking"
     t.string "number"
-    t.decimal "cost", precision: 10, scale: 2, default: "0.0"
+    t.decimal "cost", precision: 15, scale: 2, default: "0.0"
     t.datetime "shipped_at", precision: nil
     t.integer "order_id"
     t.string "state"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "stock_location_id"
-    t.decimal "adjustment_total", precision: 10, scale: 2, default: "0.0"
-    t.decimal "additional_tax_total", precision: 10, scale: 2, default: "0.0"
-    t.decimal "promo_total", precision: 10, scale: 2, default: "0.0"
-    t.decimal "included_tax_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "adjustment_total", precision: 15, scale: 2, default: "0.0"
+    t.decimal "additional_tax_total", precision: 15, scale: 2, default: "0.0"
+    t.decimal "promo_total", precision: 15, scale: 2, default: "0.0"
+    t.decimal "included_tax_total", precision: 15, scale: 2, default: "0.0", null: false
     t.jsonb "customer_metadata", default: {}
     t.jsonb "admin_metadata", default: {}
     t.index ["number"], name: "index_shipments_on_number"

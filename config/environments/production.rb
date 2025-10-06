@@ -27,7 +27,7 @@ Rails.application.configure do
   else
     config.active_storage.service = :local
   end
-  config.active_storage.variant_processor = :mini_magick
+  config.active_storage.variant_processor = :vips
 
   # Optimize image processing to reduce memory usage
   config.active_storage.resolve_model_to_route = :rails_storage_proxy
@@ -91,7 +91,7 @@ Rails.application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.default_locale = :vi
-  config.i18n.fallbacks = [:vi, :en]
+  config.i18n.fallbacks = [ :vi, :en ]
 
 
   # Do not dump schema after migrations.

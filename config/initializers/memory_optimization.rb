@@ -18,9 +18,9 @@ if Rails.env.production?
   Rails.application.config.active_storage.tap do |config|
     # Use direct uploads to S3 to avoid memory issues
     config.resolve_model_to_route = :rails_storage_proxy
-    
+
     # Disable automatic image processing for large files
-    config.variant_processor = :mini_magick
+    config.variant_processor = :vips
   end
 
   # Add middleware for garbage collection (before Rails initializes)
@@ -33,7 +33,7 @@ if Rails.env.production?
       @app.call(env)
     ensure
       # Force GC after each request to prevent memory buildup
-      if ENV['FORCE_GC'] == 'true'
+      if ENV["FORCE_GC"] == "true"
         GC.start
         GC.compact if GC.respond_to?(:compact)
       end

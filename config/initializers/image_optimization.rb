@@ -6,7 +6,7 @@ Rails.application.config.after_initialize do
     # Configure Active Storage variants to be more memory efficient
     Rails.application.config.active_storage.tap do |config|
       # Limit variant processing to prevent memory issues
-      config.variant_processor = :mini_magick
+      config.variant_processor = :vips
     end
 
     Rails.logger.info "🖼️ Image optimization configured for production"
