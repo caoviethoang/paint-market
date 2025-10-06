@@ -105,22 +105,31 @@ class ProductsController < StoreController
   end
 
   def apply_price_filter(products_relation, selected_ranges)
-    filtered = products_relation
     values = Array(selected_ranges).map(&:to_s).reject(&:blank?)
+    return products_relation if values.empty?
 
-    values.each do |range|
+    # Xây dựng các điều kiện OR
+    conditions = values.map do |range|
       case range
       when "under_10m"
-        filtered = filtered.joins(master: :prices).where("spree_prices.amount < ?", 10_000_000)
+        "spree_prices.amount < 10000000"
       when "10m_to_50m"
-        filtered = filtered.joins(master: :prices).where("spree_prices.amount >= ? AND spree_prices.amount < ?", 10_000_000, 50_000_000)
+        "(spree_prices.amount >= 10000000 AND spree_prices.amount < 50000000)"
       when "50m_to_100m"
-        filtered = filtered.joins(master: :prices).where("spree_prices.amount >= ? AND spree_prices.amount < ?", 50_000_000, 100_000_000)
+        "(spree_prices.amount >= 50000000 AND spree_prices.amount < 100000000)"
       when "over_100m"
-        filtered = filtered.joins(master: :prices).where("spree_prices.amount >= ?", 100_000_000)
+        "spree_prices.amount >= 100000000"
       end
-    end
+    end.compact
 
-    filtered.distinct
+    return products_relation if conditions.empty?
+
+    # Kết hợp bằng OR
+    sql = conditions.join(" OR ")
+
+    products_relation.
+      joins(master: :prices).
+      where(sql).
+      distinct
   end
 end
