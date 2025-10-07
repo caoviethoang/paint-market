@@ -29,11 +29,13 @@
             class: "hidden lg:block bg-sand border p-2 rounded-full hover:bg-gray-100 hover:text-gray-900 transition" %>
     
     <!-- Checkout Button -->
-    <%= order_form.button(
-      I18n.t('spree.checkout'),
-      class: 'w-full lg:w-auto button-primary',
-      id: 'checkout-link',
-      name: :checkout
-    ) %>
+    <button 
+      type="submit"
+      name="checkout"
+      value="checkout"
+      class="w-full lg:w-auto button-primary"
+      id="checkout-link">
+      <%= I18n.t('spree.checkout') %>
+    </button>
   </div>
 </footer>

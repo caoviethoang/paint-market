@@ -35,15 +35,15 @@
             <% @orders.each do |order| %>
               <tr>
                 <td class="<%= table_cells_classes %>"><%= link_to order.number, order_url(order), class: 'hover:text-red-500 transition-colors duration-200' %></td>
-                <td class="<%= table_cells_classes %>"><%= l order.completed_at.to_date %></td>
+                <td class="<%= table_cells_classes %>"><%= order.completed_at.to_date %></td>
                 <td class="<%= table_cells_classes %>">
-                  <div class="badge badge-<%= I18n.t("spree.order_state.#{order.state}").downcase %>">
+                  <div class="badge-<%= I18n.t("spree.order_state.#{order.state}").downcase %>">
                     <%= I18n.t("spree.order_state.#{order.state}").titleize %>
                   </div>
                 </td>
                 <td class="<%= table_cells_classes %>">
                   <% if order.shipment_state %>
-                    <div class="badge badge-<%= I18n.t("spree.shipment_states.#{order.shipment_state}").downcase %>">
+                    <div class="badge-<%= I18n.t("spree.shipment_states.#{order.shipment_state}").downcase %>">
                       <%= I18n.t("spree.shipment_states.#{order.shipment_state}").titleize %>
                     </div>
                   <% end %>

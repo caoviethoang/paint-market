@@ -1,5 +1,9 @@
 vi:
   date:
+    formats:
+      default:
+        long: "%B %d, %Y %-l:%M %p"
+        short: "%b %-d '%y %-l:%M%P"
     month_names: [null, "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]
     abbr_month_names: [null, "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"]
     abbr_day_names: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
@@ -19,7 +23,7 @@ vi:
         firstname: Tên
         lastname: Họ
         phone: "Điện thoại"
-        state: Bang
+        state: Tỉnh
         zipcode: Mã Zip
       spree/event:
         status: "Trạng thái"
@@ -66,7 +70,7 @@ vi:
         payment_state: Trạng thái thanh toán
         shipment_state: Trạng thái giao hàng
         special_instructions: Chỉ dẫn đặc biệt
-        state: Bang
+        state: Tỉnh
         total: Tổng
       spree/order/bill_address:
         address1: "Đỉa chị thanh toán - tên đường"
@@ -74,7 +78,7 @@ vi:
         firstname: "Đỉa chị thanh toán - tên"
         lastname: "Đỉa chị thanh toán - họ"
         phone: "Đỉa chị thanh toán - ĐT"
-        state: "Đỉa chị thanh toán - bang"
+        state: "Đỉa chị thanh toán - tỉnh"
         zipcode: "Đỉa chị thanh toán - mã zip"
       spree/order/ship_address:
         address1: "Đỉa chị giao hàng - tên đường"
@@ -82,7 +86,7 @@ vi:
         firstname: "Đỉa chị giao hàng - tên"
         lastname: "Đỉa chị giao hàng - họ"
         phone: "Đỉa chị giao hàng - ĐT"
-        state: "Đỉa chị giao hàng - bang"
+        state: "Đỉa chị giao hàng - tỉnh"
         zipcode: "Đỉa chị giao hàng - mã zip"
       spree/payment:
         amount: Giá trị
@@ -284,7 +288,7 @@ vi:
     add_product: Thêm sản phẩm
     add_product_properties: Thêm đặc tính sản phẩm
     add_rule_of_type: Tạo luật kiểu
-    add_state: Thêm bang
+    add_state: Thêm tỉnh
     add_stock: Thêm hàng hoá
     add_stock_management: Tạo quản lý hàng
     add_to_cart: Thêm vào giỏ hàng
@@ -507,7 +511,7 @@ vi:
     edit: Sửa đổi
     editing_resource:
     editing_rma_reason:
-    editing_user: Sửa đổi người dùng
+    editing_user: Sửa đổi thông tin
     eligibility_errors:
       messages:
         has_excluded_product:
@@ -731,7 +735,7 @@ vi:
     new_shipment_at_location:
     new_shipping_category: Loại hình vận chuyển mới
     new_shipping_method: Phương pháp vận chuyển mới
-    new_state: Bang mới
+    new_state: Tỉnh mới
     new_stock_location: Kho hàng mới
     new_stock_movement: Di chuyển hàng mới
     new_stock_transfer: Di chuyển hàng mới
@@ -808,21 +812,20 @@ vi:
         thanks:
         total:
     order_not_found: Không tìm thấy đơn hàng. Xin vui lòng thử hành động khác.
-    order_number:
+    order_number: Mã đơn hàng %{number}
     order_processed_successfully: "Đơn đặt hàng của bạn đã được xử lý thành công"
-    order_resumed:
+    order_resumed: Đơn hàng đã được tiếp tục
     order_state:
-      address:
-      awaiting_return:
-      canceled:
-      cart:
-      complete:
-      confirm:
-      considered_risky:
-      delivery:
-      payment:
-      resumed:
-      returned:
+      address: Địa chỉ
+      awaiting_return: Đang chờ hoàn hàng
+      canceled: Đã hủy
+      cart: Giỏ hàng
+      complete: Hoàn tất
+      confirm: Xác nhận
+      delivery: Giao hàng
+      payment: Thanh toán
+      resumed: Tiếp tục
+      returned: Đã hoàn hàng
     order_summary: Tóm tắt đơn đặt hàng
     order_sure_want_to: Bạn có chắc bạn muốn %{event} đơn hàng này?
     order_total: Tổng giá sau thuế
@@ -831,7 +834,7 @@ vi:
     other_items_in_other:
     out_of_stock: Hết hàng
     overview: Tổng kết
-    package_from: gói từ
+    package_from: Gói từ
     pagination:
       next_page:
       previous_page:
@@ -1036,7 +1039,7 @@ vi:
     sales_total_description:
     sales_totals: Tổng doanh số
     save_and_continue: Lưu và tiếp tục
-    save_my_address:
+    save_my_address: Lưu địa chỉ
     say_no:
     say_yes:
     scope: Phạm vi
@@ -1070,14 +1073,14 @@ vi:
         thanks:
         track_information:
         track_link: 'Link để theo dõi: %{url}'
-    shipment_state:
+    shipment_state: Trạng thái giao hàng
     shipment_states:
-      backorder:
-      canceled:
-      partial:
-      pending:
-      ready:
-      shipped:
+      backorder: Đặt hàng trước
+      canceled: Đã hủy
+      partial: Giao một phần
+      pending: Đang chờ xử lý
+      ready: Sẵn sàng giao hàng
+      shipped: Đã giao hàng
     shipment_transfer_error:
     shipment_transfer_success:
     shipments: Vận chuyển
@@ -1112,8 +1115,8 @@ vi:
     ssl:
       change_protocol:
     start: Bắt đầu
-    state: Bang
-    state_based: Dựa trên bang
+    state: Tỉnh
+    state_based: Dựa trên tỉnh
     state_machine_states:
       accepted:
       address:
@@ -1146,8 +1149,8 @@ vi:
       returned:
       shipped:
       void:
-    states: Bang
-    states_required: Yêu cầu bang
+    states: Tỉnh
+    states_required: Yêu cầu tỉnh
     status: Tình trạng
     stock:
     stock_location: "Địa điểm hàng"
@@ -1211,6 +1214,9 @@ vi:
     tiered_percent:
     tiers:
     time: Thời gian
+    time:
+      am: Sáng
+      pm: Chiều
     to_add_variants_you_must_first_define: "Để thêm biến thể, bạn phải định nghĩa trước"
     total: Giá trị
     total_per_item:
@@ -1344,9 +1350,6 @@ vi:
     artworks_sold: TÁC PHẨM ĐÃ ĐƯỢC BÁN
     artist_countries: QUỐC GIA CỦA CÁC HỌA SĨ
     checkout: Đặt hàng
-    checkout:
-      customer_email: Email khách hàng
-      email_placeholder: name@example.com
     product:
       title: Tên tranh
       price: Giá tiền
@@ -1510,4 +1513,3 @@ vi:
       address: Địa chỉ
       address_name:
         name: Số 32, đường Đồn Din, thôn Muỗi, xã Yên Bài, Hà Nội (Hà Vy Garden)
-

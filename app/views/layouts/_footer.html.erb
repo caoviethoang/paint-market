@@ -9,7 +9,7 @@
         <li><p class="text-white"><%= t('spree.footer.address') %> : <%= t('spree.footer.address_name.name') %></li>
       </ul>
     </div>
-    <div style="margin-left: 25%;">
+    <div class="custom-ml">
       <h3 class="uppercase text-h5 font-semibold mb-1 text-white"> <%= t('spree.footer.our_company') %></h3>
       <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
       <ul class="space-y-2">
@@ -49,3 +49,12 @@
 
   </div>
 </footer>
+
+
+<style>
+  @media (min-width: 992px) {
+    .custom-ml {
+      margin-left: 25%;
+    }
+  }
+</style>
