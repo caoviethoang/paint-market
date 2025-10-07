@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_06_170932) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_07_114556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -884,7 +884,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_170932) do
   end
 
   create_table "spree_shipping_rate_taxes", id: :serial, force: :cascade do |t|
-    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "amount", precision: 15, scale: 2, default: "0.0", null: false
     t.integer "tax_rate_id"
     t.integer "shipping_rate_id"
     t.datetime "created_at", null: false
@@ -897,7 +897,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_170932) do
     t.integer "shipment_id"
     t.integer "shipping_method_id"
     t.boolean "selected", default: false
-    t.decimal "cost", precision: 8, scale: 2, default: "0.0"
+    t.decimal "cost", precision: 15, scale: 2, default: "0.0"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "tax_rate_id"
@@ -1091,7 +1091,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_170932) do
   end
 
   create_table "spree_tax_rates", id: :serial, force: :cascade do |t|
-    t.decimal "amount", precision: 8, scale: 5
+    t.decimal "amount", precision: 15, scale: 5
     t.integer "zone_id"
     t.boolean "included_in_price", default: false
     t.datetime "created_at"
