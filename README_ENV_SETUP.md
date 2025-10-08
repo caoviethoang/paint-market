@@ -71,17 +71,6 @@ Sau khi tạo file `.env`, restart server và kiểm tra logs:
 ```bash
 bin/rails server
 ```
-
-Trong logs, bạn sẽ thấy:
-```
-🚀 Active Storage Service: amazon_development
-📦 S3 Configuration:
-  Bucket: your-dev-bucket-name
-  Region: ap-southeast-1
-  Service: S3
-✅ S3 connection successful for bucket: your-dev-bucket-name
-```
-
 ## Lưu ý quan trọng
 
 1. **KHÔNG commit file `.env`** vào git

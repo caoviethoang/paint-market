@@ -6,10 +6,10 @@ class Artist < Spree::Base
 
   # Validations
   validates :name, :introduction, :address, presence: true
-  validates :start_work, presence: true, numericality: { 
-    only_integer: true, 
-    greater_than: 1900, 
-    less_than_or_equal_to: Date.current.year 
+  validates :start_work, presence: true, numericality: {
+    only_integer: true,
+    greater_than: 1900,
+    less_than_or_equal_to: Date.current.year
   }
   validate :background_image_presence
 
@@ -42,7 +42,7 @@ class Artist < Spree::Base
         background_image
       end
 
-    if Rails.application.config.active_storage.service.in?([ :amazon_production, :amazon_development ])
+    if Rails.application.config.active_storage.service.in?([ :amazon_production ])
       processed_image.url
     else
       Rails.application.routes.url_helpers.rails_blob_path(processed_image, only_path: true)

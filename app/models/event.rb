@@ -44,16 +44,29 @@ class Event < Spree::Base
     return [] unless has_images?
 
     images.map do |image|
-      processed_image = image.representable? ?
-        image.variant(resize_to_fill: [800, 600]).processed :
-        image
+      # Bỏ qua ảnh chưa được lưu
+      next unless image.persisted?
 
-      if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
-        processed_image.url
-      else
-        "/rails/active_storage/blobs/redirect/#{processed_image.signed_id}/#{processed_image.filename}"
+      # Kiểm tra blob có tồn tại không
+      next unless image.blob.present?
+
+      begin
+        processed_image = if image.representable?
+          image.variant(resize_to_fill: [800, 600]).processed
+        else
+          image
+        end
+
+        if Rails.application.config.active_storage.service.in?([:amazon_production])
+          processed_image.url
+        else
+          Rails.application.routes.url_helpers.rails_blob_path(processed_image, disposition: "inline", only_path: true)
+        end
+      rescue ActiveStorage::FileNotFoundError, ActiveStorage::IntegrityError => e
+        Rails.logger.error "Error processing image: #{e.message}"
+        nil
       end
-    end
+    end.compact
   end
 
   def background_image_presence
@@ -91,20 +104,25 @@ class Event < Spree::Base
   end
 
   def display_image_url(size = :medium)
-    if background_image.attached?
-      processed_image = case size
-      when :large
-        background_image.variant(resize_to_fill: [800, 600]).processed
-      when :medium
-        background_image.variant(resize_to_fill: [600, 450]).processed
-      else
-        background_image.variant(resize_to_fill: [400, 300]).processed
-      end
+    if background_image.attached? && background_image.persisted?
+      begin
+        processed_image = case size
+        when :large
+          background_image.variant(resize_to_fill: [800, 600]).processed
+        when :medium
+          background_image.variant(resize_to_fill: [600, 450]).processed
+        else
+          background_image.variant(resize_to_fill: [400, 300]).processed
+        end
 
-      if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
-        processed_image.url
-      else
-        "/rails/active_storage/blobs/redirect/#{processed_image.signed_id}/#{processed_image.filename}"
+        if Rails.application.config.active_storage.service.in?([:amazon_production])
+          processed_image.url
+        else
+          Rails.application.routes.url_helpers.rails_blob_path(processed_image, disposition: "inline", only_path: true)
+        end
+      rescue ActiveStorage::FileNotFoundError, ActiveStorage::IntegrityError => e
+        Rails.logger.error "Error processing background image: #{e.message}"
+        fallback_image
       end
     elsif has_images?
       display_image_urls(size).first
@@ -122,6 +140,10 @@ class Event < Spree::Base
   end
 
   private
+
+  def fallback_image
+    youtube_thumbnail_url
+  end
 
   def extract_youtube_video_id(url)
     return nil unless url.present?

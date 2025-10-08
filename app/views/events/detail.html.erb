@@ -1,24 +1,4 @@
 <div class="p-2 sm:p-4">
-  <!-- Custom CSS cho pagination -->
-  <style>
-    /* Loại bỏ styling cũ, giữ styling mới từ Tailwind */
-    .pagination {
-      display: flex;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .pagination li {
-      margin: 0;
-    }
-
-    /* Đảm bảo spacing đẹp */
-    .pagination .inline-flex {
-      margin: 0 2px;
-    }
-  </style>
-
   <% if @event.display_image_urls(:medium).present? %>
     <div class="relative" data-controller="carousel lightbox">
       <!-- Nút Prev -->
@@ -42,14 +22,12 @@
       </button>
 
       <!-- Carousel -->
-      <div class="overflow-hidden">
-        <!-- slides wrapper (bắt buộc cho Stimulus carousel) -->
+      <div class="overflow-x-auto overflow-y-hidden scrollbar-hide">
         <div data-carousel-target="slides"
-            class="flex flex-1 gap-2 sm:gap-4 transition-transform duration-300 ease-in-out">
+            class="flex gap-2 sm:gap-4">
           <% @event.display_image_urls(:medium).each_with_index do |url, index| %>
             <%= image_tag url,
-                class: "block flex-shrink-0 w-60 sm:w-80 overflow-hidden hover:scale-105 transition cursor-pointer",
-                style: "max-height: 150px; sm:max-height: 200px; object-fit: cover;",
+                class: "block flex-shrink-0 w-60 sm:w-80 max-h-[150px] sm:max-h-[200px] object-cover rounded-lg hover:scale-105 transition cursor-pointer",
                 data: {
                   "carousel-target": "slide",
                   action: "click->lightbox#open",
@@ -165,3 +143,13 @@
     </div>
   </div>
 </div>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
