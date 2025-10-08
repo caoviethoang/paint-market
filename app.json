@@ -1,6 +1,6 @@
 {
-  "name": "paint-market",
-  "description": "Paint Market e-commerce application built with Solidus",
+  "name": "Havy Art",
+  "description": "A Solidus-based e-commerce application",
   "repository": "https://github.com/yourusername/paint-market",
   "logo": "https://node-js-sample.herokuapp.com/node.png",
   "keywords": ["rails", "solidus", "e-commerce", "ruby"],
