@@ -39,7 +39,8 @@ Rails.application.configure do
   config.active_record.encryption.key_derivation_salt = nil
 
   # Configure Sprockets for Solidus compatibility
-  config.assets.compile = true
+  config.assets.compile = false
+  config.assets.digest = true
   config.assets.precompile += %w[ controllers/* ]
   config.assets.css_compressor = nil
   config.assets.js_compressor = nil

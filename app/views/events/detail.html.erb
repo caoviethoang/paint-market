@@ -27,7 +27,7 @@
             class="flex gap-2 sm:gap-4">
           <% @event.display_image_urls(:medium).each_with_index do |url, index| %>
             <%= image_tag url,
-                class: "block flex-shrink-0 w-60 sm:w-80 max-h-[150px] sm:max-h-[200px] object-cover rounded-lg hover:scale-105 transition cursor-pointer",
+                class: "block flex-shrink-0 w-60 sm:w-80 max-h-[150px] sm:max-h-[200px] object-cover hover:scale-105 transition cursor-pointer",
                 data: {
                   "carousel-target": "slide",
                   action: "click->lightbox#open",
