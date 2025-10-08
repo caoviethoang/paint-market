@@ -20,6 +20,8 @@ gem "image_processing", "~> 1.2"
 gem "dotenv-rails"
 gem "ruby-vips"
 
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
