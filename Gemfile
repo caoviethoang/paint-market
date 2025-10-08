@@ -54,7 +54,7 @@ group :development, :test do
   gem "rspec-activemodel-mocks", "~> 1.1.0"
   gem "factory_bot", ">= 4.8"
   gem "factory_bot_rails"
-  gem "ffaker", "~> 2.13"
+  gem "ffaker", "~> 2.25"
   gem "rubocop", "~> 1.0"
   gem "rubocop-performance", "~> 1.5"
   gem "rubocop-rails", "~> 2.3"
