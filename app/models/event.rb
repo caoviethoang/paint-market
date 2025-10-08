@@ -9,6 +9,11 @@ class Event < Spree::Base
   # Enum for status - Rails 8 syntax
   enum :status, { inactive: 0, active: 1 }, default: :inactive
 
+  # Class method để trả về status options cho form select
+  def self.status_options
+    statuses.map { |key, value| [key.humanize, key] }
+  end
+
   # Validations
   validates :title, :description, :youtube_url, presence: true
   validate :background_image_presence
@@ -17,7 +22,7 @@ class Event < Spree::Base
   scope :recent, -> { order(created_at: :desc) }
   scope :active, -> { where(status: :active) }
   scope :inactive, -> { where(status: :inactive) }
-  
+
   # Scopes for frontend - sử dụng tên cột mới
   scope :current, -> { active.where('start_time <= ? AND end_time >= ?', Time.current, Time.current) }
   scope :upcoming, -> { active.where('start_time > ?', Time.current).order(:start_time) }
@@ -37,12 +42,16 @@ class Event < Spree::Base
 
   def display_image_urls(size = :medium)
     return [] unless has_images?
-    
+
     images.map do |image|
-      if image.representable?
-        Rails.application.routes.url_helpers.rails_blob_path(image.variant(resize_to_fill: [800, 600]).processed, only_path: true)
+      processed_image = image.representable? ?
+        image.variant(resize_to_fill: [800, 600]).processed :
+        image
+
+      if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
+        processed_image.url
       else
-        Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true)
+        "/rails/active_storage/blobs/redirect/#{processed_image.signed_id}/#{processed_image.filename}"
       end
     end
   end
@@ -55,10 +64,10 @@ class Event < Spree::Base
 
   def youtube_thumbnail_url
     return nil unless youtube_url.present?
-    
+
     video_id = extract_youtube_video_id(youtube_url)
     return nil unless video_id
-    
+
     "https://img.youtube.com/vi/#{video_id}/maxresdefault.jpg"
   end
 
@@ -67,7 +76,7 @@ class Event < Spree::Base
     if active?
       "#{location} - Ongoing"
     else
-      "#{start_time.strftime('%B %d')} - #{end_time.strftime('%B %d, %Y')}"
+      "#{start_time&.strftime('%B %d')} - #{end_time&.strftime('%B %d, %Y')}"
     end
   end
 
@@ -83,13 +92,19 @@ class Event < Spree::Base
 
   def display_image_url(size = :medium)
     if background_image.attached?
-      case size
+      processed_image = case size
       when :large
-        "/rails/active_storage/blobs/redirect/#{background_image.signed_id}/#{background_image.filename}"
+        background_image.variant(resize_to_fill: [800, 600]).processed
       when :medium
-        "/rails/active_storage/blobs/redirect/#{background_image.signed_id}/#{background_image.filename}"
+        background_image.variant(resize_to_fill: [600, 450]).processed
       else
-        "/rails/active_storage/blobs/redirect/#{background_image.signed_id}/#{background_image.filename}"
+        background_image.variant(resize_to_fill: [400, 300]).processed
+      end
+
+      if Rails.application.config.active_storage.service.in?([:amazon_production, :amazon_development])
+        processed_image.url
+      else
+        "/rails/active_storage/blobs/redirect/#{processed_image.signed_id}/#{processed_image.filename}"
       end
     elsif has_images?
       display_image_urls(size).first
@@ -110,19 +125,19 @@ class Event < Spree::Base
 
   def extract_youtube_video_id(url)
     return nil unless url.present?
-    
+
     # Handle different YouTube URL formats
     patterns = [
       /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
       /youtube\.com\/v\/([^&\n?#]+)/,
       /youtube\.com\/watch\?.*v=([^&\n?#]+)/
     ]
-    
+
     patterns.each do |pattern|
       match = url.match(pattern)
       return match[1] if match
     end
-    
+
     nil
   end
 end

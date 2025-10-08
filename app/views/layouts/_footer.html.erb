@@ -1,56 +1,60 @@
-<footer class="bg-[#3B382E] mx-auto w-full pt-7">
-  <%# <div class="col-span-full border-t-[1px] border-t-black dark:border-t-white py-16"> %>
-    <%# <% %>
-      <%# available_locales = current_store.available_locales.map do |locale| %>
-        <%# [ %>
-          <%# I18n.t('spree.i18n.this_file_language', %>
-          <%# locale: locale, %>
-          <%# default: locale.to_s, %>
-          <%# fallback: false), locale %>
-        <%# ] %>
-      <%# end.sort %>
-    <%# %>
-    <%# <% if available_locales.many? %>
-      <%# <div class="locale-selector"  data-controller="locale-selector"> %>
-        <%# <%= form_tag select_locale_path do %>
-          <%# <div class="locale-selector__select-input select-input"> %>
-            <%# <%= label_tag :switch_to_locale, "#{t('spree.i18n.language')}:" %>
-            <%# <%= select_tag(:switch_to_locale, options_for_select(available_locales, I18n.locale), data: { action: "locale-selector#submitForm", "locale-selector-target" => "selector" }) %>
-          <%# </div> %>
-        <%# <% end %>
-      <%# </div> %>
-    <%# <% end %>
-  <%# </div> %>
-
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+<footer class="bg-[#3B382E] mx-auto w-full pt-7 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-4">
     <div>
-      <h2 class="text-4xl font-bold mb-6 text-white">Martket</h2>
-      <h3 class="uppercase text-lg font-semibold mb-1 text-white"><%= t('spree.footer.information') %></h3>
+      <h3 class="text-h5 font-bold text-white">Ha Vy Art</h3>
       <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
-
-      <p class="font-bold mb-2 text-white">MIKE TRAN VIET AN TRADING & SERVICES COMPANY LIMITED</p>
-      <p class="text-gray-300 mb-1"><%= t('spree.footer.tax_code') %> : 0000xxxx1234</p>
-      <p class="text-gray-300 mb-4">Hotline 24/7 : 0984.xxx.666</p>
-
-      <p class="font-bold mb-1 text-white"><%= t('spree.footer.showroom') %></p>
-      <p class="text-gray-300 mb-1"><%= t('spree.footer.phone') %> : 0984.xxx.666</p>
-      <p class="text-gray-300"><%= t('spree.footer.adress') %> : 123 Trang Tien, Hoan Kiem , Ha Noi</p>
+      <ul class="space-y-2">
+        <li><p class="font-bold text-white">Hà Vy Art Limited</p></li>
+        <li><p class="text-white"><%= t('spree.footer.phone') %> : +84 941 641 400</p></li>
+        <li><p class="text-white"><%= t('spree.footer.address') %> : <%= t('spree.footer.address_name.name') %></li>
+      </ul>
     </div>
-    <div>
-      <h3 class="uppercase text-lg font-semibold mb-1 text-white"> <%= t('spree.footer.our_company') %></h3>
+    <div class="custom-ml">
+      <h3 class="uppercase text-h5 font-semibold mb-1 text-white"> <%= t('spree.footer.our_company') %></h3>
       <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
-      <ul class="space-y-2 text-gray-400">
-        <li><%= link_to t('spree.shop_art'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
-        <li><%= link_to t('spree.our_artist'), products_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
-        <li><%= link_to t('spree.event'), events_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
-        <li><%= link_to t('spree.about_us'), root_path, class: 'text-gray-600 hover:text-gray-900 transition-colors duration-200' %></li>
+      <ul class="space-y-2">
+        <li><%= link_to t('spree.shop_art'), products_path, class: 'text-white hover:text-gray-600 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.our_artist'), products_path, class: 'text-white hover:text-gray-600 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.event'), events_path, class: 'text-white hover:text-gray-600 transition-colors duration-200' %></li>
+        <li><%= link_to t('spree.about_us'), root_path, class: 'text-white hover:text-gray-600 transition-colors duration-200' %></li>
       </ul>
     </div>
     <div>
-      <h3 class="uppercase text-lg font-semibold mb-1 text-white"><%= t('spree.footer.connect') %></h3>
-      <div class="w-16 h-1 bg-yellow-500 mb-4"></div>
-      <div class="bg-gray-200 w-full h-[300px] flex items-center justify-center">
+      <h3 class="uppercase text-h5 font-semibold text-white">
+        <%= t('spree.footer.connect') %>
+      </h3>
+
+      <div class="flex space-x-4 mt-4">
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@HaVyArt" target="_blank" class="inline-block">
+          <svg xmlns="http://www.w3.org/2000/svg"
+              class="w-16 hover:opacity-80 transition"
+              viewBox="0 0 576 512" fill="currentColor">
+            <path fill="#FF0000" d="M549.7 124.1c-6.3-23.7-24.9-42.4-48.6-48.6C465.3 64 288 64 288 64s-177.3 0-213.1 11.5c-23.7 6.3-42.4 25-48.6 48.6C14.9 159.9 14.9 256 14.9 256s0 96.1 11.4 131.9c6.3 23.7 24.9 42.4 48.6 48.6C110.7 448 288 448 288 448s177.3 0 213.1-11.5c23.7-6.3 42.4-25 48.6-48.6 11.4-35.8 11.4-131.9 11.4-131.9s0-96.1-11.4-131.9z"/>
+            <path fill="#FFF" d="M232 334V178l142 78-142 78z"/>
+          </svg>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/profile.php?id=61578277770080" target="_blank" class="inline-block">
+          <svg xmlns="http://www.w3.org/2000/svg"
+              class="w-12 h-12 hover:opacity-80 transition"
+              viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="24" fill="#1877F2"/>
+            <path fill="#FFFFFF" d="M29 24h-3v12h-5V24h-2v-4h2v-2.3c0-1.7.4-3 1.2-3.8.8-.8 2-1.2 3.6-1.2h3.2v4h-2c-.6 0-1 .1-1.3.3-.2.2-.3.6-.3 1.2V20h3.6l-.5 4z"/>
+          </svg>
+        </a>
       </div>
     </div>
+
   </div>
 </footer>
+
+
+<style>
+  @media (min-width: 992px) {
+    .custom-ml {
+      margin-left: 25%;
+    }
+  }
+</style>

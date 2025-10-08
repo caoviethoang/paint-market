@@ -1,4 +1,18 @@
 vi:
+  date:
+    formats:
+      default:
+        long: "%B %d, %Y %-l:%M %p"
+        short: "%b %-d '%y %-l:%M%P"
+    month_names: [null, "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]
+    abbr_month_names: [null, "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"]
+    abbr_day_names: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+    day_names: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"]
+  number:
+    currency:
+      format:
+        separator: ","
+        delimiter: "."
   activerecord:
     attributes:
       spree/address:
@@ -9,7 +23,7 @@ vi:
         firstname: Tên
         lastname: Họ
         phone: "Điện thoại"
-        state: Bang
+        state: Tỉnh
         zipcode: Mã Zip
       spree/event:
         status: "Trạng thái"
@@ -56,7 +70,7 @@ vi:
         payment_state: Trạng thái thanh toán
         shipment_state: Trạng thái giao hàng
         special_instructions: Chỉ dẫn đặc biệt
-        state: Bang
+        state: Tỉnh
         total: Tổng
       spree/order/bill_address:
         address1: "Đỉa chị thanh toán - tên đường"
@@ -64,7 +78,7 @@ vi:
         firstname: "Đỉa chị thanh toán - tên"
         lastname: "Đỉa chị thanh toán - họ"
         phone: "Đỉa chị thanh toán - ĐT"
-        state: "Đỉa chị thanh toán - bang"
+        state: "Đỉa chị thanh toán - tỉnh"
         zipcode: "Đỉa chị thanh toán - mã zip"
       spree/order/ship_address:
         address1: "Đỉa chị giao hàng - tên đường"
@@ -72,7 +86,7 @@ vi:
         firstname: "Đỉa chị giao hàng - tên"
         lastname: "Đỉa chị giao hàng - họ"
         phone: "Đỉa chị giao hàng - ĐT"
-        state: "Đỉa chị giao hàng - bang"
+        state: "Đỉa chị giao hàng - tỉnh"
         zipcode: "Đỉa chị giao hàng - mã zip"
       spree/payment:
         amount: Giá trị
@@ -274,10 +288,10 @@ vi:
     add_product: Thêm sản phẩm
     add_product_properties: Thêm đặc tính sản phẩm
     add_rule_of_type: Tạo luật kiểu
-    add_state: Thêm bang
+    add_state: Thêm tỉnh
     add_stock: Thêm hàng hoá
     add_stock_management: Tạo quản lý hàng
-    add_to_cart: Cho vào sọt
+    add_to_cart: Thêm vào giỏ hàng
     add_variant: Tạo biến thể
     additional_item: Giá phải trả thêm
     address1: "Địa chỉ"
@@ -385,7 +399,7 @@ vi:
     card_number: Số thẻ
     card_type:
     card_type_is: Loại thẻ là
-    cart: Sọt hàng
+    cart: Giỏ hàng
     cart_subtotal:
     categories: Loại mặt hàng
     category: Loại mặt hàng
@@ -497,7 +511,7 @@ vi:
     edit: Sửa đổi
     editing_resource:
     editing_rma_reason:
-    editing_user: Sửa đổi người dùng
+    editing_user: Sửa đổi thông tin
     eligibility_errors:
       messages:
         has_excluded_product:
@@ -515,7 +529,7 @@ vi:
         not_first_order:
     email: Email
     empty: Trống
-    empty_cart: Làm rỗng sọt
+    empty_cart: Giỏ hàng trống
     enable_mail_delivery: Cho phép vận chuyển thư
     end: Kết thúc
     ending_in: Kết thúc trong
@@ -533,7 +547,7 @@ vi:
     events:
       spree:
         cart:
-          add: Cho vào sọt
+          add: Thêm vào giỏ hàng
         checkout:
           coupon_code_added: Mã coupon đã được thêm vào
         content:
@@ -543,6 +557,23 @@ vi:
         page_view: Trang tĩnh đã được xem
         user:
           signup: Người dùng đăng kí
+      pages:
+        featured_show: Triển Lãm Nổi Bật
+        current_show: Triển Lãm Hiện Tại
+        about_event: Về Sự Kiện
+        statement: Tuyên Bố
+        press_release: Thông Cáo Báo Chí
+        gallery: Phòng Trưng Bày
+        location: Địa Điểm
+        show: Triển Lãm
+        about: Về
+        more_info: THÔNG TIN THÊM
+        discover_art: Khám Phá Và Mua<br />Nghệ Thuật Làm Bạn Xúc Động
+        buy_now: MUA NGAY
+        sign_up: ĐĂNG KÝ
+        view_all: Xem Tất Cả
+        art_works: TÁC PHẨM NGHỆ THUẬT
+        no_art_works: Không Tìm Thấy Tác Phẩm Nghệ Thuật
     exceptions:
       count_on_hand_setter: Không thể thay count_on_hand vì giá trị này được tự động thay bởi recalculate_count_on_hand callback. Xin dùng `update_column(:count_on_hand, value)`.
     exchange_for:
@@ -612,7 +643,7 @@ vi:
     invalid_promotion_rule: Luật khuyến mại không đúng.
     inventory: Hàng
     inventory_adjustment: "Điều chỉnh hàng tồn"
-    inventory_error_flash_for_insufficient_quantity: Một sản phẩm trong sọt của bạn đã cháy hàng.
+    inventory_error_flash_for_insufficient_quantity: Một sản phẩm trong giỏ hàng của bạn đã cháy hàng.
     inventory_state:
     is_not_available_to_shipment_address: không thể chuyển đến địa chỉ chỉ định
     iso_name: Tên ISO
@@ -704,7 +735,7 @@ vi:
     new_shipment_at_location:
     new_shipping_category: Loại hình vận chuyển mới
     new_shipping_method: Phương pháp vận chuyển mới
-    new_state: Bang mới
+    new_state: Tỉnh mới
     new_stock_location: Kho hàng mới
     new_stock_movement: Di chuyển hàng mới
     new_stock_transfer: Di chuyển hàng mới
@@ -781,21 +812,20 @@ vi:
         thanks:
         total:
     order_not_found: Không tìm thấy đơn hàng. Xin vui lòng thử hành động khác.
-    order_number:
+    order_number: Mã đơn hàng %{number}
     order_processed_successfully: "Đơn đặt hàng của bạn đã được xử lý thành công"
-    order_resumed:
+    order_resumed: Đơn hàng đã được tiếp tục
     order_state:
-      address:
-      awaiting_return:
-      canceled:
-      cart:
-      complete:
-      confirm:
-      considered_risky:
-      delivery:
-      payment:
-      resumed:
-      returned:
+      address: Địa chỉ
+      awaiting_return: Đang chờ hoàn hàng
+      canceled: Đã hủy
+      cart: Giỏ hàng
+      complete: Hoàn tất
+      confirm: Xác nhận
+      delivery: Giao hàng
+      payment: Thanh toán
+      resumed: Tiếp tục
+      returned: Đã hoàn hàng
     order_summary: Tóm tắt đơn đặt hàng
     order_sure_want_to: Bạn có chắc bạn muốn %{event} đơn hàng này?
     order_total: Tổng giá sau thuế
@@ -804,7 +834,7 @@ vi:
     other_items_in_other:
     out_of_stock: Hết hàng
     overview: Tổng kết
-    package_from: gói từ
+    package_from: Gói từ
     pagination:
       next_page:
       previous_page:
@@ -1009,7 +1039,7 @@ vi:
     sales_total_description:
     sales_totals: Tổng doanh số
     save_and_continue: Lưu và tiếp tục
-    save_my_address:
+    save_my_address: Lưu địa chỉ
     say_no:
     say_yes:
     scope: Phạm vi
@@ -1043,14 +1073,14 @@ vi:
         thanks:
         track_information:
         track_link: 'Link để theo dõi: %{url}'
-    shipment_state:
+    shipment_state: Trạng thái giao hàng
     shipment_states:
-      backorder:
-      canceled:
-      partial:
-      pending:
-      ready:
-      shipped:
+      backorder: Đặt hàng trước
+      canceled: Đã hủy
+      partial: Giao một phần
+      pending: Đang chờ xử lý
+      ready: Sẵn sàng giao hàng
+      shipped: Đã giao hàng
     shipment_transfer_error:
     shipment_transfer_success:
     shipments: Vận chuyển
@@ -1068,7 +1098,7 @@ vi:
     shipping_price_sack: Xô giá
     shipping_total:
     shop_by_taxonomy: Mua theo %{taxonomy}
-    shopping_cart: Sọt mua sắm
+    shopping_cart: Giỏ hàng
     show: Xem
     show_active: Liệt kê đơn còn hiệu lực
     show_deleted: Hiện đơn hàng đã xóa
@@ -1085,8 +1115,8 @@ vi:
     ssl:
       change_protocol:
     start: Bắt đầu
-    state: Bang
-    state_based: Dựa trên bang
+    state: Tỉnh
+    state_based: Dựa trên tỉnh
     state_machine_states:
       accepted:
       address:
@@ -1119,8 +1149,8 @@ vi:
       returned:
       shipped:
       void:
-    states: Bang
-    states_required: Yêu cầu bang
+    states: Tỉnh
+    states_required: Yêu cầu tỉnh
     status: Tình trạng
     stock:
     stock_location: "Địa điểm hàng"
@@ -1184,6 +1214,9 @@ vi:
     tiered_percent:
     tiers:
     time: Thời gian
+    time:
+      am: Sáng
+      pm: Chiều
     to_add_variants_you_must_first_define: "Để thêm biến thể, bạn phải định nghĩa trước"
     total: Giá trị
     total_per_item:
@@ -1239,7 +1272,7 @@ vi:
     width: Rộng
     year: Năm
     you_have_no_orders_yet: You have no orders yet.
-    your_cart_is_empty: Sọt hàng rỗng
+    your_cart_is_empty: Giỏ hàng rỗng
     you_have_no_items_in_your_shopping_cart: Đơn hàng của bạn rỗng, xin hay tìm và thêm vào sản phẩm
     your_order_is_empty_add_product: "Đơn hàng của bạn rỗng, xin hay tìm và thêm vào sản phẩm như trên"
     zip: Mã bưu điện
@@ -1248,9 +1281,67 @@ vi:
     zones: Vùng
     shop_art: Sản phẩm
     our_artist: Họa sĩ
+    home: Trang chủ
     event: Sự kiện
     artist: Họa sĩ
+    menu_taxon: DANH MỤC SẢN PHẨM
     about_us: Về chúng tôi
+    about_us_page:
+      story:
+        title: "Câu chuyện của chúng tôi"
+        paragraph1: "Hà Vy Art Gallery là đơn vị gallery chuyên về tranh độc quyền trên nền tảng e-commerce. Điều làm chúng tôi khác biệt:"
+        paragraph2: "Hàng năm, Hà Vy Art mời các họa sĩ – từ những bậc thầy gạo cội đến tài năng trẻ – về làm việc và sáng tác tại Hà Vy Garden (Ba Vì, Hà Nội)."
+        paragraph3: "Đây không chỉ là một khu nghỉ dưỡng xanh mát, mà còn là không gian sáng tạo nghệ thuật độc đáo, nơi hiện đại giao hòa cùng thiên nhiên."
+        paragraph4: "Với Hà Vy Art, mỗi bức tranh không chỉ là tác phẩm nghệ thuật – mà còn là câu chuyện, trải nghiệm và cảm xúc."
+        paragraph5: "Hãy cùng chúng tôi chờ đón những tác phẩm đầu tiên sẽ được ra mắt ngay trên website thương mại điện tử của Hà Vy Art Gallery trong thời gian tới!"
+        cta_button: "Khám Phá Phòng Trưng Bày"
+      features:
+        curated_selection:
+          title: "Tuyển Chọn Cẩn Thận"
+          description: "Các tác phẩm nghệ thuật được chọn lọc kỹ lưỡng từ các nghệ sĩ mới nổi và đã thành danh"
+        expert_guidance:
+          title: "Hướng Dẫn Chuyên Môn"
+          description: "Tư vấn nghệ thuật chuyên nghiệp và lời khuyên xây dựng bộ sưu tập"
+        secure_transactions:
+          title: "Giao Dịch An Toàn"
+          description: "Xử lý thanh toán an toàn và đáng tin cậy cho tất cả các giao dịch"
+    home_page:
+      banner:
+        title: "Nghệ thuật tốt thay đổi cuộc sống"
+        description: "Mang về nhà tác phẩm nghệ thuật mới để xem trực tiếp. Nếu một tác phẩm không phù hợp với không gian của bạn, hãy trả lại trong vòng bảy ngày kể từ khi nhận đơn hàng và nhận hoàn tiền đầy đủ."
+        cta_button: "ĐI ĐẾN BỘ SƯU TẬP"
+      taxonomies:
+        fallback:
+          paintings: "TRANH VẼ"
+          abstract_art: "NGHỆ THUẬT TRỪU TƯỢNG"
+          oil_paintings: "TRANH SƠN DẦU"
+          landscapes: "PHONG CẢNH"
+          portraits: "CHÂN DUNG"
+          modern_art: "NGHỆ THUẬT HIỆN ĐẠI"
+      celebrate:
+        title: "Kỷ Niệm 15 Năm Khám Phá Nghệ Thuật Bạn Yêu Thích"
+      stats:
+        years: "30"
+        homes: "130,000+"
+        countries: "153"
+        artists: "100,000+"
+        artworks: "330,000+"
+        artist_countries: "143"
+      gift_section:
+        title: "Người chồng hoàn hảo"
+        description: "Tìm kiếm món quà kỷ niệm 40 năm cho người New Yorker đã có tất cả, John đã giành giải thưởng người chồng tốt nhất với món quà nghệ thuật."
+        cta_button: "Bộ Sưu Tập"
+      mission:
+        title: "Chúng tôi tin rằng nghệ thuật tốt mang mọi người lại gần nhau, nâng cao không gian sống và thay đổi cuộc sống."
+        description: "Được thành lập bởi Giám đốc Phòng trưng bày Mike Tran vào năm 2006, Martket đã phát triển một cộng đồng trung thành gồm các nhà sưu tầm nghệ thuật, nghệ sĩ và nhà thiết kế nội thất tại tất cả 50 tiểu bang và hơn 50 quốc gia."
+        about_link: "Về Chúng Tôi"
+      weekly_art:
+        title: "Khám phá nghệ thuật mới được thêm vào hàng tuần"
+        cta_button: "Mua ngay"
+      search_section:
+        title: "Tìm kiếm điều gì đó đặc biệt?"
+        subtitle: "Bắt đầu tìm kiếm với các đặc điểm cụ thể và thu hẹp lựa chọn của bạn."
+      shop_button: "Bộ sưu tập"
     celebrate: Kỷ Niệm 15 Năm Khám Phá Nghệ Thuật Mà Bạn Yêu Thích
     made_easy: "NĂM SỐNG CÙNG NGHỆ THUẬT, THẬT DỄ DÀNG"
     home_with_art: NGÔI NHÀ CÓ TRANH NGHỆ THUẬT
@@ -1258,6 +1349,160 @@ vi:
     artists_collected: HỌA SĨ TRONG BỘ SƯU TẬP
     artworks_sold: TÁC PHẨM ĐÃ ĐƯỢC BÁN
     artist_countries: QUỐC GIA CỦA CÁC HỌA SĨ
+    checkout: Đặt hàng
+    product:
+      title: Tên tranh
+      price: Giá tiền
+      artist: Họa sĩ
+      size: Kích thước
+      description: Mô tả
+      details: Thông tin chi tiết
+      no_details: Không có thông tin chi tiết
+      no_image: Không có hình ảnh
+      more_work_title: "Đây là những tác phẩm khác từ %{artist_name} mà bạn có thể thích"
+      filtered_by: Bộ lọc
+      orientation: Hướng
+      vertical: Dọc
+      horizontal: Ngang
+      square: Vuông
+      height: Chiều cao
+      width: Chiều rộng
+      color: Màu sắc
+      blue: Xanh dương
+      green: Xanh lá
+      orange: Cam
+      pink: Hồng
+      grey: Xám
+      beige: Be
+      brown: Nâu
+      yellow: Vàng
+      white: Trắng
+      red: Đỏ
+      purple: Tím
+      black: Đen
+      material: Chất liệu
+      oil: Sơn dầu
+      oil_paint: Sơn dầu
+      acrylic: Acrylic
+      watercolor: Màu nước
+      canvas: Canvas
+      paper: Giấy
+      wood: Gỗ
+      style: Phong cách
+      abstract: Trừu tượng
+      realism: Hiện thực
+      impressionism: Ấn tượng
+      expressionism: Biểu hiện
+      contemporary: Đương đại
+      classical: Cổ điển
+      price: Giá
+      under_10m: "< 10 triệu"
+      10m_to_50m: "10 triệu - 50 triệu"
+      50m_to_100m: "50 triệu - 100 triệu"
+      over_100m: "> 100 triệu"
+      small: Nhỏ
+      medium: Trung bình
+      large: Lớn
+      extra_large: Rất lớn
+      min: Tối thiểu
+      max: Tối đa
+    properties:
+      # Kích thước và vật lý
+      size: Kích thước
+      dimensions: Kích thước
+      weight: Trọng lượng
+      thickness: Độ dày
+
+      # Chất liệu và kỹ thuật
+      material: Chất liệu
+      medium: Chất liệu vẽ
+      technique: Kỹ thuật vẽ
+      support: Chất liệu nền
+      frame: Khung tranh
+
+      # Thông tin nghệ thuật
+      year: Năm sáng tác
+      period: Thời kỳ
+      style: Phong cách
+      orientation: Hướng
+      movement: Trào lưu nghệ thuật
+      genre: Thể loại
+
+      # Màu sắc và ánh sáng
+      color: Màu sắc
+      color_scheme: Bảng màu
+      lighting: Ánh sáng
+
+      # Tình trạng và bảo quản
+      condition: Tình trạng
+      conservation: Bảo quản
+      restoration: Phục chế
+      authenticity: Tính xác thực
+
+      # Thông tin pháp lý
+      provenance: Nguồn gốc
+      certificate: Giấy chứng nhận
+      copyright: Bản quyền
+
+      # Thông tin thương mại
+      edition: Phiên bản
+      limited_edition: Phiên bản giới hạn
+      price_range: Khoảng giá
+      investment_value: Giá trị đầu tư
+    filters:
+      filtered_by: Bộ lọc
+      orientation: Hướng
+      vertical: Dọc
+      horizontal: Ngang
+      square: Vuông
+      height: Chiều cao
+      width: Chiều rộng
+      color: Màu sắc
+      blue: Xanh dương
+      green: Xanh lá
+      orange: Cam
+      pink: Hồng
+      grey: Xám
+      beige: Be
+      brown: Nâu
+      yellow: Vàng
+      white: Trắng
+      red: Đỏ
+      purple: Tím
+      black: Đen
+      material: Chất liệu
+      oil_paint: Sơn dầu
+      acrylic: Acrylic
+      watercolor: Màu nước
+      canvas: Canvas
+      paper: Giấy
+      wood: Gỗ
+      style: Phong cách
+      abstract: Trừu tượng
+      realism: Hiện thực
+      impressionism: Ấn tượng
+      expressionism: Biểu hiện
+      contemporary: Đương đại
+      classical: Cổ điển
+      price: Giá
+      under_10m: "< 10 triệu"
+      10m_to_50m: "10 triệu - 50 triệu"
+      50m_to_100m: "50 triệu - 100 triệu"
+      over_100m: "> 100 triệu"
+      small: Nhỏ
+      medium: Trung bình
+      large: Lớn
+      extra_large: Rất lớn
+      min: Tối thiểu
+      max: Tối đa
+    admin:
+      artist_information: Thông tin họa sĩ
+      artist_start_year_help: Nhập năm họa sĩ bắt đầu làm việc
+      reset: Đặt lại
+      taxonomy_description: Mô tả
+      taxonomy_description_placeholder: Nhập mô tả phân loại...
+      taxonomy_description_help: Mô tả tùy chọn cho danh mục phân loại này
+      event_description: Mô tả
     footer:
       information: Thông tin
       our_company: Công ty
@@ -1266,3 +1511,5 @@ vi:
       showroom: Văn phòng
       phone: Số điện thoại
       address: Địa chỉ
+      address_name:
+        name: Số 32, đường Đồn Din, thôn Muỗi, xã Yên Bài, Hà Nội (Hà Vy Garden)

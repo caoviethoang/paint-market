@@ -22,12 +22,27 @@ Rails.application.configure do
   # config.asset_host = "http://assets.example.com"
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon_production
-  config.active_storage.variant_processor = :mini_magick
-  
-  # Serve static files from the public directory
-  config.public_file_server.enabled = true
-  
+  if ENV["AWS_ACCESS_KEY_ID"].present? && ENV["AWS_SECRET_ACCESS_KEY"].present?
+    config.active_storage.service = :amazon_production
+  else
+    config.active_storage.service = :local
+  end
+  config.active_storage.variant_processor = :vips
+
+  # Optimize image processing to reduce memory usage
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
+  config.active_storage.draw_routes = false
+
+  # Disable ActiveRecord encryption for Heroku
+  config.active_record.encryption.primary_key = nil
+  config.active_record.encryption.deterministic_key = nil
+  config.active_record.encryption.key_derivation_salt = nil
+
+  # Configure Sprockets for Solidus compatibility
+  config.assets.compile = true
+  config.assets.precompile += %w[ controllers/* ]
+  config.assets.css_compressor = nil
+  config.assets.js_compressor = nil
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true
 
@@ -50,8 +65,8 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+  # Use memory store with size limit to prevent memory leaks
+  config.cache_store = :memory_store, { size: 16.megabytes }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
@@ -75,14 +90,17 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
+  config.i18n.default_locale = :vi
+  config.i18n.fallbacks = [ :vi, :en ]
+
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
-
+  config.hosts << "havyart.com"
+  config.hosts << "www.havyart.com"
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com

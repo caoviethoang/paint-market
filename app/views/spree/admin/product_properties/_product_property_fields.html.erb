@@ -1,0 +1,41 @@
+<tr class="product_property fields" id="spree_<%= dom_id(f.object) %>" data-hook="product_property">
+  <td>
+    <% if f.object.persisted? && can?(:update_positions, f.object) %>
+      <span class="handle"></span>
+      <%= f.hidden_field :id %>
+    <% end %>
+  </td>
+
+  <td class='property_name'>
+    <%= f.text_field :property_name, list: 'properties', class: "property-name-input" %>
+  </td>
+
+  <td class='value'>
+    <% selected_property = Spree::Property.find_by(name: f.object.property_name) %>
+
+    <% if selected_property.present? && selected_property.property_values.any? %>
+      <%= f.select :value,
+            options_from_collection_for_select(
+              selected_property.property_values.ordered,
+              :value,
+              :display_name,
+              f.object.value
+            ),
+            { include_blank: true },
+            class: "property-value-select custom-select" %>
+    <% else %>
+      <%= f.text_field :value, placeholder: "Enter value" %>
+    <% end %>
+  </td>
+
+  <td class="actions">
+    <% if f.object.persisted? %>
+      <% if can?(:destroy, f.object) %>
+        <%= link_to_delete f.object, no_text: true %>
+      <% end %>
+    <% else %>
+      <%= link_to_with_icon('trash', 'remove', '#', no_text: true, class: "spree_remove_fields",
+            data: { action: 'remove' }, title: t('spree.actions.remove')) %>
+    <% end %>
+  </td>
+</tr>

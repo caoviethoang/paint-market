@@ -116,6 +116,7 @@ GEM
     brakeman (7.1.0)
       racc
     builder (3.3.0)
+    byebug (12.0.0)
     cancancan (3.6.1)
     capybara (3.40.0)
       addressable
@@ -317,10 +318,6 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.4.0)
-    propshaft (1.2.1)
-      actionpack (>= 7.0.0)
-      activesupport (>= 7.0.0)
-      rack
     psych (5.2.6)
       date
       stringio
@@ -638,6 +635,7 @@ DEPENDENCIES
   aws-sdk-s3 (~> 1.2)
   bootsnap
   brakeman
+  byebug (~> 12.0)
   capybara
   capybara-screenshot (~> 1.0)
   database_cleaner (~> 2.0)
@@ -652,7 +650,6 @@ DEPENDENCIES
   kamal
   kaminari (~> 1.2)
   pg (~> 1.1)
-  propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
   rails-controller-testing (~> 1.0.5)
@@ -665,6 +662,7 @@ DEPENDENCIES
   rubocop-rails (~> 2.3)
   rubocop-rails-omakase
   rubocop-rspec (~> 2.0)
+  ruby-vips
   selenium-webdriver
   solid_cable
   solid_cache
@@ -673,6 +671,7 @@ DEPENDENCIES
   solidus_admin (>= 0.2)
   solidus_auth_devise (~> 2.5)
   solidus_support (>= 0.12.0)
+  sprockets-rails
   stimulus-rails
   tailwindcss-rails (~> 3.0)
   thruster
@@ -682,4 +681,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.6.7
+   2.7.2

@@ -1,5 +1,7 @@
 root to: 'home#index'
 
+get '/about-us', to: 'about_us#index', as: :about_us
+
 devise_for(:user, {
   class_name: 'Spree::User',
   singular: :spree_user,

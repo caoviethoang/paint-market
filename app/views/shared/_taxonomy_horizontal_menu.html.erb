@@ -1,0 +1,157 @@
+<% if @taxonomies.present? %>
+  <section class="bg-gradient-to-r from-red-500 text-white">
+    <div class="px-6 mx-auto">
+      <div class="flex">
+        <!-- Left Section - Red Background -->
+        <div class="bg-red-500 px-6 py-4 flex items-center space-x-3 min-w-fit">
+          <!-- Hamburger Icon -->
+          <button type="button"
+                  class="mobile-menu-toggle text-white hover:text-red-100 transition-colors duration-200"
+                  onclick="toggleMobileMenu()">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          <!-- Text -->
+          <span class="text-white font-bold text-lg uppercase tracking-wide"><%=t('spree.menu_taxon') %></span>
+
+          <!-- Chevron Down -->
+          <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+
+        <!-- Right Section - Menu Items -->
+        <div class="flex-1">
+          <nav>
+            <ul class="flex space-x-8 py-4 px-6 min-w-max">
+              <% @taxonomies.each do |taxonomy| %>
+                <li class="taxonomy-item relative">
+                  <!-- Taxonomy chính -->
+                  <div class="flex items-center space-x-2">
+                    <%= link_to taxonomy.name.upcase,
+                        products_path,
+                        class: "text-white hover:text-red-200 font-medium text-sm transition-colors duration-200 whitespace-nowrap tracking-wide #{'text-red-200' if @taxon&.taxonomy_id == taxonomy.id}" %>
+
+                    <!-- Chevron Down cho taxonomy có taxons -->
+                    <% if taxonomy.taxons.any? %>
+                      <svg class="h-4 w-4 text-white transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    <% end %>
+                  </div>
+
+                  <!-- Dropdown cho taxons - Hiển thị theo chiều ngang -->
+                  <% if taxonomy.taxons.any? %>
+                    <div class="taxonomy-dropdown absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible transition-all duration-200 z-50 transform translate-y-1 min-w-max">
+                      <div class="px-4 py-3">
+                        <div class="flex space-x-6">
+                          <% taxonomy.taxons.each do |taxon| %>
+                            <div class="taxon-item">
+                              <%= link_to taxon.name,
+                                  products_path(taxon: taxon.permalink),
+                                  class: "text-gray-700 hover:text-red-600 font-medium text-sm transition-colors duration-200 whitespace-nowrap #{'text-red-600' if @taxon&.id == taxon.id}" %>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden md:hidden bg-red-600 border-t border-red-400">
+      <div class="px-6 py-4 space-y-3">
+        <% @taxonomies.each do |taxonomy| %>
+          <div class="border-b border-red-400 pb-3 last:border-b-0">
+            <h4 class="font-medium text-white mb-2 uppercase tracking-wide"><%= taxonomy.name %></h4>
+            <% if taxonomy.taxons.any? %>
+              <div class="pl-4 space-y-1">
+                <% taxonomy.taxons.each do |taxon| %>
+                  <%= link_to taxon.name,
+                      products_path(taxon: taxon.permalink),
+                      class: "block py-1 text-sm text-red-100 hover:text-white transition-colors duration-200 #{'text-white font-medium' if @taxon&.id == taxon.id}" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <!-- JavaScript cho mobile menu -->
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const button = document.querySelector('.mobile-menu-toggle');
+
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        button.innerHTML = `
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        `;
+      } else {
+        menu.classList.add('hidden');
+        button.innerHTML = `
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        `;
+      }
+    }
+
+    // JavaScript để xử lý dropdown hover
+    document.addEventListener('DOMContentLoaded', function() {
+      const taxonomyItems = document.querySelectorAll('.taxonomy-item');
+
+      taxonomyItems.forEach(function(item) {
+        const dropdown = item.querySelector('.taxonomy-dropdown');
+
+        if (dropdown) {
+          item.addEventListener('mouseenter', function() {
+            dropdown.style.opacity = '1';
+            dropdown.style.visibility = 'visible';
+            dropdown.style.transform = 'translateY(0)';
+          });
+
+          item.addEventListener('mouseleave', function() {
+            dropdown.style.opacity = '0';
+            dropdown.style.visibility = 'hidden';
+            dropdown.style.transform = 'translateY(4px)';
+          });
+        }
+      });
+    });
+  </script>
+
+  <!-- CSS để đảm bảo dropdown hoạt động -->
+  <style>
+    .taxonomy-dropdown {
+      transition: all 0.2s ease-in-out;
+    }
+
+    .taxonomy-item:hover .taxonomy-dropdown {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+    }
+
+    .taxon-item {
+      padding: 4px 0;
+    }
+
+    .taxon-item a:hover {
+      color: #dc2626 !important;
+    }
+  </style>
+<% end %>

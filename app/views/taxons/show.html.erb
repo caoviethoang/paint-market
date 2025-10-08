@@ -4,7 +4,7 @@
     <%= render 'shared/search/filters', taxon: @taxon %>
   </aside>
   <section class="products_section col-span-full md:col-span-9 lg:col-span-10">
-    <h1 class="products__taxon-title mb-4 font-serif text-h3 lg:text-h2"><%= @taxon.name %></h1>
+    <h1 class="products__taxon-title mb-4 text-h3 lg:text-h2"><%= @taxon.name %></h1>
 
     <%= render 'products/products', products: @products, taxon: @taxon %>
 

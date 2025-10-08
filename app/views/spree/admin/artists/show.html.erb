@@ -10,7 +10,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4>Artist Information</h4>
+    <h4><%= t('spree.admin.artist_information') %></h4>
   </div>
   <div class="panel-body">
     <h3><%= @artist.name %></h3>
@@ -18,8 +18,6 @@
     <dl class="dl-horizontal">
       <dt>Introduction:</dt>
       <dd><%= @artist.introduction if @artist.introduction.present? %></dd>
-      <dt>Date of Birth:</dt>
-      <dd><%= l(@artist.dob) if @artist.dob.present? %></dd>
 
       <dt>Address:</dt>
       <dd><%= @artist.address %></dd>

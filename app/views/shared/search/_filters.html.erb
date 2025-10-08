@@ -1,13 +1,46 @@
 <% filters = applicable_filters_for(taxon) %>
 
 <% unless filters.empty? %>
-  <%= form_tag '', method: :get, id: 'sidebar_products_search', class: "mt-8" do %>
+  <%= form_tag '', method: :get, id: 'sidebar_products_search', class: "w-80" do %>
     <%= hidden_field_tag 'per_page', params[:per_page] %>
 
     <% filters.each do |filter| %>
       <%= render(FilterComponent.new(filter: filter, search_params: params[:search])) %>
     <% end %>
 
-    <%= button_tag t("spree.search"), class: 'button-primary button-primary--full-width mt-6' %>
+    <div class="flex gap-2 mt-6">
+      <%= button_tag t("spree.clear"), type: 'button', id: 'clear-filters', class: 'flex-1 px-4 py-3 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50' %>
+      <%= button_tag t("spree.search"), class: 'flex-1 bg-red-500 text-white py-3 px-4 rounded-md font-medium bg-red-700' %>
+    </div>
   <% end %>
+  <script>
+    (function() {
+      function bindClearFilters() {
+        var form = document.getElementById('sidebar_products_search');
+        var btn = document.getElementById('clear-filters');
+        if (!form || !btn) { return; }
+
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var inputs = form.querySelectorAll('input[name^="search["]');
+          inputs.forEach(function(input) {
+            if (input.type === 'checkbox') { input.checked = false; }
+            if (input.type === 'number' || input.type === 'text' || input.type === 'hidden') {
+              // Only clear fields under search[...] (do not clear per_page hidden)
+              if (input.name.startsWith('search[')) { input.value = ''; }
+            }
+          });
+          // Remove search params from URL by submitting without any checked values
+          form.submit();
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindClearFilters);
+      } else {
+        bindClearFilters();
+      }
+      document.addEventListener('turbo:load', bindClearFilters);
+    })();
+  </script>
 <% end %>

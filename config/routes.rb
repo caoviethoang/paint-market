@@ -12,13 +12,20 @@ Rails.application.routes.draw do
       get :detail
     end
   end
-  resources :artists
+  resources :artists, only: [ :index, :show ]
+  resources :about_us, only: [ :index ]
 
   Spree::Core::Engine.routes.draw do
     namespace :admin do
       resources :events
       resources :artists
       resources :taxonomies
+      resources :properties do
+        member do
+          get :values
+        end
+        resources :property_values
+      end
     end
   end
 end

@@ -7,7 +7,7 @@ Spree.load_defaults '4.5.1'
 Spree.config do |config|
   # Core:
   # Default currency for new sites
-  config.currency = "USD"
+  config.currency = "VND"
   config.default_country_iso = 'VN'
 
   # Uncomment to stop tracking inventory levels in the application
@@ -51,7 +51,7 @@ Spree.config do |config|
 end
 
 Spree::Backend::Config.configure do |config|
-  config.locale = 'en'
+  config.locale = 'vi'
 
   # Uncomment and change the following configuration if you want to add
   # a new menu item:

@@ -1,35 +1,35 @@
 <section class="bg-[#f5f0e9] min-h-screen">
-  <div class="mx-auto px-6 lg:px-8 py-6">
-    <h1 class="text-h2.5 font-bold text-gray-900 leading-tight">About Event</h1>
-    
-    <div class="about-event grid grid-cols-1 lg:grid-cols-3 gap-12 mt-4">
-      <div class="lg:col-span-2 space-y-10">
+  <div class="mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <h1 class="text-xl sm:text-2xl lg:text-h2.5 font-bold text-gray-900 leading-tight"><%= t('spree.events.pages.about_event') %></h1>
+
+    <div class="about-event grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mt-4">
+      <div class="lg:col-span-2 space-y-6 lg:space-y-10">
         <div>
-          <h2 class="text-h4 font-semibold text-gray-600 mb-4">Statement</h2>
-          <p class="text-gray-700 text-lg leading-relaxed">
+          <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.statement') %></h2>
+          <p class="text-gray-700 text-base sm:text-lg leading-relaxed">
             <%= @event.statement.presence || "Discover an exclusive selection of silver sculptures by Salvador Dalí: refined creations including the iconic melting watches and Alice in Wonderland, where the brilliance of silver enhances the master's surrealist vision." %>
           </p>
         </div>
 
         <div>
-          <h2 class="text-h4 font-semibold text-gray-600 mb-4">Press Release</h2>
-          <p class="text-gray-700 text-lg leading-relaxed mb-6">
+          <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.press_release') %></h2>
+          <p class="text-gray-700 text-base sm:text-lg leading-relaxed mb-4 lg:mb-6">
             <%= @event.press_release.presence || "Ben Brown Fine Arts is pleased to present 'Wish You Were Here', an exhibition curated by New York-based curator, art advisor, and independent scholar Jie Xia. On view at Ben Brown Fine Arts Hong Kong, the exhibition evokes the intoxicating pull of summer: the heat, the haze, and the promise of escape. Featuring works by leading postwar and contemporary artists – drawn from the gallery's programme and beyond – the exhibition explores the iconography of travel, the sea, and the rituals of seasonal escape, approached with varying degrees of meditation, longing, and nostalgia." %>
           </p>
         </div>
       </div>
-      
-      <div class="flex flex-col gap-10 justify-start">
+
+      <div class="flex flex-col gap-6 lg:gap-10 justify-start">
         <div>
-          <h2 class="text-h4 font-semibold text-gray-600 mb-4">Gallery</h2>
-          <p class="text-gray-700 text-lg"><%= @event.gallery.presence || "Martket Gallery Ha Noi" %></p>
+          <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.gallery') %></h2>
+          <p class="text-gray-700 text-base sm:text-lg"><%= @event.gallery.presence || "Martket Gallery Ha Noi" %></p>
         </div>
         <div>
-          <h2 class="text-h4 font-semibold text-gray-600 mb-4">Location</h2>
-          <p class="text-gray-700 text-lg leading-relaxed">
+          <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.location') %></h2>
+          <p class="text-gray-700 text-base sm:text-lg leading-relaxed">
             <%= @event.location.presence || "201 The Factory,<br>1 Hang Bai,<br>Ha Noi, VN.".html_safe %>
           </p>
-          <p class="text-gray-700 text-lg mt-3">
+          <p class="text-gray-700 text-base sm:text-lg mt-2 lg:mt-3">
             <%= @event.display_operating_hours %>
           </p>
         </div>
@@ -38,28 +38,28 @@
 
     <div class="mt-4 bg-[#fdf3e2] overflow-hidden">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
-        <div class="flex flex-col justify-center lg:p-16 p-12 text-center">
-          <h2 class="font-bold font-serif leading-tight lg:text-5xl mb-8 text-gray-900 text-h2.5">
-            Discover and Buy<br />Art that Moves You
+        <div class="flex flex-col justify-center lg:p-16 p-6 sm:p-8 lg:p-12 text-center">
+          <h2 class="font-bold leading-tight text-2xl sm:text-3xl lg:text-h2.5 mb-6 lg:mb-8 text-gray-900">
+            <%= t('spree.events.pages.discover_art').html_safe %>
           </h2>
           <div class="flex justify-center">
-            <button class="border-2 border-gray-800 px-8 py-4 text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300">
+            <button class="border-2 border-gray-800 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium hover:bg-gray-800 hover:text-white transition-all duration-300">
               <% if spree_user_signed_in? %>
-                BUY NOW
+                <%= link_to t('spree.events.pages.buy_now'), products_path %>
               <% else %>
-                SIGN UP
+                <%= link_to t('spree.events.pages.sign_up'), signup_path %>
               <% end %>
             </button>
           </div>
         </div>
-        
-         <div class="min-h-[50vh]" style="height: 315px;">
+
+         <div class="min-h-[40vh] sm:min-h-[50vh]" style="height: 250px; sm:height: 315px;">
           <iframe
             src="<%= youtube_embed_url(@event.youtube_url) %>"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
-            class="w-1/2 h-full w-full"
+            class="w-full h-full"
           ></iframe>
         </div>
       </div>

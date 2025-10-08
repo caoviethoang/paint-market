@@ -27,13 +27,15 @@ Rails.application.configure do
 
   # Change to :null_store to avoid any caching.
   config.cache_store = :memory_store
-
+  config.hosts.clear
+  config.i18n.default_locale = :vi
+  config.i18n.fallbacks = [ :vi, :en ]
   # Store uploaded files on the local file system (see config/storage.yml for options).
   # config.active_storage.service = :local
 
-  # Uncomment để sử dụng S3 ngay trong development
-  # config.active_storage.variant_processor = :mini_magick
-  config.active_storage.service = :amazon_development
+  # Sử dụng local storage trong development
+  config.active_storage.service = :local
+  config.active_storage.variant_processor = :vips
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

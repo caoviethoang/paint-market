@@ -5,7 +5,8 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*',
-    './app/components/**/*'
+    './app/components/**/*',
+    './app/assets/stylesheets/**/*.css'
   ],
   theme: {
     screens: {
@@ -18,10 +19,8 @@ module.exports = {
       '3xl': '1536px',
     },
     fontFamily: {
-      sans: ['Inter Regular', 'system-ui', 'sans-serif'],
-      'sans-md': ['"Inter Medium"', 'system-ui', 'sans-serif'],
-      serif: ['Source Serif', 'system-ui', 'serif'],
-      'serif-md': ['"Source Serif Medium"', 'system-ui', 'serif'],
+      sans: ['Inter Regula', 'system-ui', 'sans-serif'],
+      serif: ['Cormorant Garamond', 'serif'],
     },
     fontSize: {
       h1: ['4rem', '120%'],

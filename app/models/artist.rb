@@ -5,14 +5,21 @@ class Artist < Spree::Base
   has_many :products, class_name: "Spree::Product", dependent: :nullify
 
   # Validations
-  validates :name, :introduction, :dob, :address, presence: true
+  validates :name, :introduction, :address, presence: true
+  validates :start_work, presence: true, numericality: { 
+    only_integer: true, 
+    greater_than: 1900, 
+    less_than_or_equal_to: Date.current.year 
+  }
   validate :background_image_presence
 
   # Scopes
   scope :recent, -> { order(created_at: :desc) }
+  scope :by_start_work, ->(year) { where(start_work: year) }
+  scope :active_artists, -> { where('start_work >= ?', Date.current.year - 50) }
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name introduction dob address created_at updated_at]
+    %w[name introduction start_work address created_at updated_at]
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -40,6 +47,17 @@ class Artist < Spree::Base
     else
       Rails.application.routes.url_helpers.rails_blob_path(processed_image, only_path: true)
     end
+  end
+
+  # Helper method để tính số năm kinh nghiệm
+  def experience_years
+    return nil unless start_work
+    Date.current.year - start_work
+  end
+
+  # Helper method để đếm số sản phẩm
+  def products_count
+    products.count
   end
 
   private

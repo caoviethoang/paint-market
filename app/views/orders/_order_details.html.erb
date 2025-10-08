@@ -1,7 +1,7 @@
 <div class="order-details">
   <div class="order-details__info grid-container py-6 border-b-[1px] border-b-gray-200 dark:border-b-400">
     <% if order.has_checkout_step?("address") %>
-      <div class="col-span-full lg:col-span-3">
+      <div class="col-span-full lg:col-span-3 mb-10">
         <%= render(
           'orders/address_overview',
           address: order.bill_address,
@@ -11,7 +11,7 @@
     <% end %>
     
     <% if order.has_checkout_step?("delivery") %>
-      <div class="col-span-full lg:col-span-3">
+      <div class="col-span-full lg:col-span-3 mb-10">
         <%= render(
           'orders/address_overview',
           address: order.ship_address,
@@ -29,17 +29,7 @@
         ) %>
       </div>
     <% end %>
-
-    <% if order.has_checkout_step?("payment") %>
-      <div class="col-span-full lg:col-span-3">
-        <%= render(
-          'orders/payment_info',
-          order: order
-        ) %>
-      </div>
-    <% end %>
   </div>
-
   <%
     wrapper_grid_classes = ["col-span-full bg-sand border-[1px] border-gray-300 p-3 text-black lg:p-6 lg:col-start-2 lg:col-span-10 xl:col-start-3 xl:col-span-8"]
     wrapper_grid_dark_classes = ["dark:bg-black dark:border-gray-400 dark:text-sand"]

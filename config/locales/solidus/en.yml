@@ -1557,6 +1557,23 @@ en:
         page_view: Static page viewed
         user:
           signup: User signup
+      pages:
+        featured_show: Featured Show
+        current_show: Current Show
+        about_event: About Event
+        statement: Statement
+        press_release: Press Release
+        gallery: Gallery
+        location: Location
+        show: Show
+        about: About
+        more_info: MORE INFO
+        discover_art: Discover and Buy<br />Art that Moves You
+        buy_now: BUY NOW
+        sign_up: SIGN UP
+        view_all: View All
+        art_works: ART WORKS
+        no_art_works: No ART WORKS found
     exceptions:
       count_on_hand_setter: Cannot set count_on_hand manually, as it is set automatically by the recalculate_count_on_hand callback. Please use `update_column(:count_on_hand, value)` instead.
     exchange_for: Exchange For
@@ -1645,6 +1662,64 @@ en:
         shipping_category: 'This determines what kind of shipping this variant requires.<br> Default: Use shipping category of the product associated with this variant'
         tax_category: 'This determines what kind of taxation is applied to this variant.<br> Default: Use tax category of the product associated with this variant'
     home: Home
+    about_us: About Us
+    shop_art: Shop Art
+    about_us_page:
+      story:
+        title: "Our story"
+        paragraph1: "Hà Vy Art Gallery is a gallery specializing in exclusive paintings on the e-commerce platform. What sets us apart:"
+        paragraph2: "Every year, Hà Vy Art invites artists – from seasoned masters to young talents – to work and create at Hà Vy Garden (Ba Vì, Hanoi)."
+        paragraph3: "This is not only a refreshing green retreat, but also a unique artistic creative space where modernity harmonizes with nature."
+        paragraph4: "For Hà Vy Art, each painting is not just a work of art – but also a story, an experience, and an emotion."
+        paragraph5: "Join us in looking forward to the very first artworks to be launched soon on Hà Vy Art Gallery’s e-commerce website!"
+        cta_button: "Explore Our Gallery"
+      features:
+        curated_selection:
+          title: "Curated Selection"
+          description: "Carefully selected artworks from emerging and established artists"
+        expert_guidance:
+          title: "Expert Guidance"
+          description: "Professional art consultation and collection building advice"
+        secure_transactions:
+          title: "Secure Transactions"
+          description: "Safe and reliable payment processing for all purchases"
+    home_page:
+      banner:
+        title: "Good art changes lives"
+        description: "Bring home your new art to view it in person. If a piece doesn't quite work in your space, return it within seven days of receiving your order and receive a full refund."
+        cta_button: "GO TO COLLECTION"
+      taxonomies:
+        fallback:
+          paintings: "PAINTINGS"
+          abstract_art: "ABSTRACT ART"
+          oil_paintings: "OIL PAINTINGS"
+          landscapes: "LANDSCAPES"
+          portraits: "PORTRAITS"
+          modern_art: "MODERN ART"
+      celebrate:
+        title: "Celebrate 15 Years of Discovering Art You Love"
+      stats:
+        years: "30"
+        homes: "130,000+"
+        countries: "153"
+        artists: "100,000+"
+        artworks: "330,000+"
+        artist_countries: "143"
+      gift_section:
+        title: "The perfect husband"
+        description: "Looking for a 40th anniversary gift for the New Yorker who has everything, John won the award for best husband with a gift of art."
+        cta_button: "Browse Gift Collection"
+      mission:
+        title: "We believe that good art bring people together, elevated living space, and transforms lives."
+        description: "Founded by Gallery Director Mike Tran in 2006, Martket has developed a loyal following of art collectors, artists, and interior designers in all 50 states and over 50 countries."
+        about_link: "About Us"
+      weekly_art:
+        title: "Discover new art added weekly"
+        cta_button: "Browse New Art"
+      search_section:
+        title: "Seeking something special?"
+        subtitle: "Start searching with specific characteristics and narrow your options."
+      shop_button: "Shop"
     i18n:
       available_locales: Available Locales
       fields: Fields
@@ -2381,11 +2456,120 @@ en:
     zones: Zones
     celebrate: Celebrate 15 Years of Discovering Art You Love
     made_easy: YEARS OF LIVING WITH ART, MADE EASY
+    menu_taxon: MENU
     home_with_art: HOMES WITH ART
     collector_countries: COLLECTOR COUNTRIES
     artists_collected: ARTISTS COLLECTED
     artworks_sold: ARTWORKS SOLD
     artist_countries: ARTIST COUNTRIES
+    checkout:
+      customer_email: Customer email
+      email_placeholder: name@example.com
+    product:
+      title: Title
+      artist: Artist
+      size: Size
+      description: Description
+      details: Product Details
+      no_details: No details available
+      no_image: No image
+      more_work_title: "Here's more work from %{artist_name} you may enjoy"
+    properties:
+      # Physical dimensions
+      size: Size
+      dimensions: Dimensions
+      weight: Weight
+      thickness: Thickness
+      
+      # Materials and techniques
+      material: Material
+      medium: Medium
+      technique: Technique
+      support: Support
+      frame: Frame
+      
+      # Artistic information
+      year: Year
+      period: Period
+      style: Style
+      movement: Art Movement
+      genre: Genre
+      
+      # Colors and lighting
+      color: Color
+      color_scheme: Color Scheme
+      lighting: Lighting
+      
+      # Condition and conservation
+      condition: Condition
+      conservation: Conservation
+      restoration: Restoration
+      authenticity: Authenticity
+      
+      # Legal information
+      provenance: Provenance
+      certificate: Certificate
+      copyright: Copyright
+      
+      # Commercial information
+      edition: Edition
+      limited_edition: Limited Edition
+      price_range: Price Range
+      investment_value: Investment Value
+    filters:
+      filtered_by: Filtered by
+      orientation: Orientation
+      vertical: Vertical
+      horizontal: Horizontal
+      square: Square
+      height: Height
+      width: Width
+      color: Color
+      blue: Blue
+      green: Green
+      orange: Orange
+      pink: Pink
+      grey: Grey
+      beige: Beige
+      brown: Brown
+      yellow: Yellow
+      white: White
+      red: Red
+      purple: Purple
+      black: Black
+      material: Material
+      oil_paint: Oil Paint
+      acrylic: Acrylic
+      watercolor: Watercolor
+      canvas: Canvas
+      paper: Paper
+      wood: Wood
+      style: Style
+      abstract: Abstract
+      realism: Realism
+      impressionism: Impressionism
+      expressionism: Expressionism
+      contemporary: Contemporary
+      classical: Classical
+      price: Price
+      under_10m: "< 10M VND"
+      10m_to_50m: "10M - 15M VND"
+      50m_to_100m: "15M - 30M VND"
+      over_100m: "> 30M VND"
+      small: Small
+      medium: Medium
+      large: Large
+      extra_large: Extra Large
+      min: Min
+      max: Max
+    admin:
+      artist_information: Artist Information
+      artist_start_year_help: Enter the year when the artist started working
+      reset: Reset
+      taxonomy_description: Description
+      taxonomy_description_placeholder: Enter taxonomy description...
+      taxonomy_description_help: Optional description for this taxonomy category
+      event_description: Description
     footer:
       information: INFORMATION
       our_company: OUR COMPANY
@@ -2394,6 +2578,8 @@ en:
       showroom: Showroom
       phone: Phone
       address: Address
+      address_name:
+        name: No. 32, Đồn Din Street, Muỗi Hamlet, Yên Bài Commune, Hanoi (Hà Vy Garden)
   time:
     formats:
       solidus:

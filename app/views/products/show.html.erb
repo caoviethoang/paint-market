@@ -1,17 +1,20 @@
 <% @body_id = 'product-details' %>
-<% @title = "Here's more work from #{@artist.name} you may enjoy" %>
+<% @title = t('spree.product.more_work_title', artist_name: @artist.name) %>
 
 <% cache [I18n.locale, current_pricing_options, @product] do %>
-  <section itemscope itemtype="http://schema.org/Product">
-    <div class="wrapper grid-container py-4 lg:pb-12">
-      <div class="col-span-full lg:col-span-8">
-        <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:grid-container lg:max-h-[680px]">
-          <%= render 'product_thumbnails', product: @product %>
+  <section itemscope itemtype="http://schema.org/Product" class="px-4 sm:px-6">
+    <!-- Mobile Layout: Stack vertically -->
+    <div class="flex flex-col lg:flex-row w-full lg:pb-12 py-4">
+      <!-- Image Section -->
+      <div class="w-full lg:flex-none custom-width h-full">
+        <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:max-h-[680px]">
           <%= render 'product_image', product: @product %>
         </div>
+        <%= render 'product_thumbnails', product: @product %>
       </div>
 
-      <div class="flex flex-col col-span-full gap-y-8 lg:col-span-4 lg:gap-y-16">
+      <!-- Product Details Section -->
+      <div class="w-full flex flex-col pr-8">
         <%= render 'product_header', product: @product %>
         <%= render 'product_info', product: @product %>
         <%= render 'product_promotions', product: @product %>
@@ -19,34 +22,50 @@
       </div>
     </div>
 
-    <div class="bg-[#fdf3e2] mt-12">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-    
-    <!-- Cột bên trái: ảnh -->
-    <div>
-      <% if @artist.background_image.attached? %>
-        <%= image_tag @artist.background_image_url(:large),
-          alt: @artist.name,
-          class: "w-full h-auto" %>
-      <% else %>
-        <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
-          <span class="text-gray-500">No image</span>
+    <div class="bg-[#fdf3e2] mt-12 p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <!-- Cột bên trái: ảnh -->
+        <div class="flex justify-center">
+          <% if @artist.background_image.attached? %>
+            <%= image_tag @artist.background_image_url(:large),
+              alt: @artist.name,
+              class: "cus-image-width h-auto" %>
+          <% else %>
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
+              <span class="text-gray-500"><%= t('spree.product.no_image') %></span>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+
+        <!-- Cột bên phải: thông tin -->
+        <div class="space-y-4">
+          <h2 class="text-2xl md:text-h2.5 font-bold text-gray-900"><%= @artist.name %></h2>
+          <p class="text-base lg:text-h4 text-gray-600"><%= @artist.address %></p>
+          <p class="text-gray-700 leading-relaxed lg:text-h6"><%= @artist.introduction %></p>
+        </div>
+      </div>
     </div>
 
-    <!-- Cột bên phải: thông tin -->
-    <div>
-      <h2 class="text-h2.5 font-bold mb-2"><%= @artist.name %></h2>
-      <p class="text-lg text-gray-500 mb-4"><%= @artist.address %></p>
-      <p class="text-gray-700 leading-relaxed"><%= @artist.introduction %></p>
-    </div>
-
-  </div>
-</div>
-
-    <div class="col-span-full pt-12 mt-28">
+    <div class="pt-12 mt-28">
       <%= render partial: 'home/collection', :locals => { :title => @title, :products => @similar_products } %>
     </div>
   </section>
 <% end %>
+
+<style>
+  @media (min-width: 992px) {
+    .custom-width {
+      width: 50%;
+    }
+
+    .cus-image-width {
+      width: 70%;
+    }
+  }
+
+  @media (max-width: 450) {
+    .cus-image-width {
+      width: 100%;
+    }
+  }
+</style>

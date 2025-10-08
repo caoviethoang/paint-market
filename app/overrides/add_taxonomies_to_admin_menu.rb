@@ -1,6 +1,16 @@
-Deface::Override.new(
-  virtual_path: "spree/layouts/admin",
-  name: "add_taxonomies_to_admin_menu",
-  insert_bottom: "[data-hook='admin_tabs']",
-  text: "<%= tab :taxonomies, url: spree.admin_taxonomies_path, icon: 'tags' %>"
-) 
+# frozen_string_literal: true
+
+# Override để thêm taxonomies vào admin menu
+class AddTaxonomiesToAdminMenu
+  def self.apply
+    Deface::Override.new(
+      virtual_path: "spree/layouts/admin",
+      name: "add_taxonomies_to_admin_menu",
+      insert_bottom: "[data-hook='admin_tabs']",
+      text: "<%= tab :taxonomies, url: spree.admin_taxonomies_path, icon: 'tags' %>"
+    )
+  end
+end
+
+# Apply the override
+AddTaxonomiesToAdminMenu.apply 

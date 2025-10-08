@@ -1,7 +1,7 @@
 source "https://gems.ruby-china.com/"
 
 gem "rails", "~> 8.0.2"
-gem "propshaft"
+gem "sprockets-rails"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "importmap-rails"
@@ -15,9 +15,10 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
-gem 'aws-sdk-s3', '~> 1.2'
-gem 'image_processing', '~> 1.2'
-gem 'dotenv-rails'
+gem "aws-sdk-s3", "~> 1.2"
+gem "image_processing", "~> 1.2"
+gem "dotenv-rails"
+gem "ruby-vips"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -64,6 +65,4 @@ gem "solidus_admin", ">= 0.2"
 
 gem "kaminari", "~> 1.2"
 
-group :production do
-  gem "rails_12factor"
-end
+gem "byebug", "~> 12.0", groups: [ :development, :test ]

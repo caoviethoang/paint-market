@@ -1,0 +1,18 @@
+<% @product.product_properties.each do |pp| %>
+  <%= f.fields_for :product_properties, pp do |pp_form| %>
+    <tr>
+      <td><%= pp.property.presentation %></td>
+      <td>
+        <% if pp.property.property_values.any? %>
+          <%= pp_form.collection_select :value,
+                pp.property.property_values,
+                :value, :value,
+                { prompt: "Chọn giá trị" },
+                { class: "form-select" } %>
+        <% else %>
+          <%= pp_form.text_field :value, class: "form-control" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>

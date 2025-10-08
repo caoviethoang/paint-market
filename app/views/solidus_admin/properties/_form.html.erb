@@ -1,0 +1,192 @@
+<% content_for :head do %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Property Values Management loaded');
+      
+      // Add new property value
+      function addPropertyValue() {
+        const container = document.getElementById('property-values-container');
+        const existingRows = container.querySelectorAll('.property-value-row');
+        const index = existingRows.length;
+        
+        const valueRow = document.createElement('div');
+        valueRow.className = 'property-value-row row mb-3';
+        valueRow.setAttribute('data-persisted', 'false');
+        valueRow.innerHTML = `
+          <div class="col-md-4">
+            <input type="text" name="property[property_values_attributes][${index}][value]" 
+                   class="form-control" placeholder="Value" required>
+          </div>
+          <div class="col-md-4">
+            <input type="text" name="property[property_values_attributes][${index}][display_name]" 
+                   class="form-control" placeholder="Display Name" required>
+          </div>
+          <div class="col-md-2">
+            <input type="number" name="property[property_values_attributes][${index}][position]" 
+                   class="form-control" placeholder="Position" value="${index}" min="0">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-danger btn-sm remove-property-value">
+              <i class="fa fa-trash"></i> Remove
+            </button>
+          </div>
+        `;
+        
+        container.appendChild(valueRow);
+      }
+      
+      // Remove property value
+      function removePropertyValue(button) {
+        const row = button.closest('.property-value-row');
+        const isPersisted = row.getAttribute('data-persisted') === 'true';
+        const destroyField = row.querySelector('.destroy-field');
+        
+        if (isPersisted && destroyField) {
+          // Mark for destruction instead of removing
+          destroyField.value = '1';
+          row.style.opacity = '0.5';
+          row.style.textDecoration = 'line-through';
+          button.innerHTML = '<i class="fa fa-undo"></i> Undo';
+          button.classList.remove('btn-danger');
+          button.classList.add('btn-warning');
+        } else {
+          // Remove new (unsaved) property value
+          row.remove();
+          // Reindex remaining rows
+          reindexPropertyValues();
+        }
+      }
+      
+      // Reindex property values after removal
+      function reindexPropertyValues() {
+        const container = document.getElementById('property-values-container');
+        const rows = container.querySelectorAll('.property-value-row');
+        
+        rows.forEach((row, index) => {
+          const inputs = row.querySelectorAll('input[name*="property_values_attributes"]');
+          inputs.forEach(input => {
+            const name = input.name;
+            const newName = name.replace(/\[\d+\]/, `[${index}]`);
+            input.name = newName;
+          });
+        });
+      }
+      
+      // Undo remove property value
+      function undoRemovePropertyValue(button) {
+        const row = button.closest('.property-value-row');
+        const destroyField = row.querySelector('.destroy-field');
+        
+        if (destroyField) {
+          destroyField.value = '0';
+          row.style.opacity = '1';
+          row.style.textDecoration = 'none';
+          button.innerHTML = '<i class="fa fa-trash"></i> Remove';
+          button.classList.remove('btn-warning');
+          button.classList.add('btn-danger');
+        }
+      }
+      
+      // Event listeners
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-property-value')) {
+          e.preventDefault();
+          addPropertyValue();
+        }
+        
+        if (e.target.classList.contains('remove-property-value')) {
+          e.preventDefault();
+          removePropertyValue(e.target);
+        }
+        
+        if (e.target.textContent.includes('Undo')) {
+          e.preventDefault();
+          undoRemovePropertyValue(e.target);
+        }
+      });
+    });
+  </script>
+  
+  <style>
+    .property-value-row {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .property-value-row[data-persisted="true"] {
+      border-left: 4px solid #28a745;
+    }
+    
+    .property-value-row[data-persisted="false"] {
+      border-left: 4px solid #007bff;
+    }
+    
+    .property-values-section {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      background-color: #fafafa;
+    }
+    
+    .property-values-section h4 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .btn-sm {
+      margin-right: 5px;
+    }
+  </style>
+<% end %>
+
+<div data-hook="admin_property_form_additional_fields">
+  <div class="property-values-section">
+    <h4>Property Values</h4>
+    <p class="text-muted">Add predefined values for this property. These will be used in product filters.</p>
+    
+    <div id="property-values-container">
+      <% if @property.persisted? && @property.property_values.any? %>
+        <% @property.property_values.ordered.each_with_index do |value, index| %>
+          <div class="property-value-row row mb-3" data-persisted="true">
+            <div class="col-md-4">
+              <input type="text" name="property[property_values_attributes][<%= index %>][value]" 
+                     class="form-control" placeholder="Value" 
+                     value="<%= value.value %>" required>
+              <input type="hidden" name="property[property_values_attributes][<%= index %>][id]" 
+                     value="<%= value.id %>">
+            </div>
+            <div class="col-md-4">
+              <input type="text" name="property[property_values_attributes][<%= index %>][display_name]" 
+                     class="form-control" placeholder="Display Name" 
+                     value="<%= value.display_name %>" required>
+            </div>
+            <div class="col-md-2">
+              <input type="number" name="property[property_values_attributes][<%= index %>][position]" 
+                     class="form-control" placeholder="Position" 
+                     value="<%= value.position %>" min="0">
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-danger btn-sm remove-property-value">
+                <i class="fa fa-trash"></i> Remove
+              </button>
+              <input type="hidden" name="property[property_values_attributes][<%= index %>][_destroy]" value="0" class="destroy-field">
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-success btn-sm add-property-value">
+          <i class="fa fa-plus"></i> Add Property Value
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

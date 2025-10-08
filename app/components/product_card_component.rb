@@ -18,6 +18,7 @@ class ProductCardComponent < ViewComponent::Base
   attr_reader :product, :locale, :price, :additional_classes
 
   def main_image
+    return nil unless product.gallery&.images&.any?
     product.gallery.images.first
   end
 

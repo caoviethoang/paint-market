@@ -1,6 +1,16 @@
-Deface::Override.new(
-  virtual_path: "spree/layouts/admin",
-  name: "add_events_to_admin_menu",
-  insert_bottom: "[data-hook='admin_tabs']",
-  text: "<%= tab :events, url: spree.admin_events_path, icon: 'calendar' %>"
-)
+# frozen_string_literal: true
+
+# Override để thêm events vào admin menu
+class AddEventsToAdminMenu
+  def self.apply
+    Deface::Override.new(
+      virtual_path: "spree/layouts/admin",
+      name: "add_events_to_admin_menu",
+      insert_bottom: "[data-hook='admin_tabs']",
+      text: "<%= tab :events, url: spree.admin_events_path, icon: 'calendar' %>"
+    )
+  end
+end
+
+# Apply the override
+AddEventsToAdminMenu.apply

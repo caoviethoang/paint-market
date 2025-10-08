@@ -1,0 +1,48 @@
+<% admin_layout "full-width" %>
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to "Back to Property", admin_property_path(@property), class: 'btn btn-default' %>
+  </li>
+<% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>Edit Property Value: <%= @property_value.display_name %></h3>
+    <p class="text-muted">Property: <%= @property.name %></p>
+  </div>
+  <div class="panel-body">
+    <%= form_with model: [:admin, @property, @property_value], local: true do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :value, "Value *", class: 'required' %>
+            <%= f.text_field :value, class: 'form-control', required: true %>
+            <small class="help-block">The actual value stored in the database</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :display_name, "Display Name *", class: 'required' %>
+            <%= f.text_field :display_name, class: 'form-control', required: true %>
+            <small class="help-block">The name shown to users in filters</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :position, "Position" %>
+            <%= f.number_field :position, class: 'form-control', min: 0 %>
+            <small class="help-block">Order in which this value appears (0 = first)</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <%= f.submit "Update Property Value", class: 'btn btn-primary' %>
+        <%= link_to "Cancel", admin_property_path(@property), class: 'btn btn-default' %>
+      </div>
+    <% end %>
+  </div>
+</div>

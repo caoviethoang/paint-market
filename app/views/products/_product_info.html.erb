@@ -1,24 +1,36 @@
-<div class="border-t border-dashed border-gray-500 py-3 grid grid-cols-2">
+<div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
-  <span class="font-sans-sm text-gray-600">Artist</span>
+  <span class="font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>
   <!-- Value -->
   <p class="font-sans text-body" itemprop="artist">
     <%= product.artist.name rescue t('spree.product_has_no_name') %>
   </p>
 </div>
 
-<div class="border-t border-dashed border-gray-500 py-3 grid grid-cols-2">
+<div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
-  <span class="font-sans-sm text-gray-600">Size</span>
+  <span class="font-sans-sm text-gray-600"><%= t('spree.product.details') %></span>
   <!-- Value -->
-  <p class="font-sans text-body" itemprop="name">
-    <%= product.property('size') rescue t('spree.product_has_no_name') %>
-  </p>
+  <div class="font-sans text-body">
+    <% if product.properties.any? %>
+      <% product.properties.each do |property| %>
+        <% value = product.property(property.name).presence %>
+        <% translated = value.present? ? I18n.t("spree.product.#{value}", default: "") : "" %>
+        <% if translated.present? %>
+          <div class="mb-2">
+            <%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= translated %>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= t('spree.product.no_details') %>
+    <% end %>
+  </div>
 </div>
 
-<div class="border-t border-dashed border-gray-500 py-3 grid grid-cols-2">
+<div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
-  <span class="font-sans-sm text-gray-600">Description</span>
+  <span class="font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
   <!-- Value -->
   <p class="font-sans text-body" itemprop="description">
     <%= product_description(product) rescue t('spree.product_has_no_description') %>

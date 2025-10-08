@@ -48,7 +48,7 @@
         <th><%= sort_link(@search, :name, "Name") %></th>
         <th><%= "Introduction" %></th>
         <th><%= "Address" %></th>
-        <th><%= "Duration" %></th>
+        <th><%= sort_link(@search, :start_work, "Start Work") %></th>
         <th><%= sort_link(@search, :created_at, "Created At") %></th>
         <th class="actions"></th>
       </tr>
@@ -69,7 +69,7 @@
           </td>
 
           <td>
-            <%= l(artist.dob, format: :short)%>
+            <%= artist.start_work %>
           </td>
 
           <td>

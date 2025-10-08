@@ -1,10 +1,10 @@
 <%
-  title_text_classes = 'text-body-20 md:text-body'
+  title_text_classes = 'text-sm md:text-base font-medium text-gray-900'
 
   price_classes =
     @home_collection ?
-      'text-body-xs lg:text-body lg:ml-4 lg:pb-[2px]' :
-      'text-body md:text-body-sm lg:text-body pb-[4px] md:pb-[2px] xl:pb-[4px]'
+      'text-body-xs lg:text-body lg:pb-[2px]' :
+      'text-lg md:text-xl font-semibold text-gray-900'
 
   text_flex_classes =
     @home_collection ?
@@ -14,33 +14,33 @@
   padding_classes =
     @home_collection ?
       'p-3 md:p-6' :
-      ''
+      'p-3 md:p-4'
 %>
 
 <li
-  class="aspect-square w-full  <%= additional_classes %>"
+  class="w-full <%= additional_classes %>"
   itemscope
   itemtype="http://schema.org/Product"
   id="product_<%= product.id %>"
 >
-  <article class="h-full flex flex-col <%= padding_classes %>">
-    <section class="product-card_image h-full w-full">
+  <article class="h-full flex flex-col <%= padding_classes %> bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300" style="cursor: pointer;">
+    <section class="product-card_image h-48 md:h-56 lg:h-64 w-full mb-3 md:mb-4">
       <%= link_to product_path(product), itemprop: 'url' do %>
         <%= render(
           ImageComponent.new(
             image: main_image,
             size: :small,
             itemprop: "image",
-            classes: 'h-0 min-h-full object-contain'
+            classes: 'w-full h-full object-cover rounded-lg'
           )
         ) %>
       <% end %>
     </section>
     <header
-      class="dark:text-black mt-3 <%= text_flex_classes %>"
+      class="dark:text-black mb-2 <%= text_flex_classes %>"
     >
       <section
-        class="product-card_price font-sans-md mt-1 lg:mt-0 <%= price_classes %>"
+        class="product-card_price <%= price_classes %>"
         itemprop="offers"
         itemscope
         itemtype="http://schema.org/Offer"
@@ -53,19 +53,20 @@
         <% end %>
       </section>
     </header>
-    <section class="product-card_header <%= title_text_classes %>">
-      <span>
+    <section class="product-card_header mb-2 flex-grow">
+      <span class="<%= title_text_classes %>">
         <%= link_to(
           truncate(product.name, length: 50),
           product_path(product),
-          class: 'info',
+          class: 'hover:text-blue-600 transition-colors',
+          style: 'font-weight: 700',
           itemprop: "name",
           title: product.name
         ) %>
       </span>
     </section>
-    <section>
-      <span><%= truncate(product.description, length: 20) %></span>
+    <section class="text-xs md:text-sm text-gray-600 mb-2">
+      <span><%= truncate(product.description, length: 30) %></span>
     </section>
   </article>
 </li>
