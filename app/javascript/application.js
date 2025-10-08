@@ -1,11 +1,11 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
-import "controllers"
+import "./controllers"
 
 // Custom JavaScript to ensure functionality
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Application JavaScript loaded');
-  
+
   // Ensure all interactive elements are working
   setupInteractiveElements();
 });
@@ -18,7 +18,7 @@ function setupInteractiveElements() {
     localeSelect.addEventListener('change', function() {
       const selectedLocale = this.value;
       console.log('Locale changed to:', selectedLocale);
-      
+
       // Submit the form
       const form = this.closest('form');
       if (form) {
@@ -59,7 +59,7 @@ function setupInteractiveElements() {
       console.log('Hamburger menu clicked');
       const drawer = document.querySelector('[data-drawer-target="drawer"]');
       const overlay = document.getElementById('overlay');
-      
+
       if (drawer && overlay) {
         drawer.classList.toggle('-translate-x-full');
         overlay.classList.toggle('hidden');
@@ -117,43 +117,43 @@ function setupInteractiveElements() {
       }
     });
   }
-  
+
   // Setup collapse immediately
   setupCollapse();
-  
+
   // Also setup collapse after a delay to catch dynamically loaded content
   setTimeout(setupCollapse, 1000);
-  
+
   // Event delegation approach - catch all clicks and check if they should trigger collapse
   document.addEventListener('click', function(e) {
     const target = e.target;
-    
+
     // Check if clicked element or its parent should trigger collapse
     const collapseTrigger = target.closest('[data-action*="collapse#toggle"], [data-collapse-target="trigger"], .collapse-trigger, [data-toggle="collapse"], .filter-toggle');
-    
+
     if (collapseTrigger) {
       e.preventDefault();
       e.stopPropagation();
       console.log('Collapse triggered via event delegation:', collapseTrigger);
-      
+
       // Find the closest container
-      const container = collapseTrigger.closest('[data-controller*="collapse"]') || 
-                       collapseTrigger.closest('.filter-item') || 
+      const container = collapseTrigger.closest('[data-controller*="collapse"]') ||
+                       collapseTrigger.closest('.filter-item') ||
                        collapseTrigger.parentElement;
-      
+
       // Find content to toggle
       let content = container ? container.querySelector('[data-collapse-target="content"], .collapse-content, .filter-content') : null;
-      
+
       if (content) {
         const isVisible = !content.classList.contains('hidden');
         console.log('Toggling content visibility:', isVisible ? 'hide' : 'show');
-        
+
         if (isVisible) {
           content.classList.add('hidden');
         } else {
           content.classList.remove('hidden');
         }
-        
+
         // Update icon if found
         const icon = collapseTrigger.querySelector('svg') || container?.querySelector('svg');
         if (icon) {
@@ -171,20 +171,20 @@ function setupInteractiveElements() {
   const carouselContainer = document.getElementById('mobile-carousel');
   if (carouselContainer) {
     console.log('Setting up mobile carousel');
-    
+
     let startX = 0;
     let currentX = 0;
     let isDragging = false;
     let currentSlide = 0;
     const totalSlides = 6; // 7 images but showing 2 at a time = 6 slides (0-5)
-    
+
     function updateCarousel() {
       const translateX = -currentSlide * 45;
       console.log('Fallback carousel - slide:', currentSlide, 'translateX:', translateX);
       carouselContainer.style.transform = `translateX(${translateX}%)`;
       updateIndicators();
     }
-    
+
     function updateIndicators() {
       const indicators = document.querySelectorAll('.carousel-indicator');
       indicators.forEach((indicator, index) => {
@@ -197,7 +197,7 @@ function setupInteractiveElements() {
         }
       });
     }
-    
+
     function nextSlide() {
       if (currentSlide < totalSlides - 1) {
         currentSlide++;
@@ -207,7 +207,7 @@ function setupInteractiveElements() {
       console.log('Fallback next slide:', currentSlide);
       updateCarousel();
     }
-    
+
     function prevSlide() {
       if (currentSlide > 0) {
         currentSlide--;
@@ -217,13 +217,13 @@ function setupInteractiveElements() {
       console.log('Fallback previous slide:', currentSlide);
       updateCarousel();
     }
-    
+
     carouselContainer.addEventListener('touchstart', function(e) {
       startX = e.touches[0].clientX;
       isDragging = true;
       carouselContainer.style.transition = 'none';
     });
-    
+
     carouselContainer.addEventListener('touchmove', function(e) {
       if (!isDragging) return;
       currentX = e.touches[0].clientX;
@@ -231,15 +231,15 @@ function setupInteractiveElements() {
       const translateX = -currentSlide * 45 + (diffX / window.innerWidth) * 45;
       carouselContainer.style.transform = `translateX(${translateX}%)`;
     });
-    
+
     carouselContainer.addEventListener('touchend', function(e) {
       if (!isDragging) return;
       isDragging = false;
       const diffX = currentX - startX;
       const threshold = window.innerWidth * 0.2;
-      
+
       carouselContainer.style.transition = 'transform 0.3s ease-in-out';
-      
+
       if (Math.abs(diffX) > threshold) {
         if (diffX > 0) {
           // Swipe right - go to previous slide
@@ -253,7 +253,7 @@ function setupInteractiveElements() {
         updateCarousel();
       }
     });
-    
+
     // Initialize
     updateCarousel();
   }
@@ -262,45 +262,45 @@ function setupInteractiveElements() {
   const eventCarouselContainer = document.querySelector('[data-controller*="carousel"]');
   if (eventCarouselContainer) {
     console.log('Setting up event detail carousel with swipe');
-    
+
     let eventCurrentSlide = 0;
     const eventSlides = eventCarouselContainer.querySelectorAll('[data-carousel-target="slide"]');
     const eventSlidesWrapper = eventCarouselContainer.querySelector('[data-carousel-target="slides"]');
-    
+
     if (eventSlides.length > 0 && eventSlidesWrapper) {
       console.log('Event carousel found with', eventSlides.length, 'slides');
-      
+
       // Calculate how many slides to show at once based on screen size
       function getSlidesToShow() {
         if (window.innerWidth < 640) return 1; // sm: 1 slide
-        if (window.innerWidth < 1024) return 2; // lg: 2 slides  
+        if (window.innerWidth < 1024) return 2; // lg: 2 slides
         return 3; // xl: 3 slides
       }
-      
+
       function updateEventCarousel() {
         if (eventSlides.length === 0) return;
-        
+
         const slidesToShow = getSlidesToShow();
         const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
-        
+
         // Clamp current slide to valid range
         if (eventCurrentSlide > maxSlide) {
           eventCurrentSlide = maxSlide;
         }
-        
+
         const slideWidth = eventSlides[0].offsetWidth;
         const gap = window.innerWidth < 640 ? 8 : 16; // gap-2 (8px) on mobile, gap-4 (16px) on desktop
         const translateX = -eventCurrentSlide * (slideWidth + gap);
-        
+
         console.log('Event carousel - slide:', eventCurrentSlide, 'translateX:', translateX, 'slidesToShow:', slidesToShow);
         eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
         eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
       }
-      
+
       function nextEventSlide() {
         const slidesToShow = getSlidesToShow();
         const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
-        
+
         if (eventCurrentSlide < maxSlide) {
           eventCurrentSlide++;
         } else {
@@ -309,11 +309,11 @@ function setupInteractiveElements() {
         console.log('Event carousel next slide:', eventCurrentSlide);
         updateEventCarousel();
       }
-      
+
       function prevEventSlide() {
         const slidesToShow = getSlidesToShow();
         const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
-        
+
         if (eventCurrentSlide > 0) {
           eventCurrentSlide--;
         } else {
@@ -322,11 +322,11 @@ function setupInteractiveElements() {
         console.log('Event carousel prev slide:', eventCurrentSlide);
         updateEventCarousel();
       }
-      
+
       // Setup prev/next buttons (desktop only)
       const prevButton = eventCarouselContainer.querySelector('[data-action*="carousel#prev"]');
       const nextButton = eventCarouselContainer.querySelector('[data-action*="carousel#next"]');
-      
+
       if (prevButton) {
         prevButton.addEventListener('click', function(e) {
           e.preventDefault();
@@ -334,7 +334,7 @@ function setupInteractiveElements() {
           prevEventSlide();
         });
       }
-      
+
       if (nextButton) {
         nextButton.addEventListener('click', function(e) {
           e.preventDefault();
@@ -342,13 +342,13 @@ function setupInteractiveElements() {
           nextEventSlide();
         });
       }
-      
+
       // Enhanced touch/swipe support (primary interaction on mobile)
       let eventStartX = 0;
       let eventCurrentX = 0;
       let eventIsDragging = false;
       let eventStartTime = 0;
-      
+
       eventSlidesWrapper.addEventListener('touchstart', function(e) {
         eventStartX = e.touches[0].clientX;
         eventStartTime = Date.now();
@@ -356,7 +356,7 @@ function setupInteractiveElements() {
         eventSlidesWrapper.style.transition = 'none';
         console.log('Event carousel touch start');
       });
-      
+
       eventSlidesWrapper.addEventListener('touchmove', function(e) {
         if (!eventIsDragging) return;
         eventCurrentX = e.touches[0].clientX;
@@ -366,18 +366,18 @@ function setupInteractiveElements() {
         const translateX = -eventCurrentSlide * (slideWidth + gap) + diffX;
         eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
       });
-      
+
       eventSlidesWrapper.addEventListener('touchend', function(e) {
         if (!eventIsDragging) return;
         eventIsDragging = false;
-        
+
         const diffX = eventCurrentX - eventStartX;
         const diffTime = Date.now() - eventStartTime;
         const threshold = window.innerWidth * 0.15; // 15% of screen width
         const velocity = Math.abs(diffX) / diffTime; // pixels per ms
-        
+
         eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
-        
+
         // Check for swipe gesture (distance or velocity)
         if (Math.abs(diffX) > threshold || velocity > 0.5) {
           if (diffX > 0) {
@@ -391,21 +391,21 @@ function setupInteractiveElements() {
           // Snap back to current slide
           updateEventCarousel();
         }
-        
+
         console.log('Event carousel touch end - diffX:', diffX, 'velocity:', velocity);
       });
-      
+
       // Mouse support for desktop (optional)
       let mouseStartX = 0;
       let mouseIsDragging = false;
-      
+
       eventSlidesWrapper.addEventListener('mousedown', function(e) {
         mouseStartX = e.clientX;
         mouseIsDragging = true;
         eventSlidesWrapper.style.transition = 'none';
         e.preventDefault();
       });
-      
+
       eventSlidesWrapper.addEventListener('mousemove', function(e) {
         if (!mouseIsDragging) return;
         const diffX = e.clientX - mouseStartX;
@@ -414,16 +414,16 @@ function setupInteractiveElements() {
         const translateX = -eventCurrentSlide * (slideWidth + gap) + diffX;
         eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
       });
-      
+
       eventSlidesWrapper.addEventListener('mouseup', function(e) {
         if (!mouseIsDragging) return;
         mouseIsDragging = false;
-        
+
         const diffX = e.clientX - mouseStartX;
         const threshold = 100; // 100px threshold for mouse
-        
+
         eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
-        
+
         if (Math.abs(diffX) > threshold) {
           if (diffX > 0) {
             prevEventSlide();
@@ -434,12 +434,12 @@ function setupInteractiveElements() {
           updateEventCarousel();
         }
       });
-      
+
       // Handle window resize
       window.addEventListener('resize', function() {
         updateEventCarousel();
       });
-      
+
       // Initialize
       updateEventCarousel();
     }
