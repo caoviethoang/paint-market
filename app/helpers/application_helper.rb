@@ -29,4 +29,12 @@ module ApplicationHelper
       "Showing #{collection.length} results"
     end
   end
+
+  def price_product(product)
+     number_with_delimiter(product&.price&.to_i, delimiter: ",")
+  end
+
+  def price_currency
+    Spree::Config[:currency]
+  end
 end

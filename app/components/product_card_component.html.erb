@@ -23,9 +23,9 @@
   itemtype="http://schema.org/Product"
   id="product_<%= product.id %>"
 >
-  <article class="h-full flex flex-col <%= padding_classes %> bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300" style="cursor: pointer;">
-    <section class="product-card_image h-48 md:h-56 lg:h-64 w-full mb-3 md:mb-4">
-      <%= link_to product_path(product), itemprop: 'url' do %>
+  <%= link_to product_path(product), itemprop: 'url' do %>
+    <article class="h-full flex flex-col <%= padding_classes %> bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+      <section class="product-card_image h-48 md:h-56 lg:h-64 w-full mb-3 md:mb-4">
         <%= render(
           ImageComponent.new(
             image: main_image,
@@ -34,39 +34,39 @@
             classes: 'w-full h-full object-cover rounded-lg'
           )
         ) %>
-      <% end %>
-    </section>
-    <header
-      class="dark:text-black mb-2 <%= text_flex_classes %>"
-    >
-      <section
-        class="product-card_price <%= price_classes %>"
-        itemprop="offers"
-        itemscope
-        itemtype="http://schema.org/Offer"
+      </section>
+      <header
+        class="dark:text-black mb-2 <%= text_flex_classes %>"
       >
-        <% if display_price %>
-          <span class="price selling" itemprop="price" content="<%= display_price.to_d %>">
+        <section
+          class="product-card_price <%= price_classes %>"
+          itemprop="offers"
+          itemscope
+          itemtype="http://schema.org/Offer"
+        >
+          <% if display_price %>
+             <span class="price selling" itemprop="price" content="<%= display_price.to_d %>">
             <%= display_price.to_html %>
           </span>
-          <span itemprop="priceCurrency" content="<%= display_price.currency %>"></span>
-        <% end %>
+          <span itemprop="priceCurrency" content="<%= price_currency %>"></span>
+          <% end %>
+        </section>
+      </header>
+      <section class="product-card_header mb-2 flex-grow">
+        <span class="<%= title_text_classes %>">
+          <%= link_to(
+            truncate(product.name, length: 50),
+            product_path(product),
+            class: 'hover:text-blue-600 transition-colors',
+            style: 'font-weight: 700',
+            itemprop: "name",
+            title: product.name
+          ) %>
+        </span>
       </section>
-    </header>
-    <section class="product-card_header mb-2 flex-grow">
-      <span class="<%= title_text_classes %>">
-        <%= link_to(
-          truncate(product.name, length: 50),
-          product_path(product),
-          class: 'hover:text-blue-600 transition-colors',
-          style: 'font-weight: 700',
-          itemprop: "name",
-          title: product.name
-        ) %>
-      </span>
-    </section>
-    <section class="text-xs md:text-sm text-gray-600 mb-2">
-      <span><%= truncate(product.description, length: 30) %></span>
-    </section>
-  </article>
+      <section class="text-xs md:text-sm text-gray-600 mb-2">
+        <span><%= truncate(product.description, length: 30) %></span>
+      </section>
+    </article>
+  <% end %>
 </li>

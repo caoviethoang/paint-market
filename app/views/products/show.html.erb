@@ -4,7 +4,7 @@
 <% cache [I18n.locale, current_pricing_options, @product] do %>
   <section itemscope itemtype="http://schema.org/Product" class="product-show lg:p-0 sm:px-6 lg:mt-4 border-t">
     <!-- Mobile Layout: Stack vertically -->
-    <div class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4">
+    <div class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4 px-4">
       <!-- Image Section -->
       <div class="w-full lg:flex-none custom-width h-full">
         <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:max-h-[680px]">
@@ -53,7 +53,7 @@
                   <h2 class="font-sans-md text-body-md" id="product-price">
                     <%= content_tag(
                       :span,
-                      display_price(@product),
+                      price_product(@product),
                       itemprop: 'price',
                       content: @product.price_for_options(current_pricing_options)&.money.to_d,
                       data: { js: 'price' }
@@ -61,7 +61,7 @@
 
                     <%= content_tag(
                       :span,
-                      current_pricing_options.currency,
+                      price_currency,
                       itemprop: 'priceCurrency'
                     ) %>
                   </h2>
@@ -117,7 +117,7 @@
       </div>
     </div>
 
-    <div class="bg-[#fdf3e2] mt-12 p-6">
+    <div class="bg-[#fdf3e2] mt-12">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <!-- Cột bên trái: ảnh -->
         <div class="flex justify-center">
@@ -148,17 +148,17 @@
 <% end %>
 
 <style>
-  @media (min-width: 451px) {
-    .cus-image-width {
-      width: 70%;
-    }
+  .cus-image-width {
+    max-height: 400px;
+  }
 
+  @media (min-width: 451px) {
     .img-container {
       max-height: 550px;
     }
   }
 
-  @media (max-width: 450) {
+  @media (max-width: 450px) {
     .product-show {
       padding-left: 1rem;
       padding-right: 1rem;

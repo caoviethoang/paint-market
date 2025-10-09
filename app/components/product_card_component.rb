@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
+include ApplicationHelper
 class ProductCardComponent < ViewComponent::Base
   def initialize(
     product,
     locale: I18n.locale,
     price: product.master.default_price,
-    additional_classes: '',
+    additional_classes: "",
     home_collection: false
   )
     @product = product
@@ -24,5 +25,9 @@ class ProductCardComponent < ViewComponent::Base
 
   def display_price
     @display_price ||= price&.money
+  end
+
+  def price_currency
+    Spree::Config[:currency]
   end
 end

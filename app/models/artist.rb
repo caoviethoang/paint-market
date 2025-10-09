@@ -16,7 +16,7 @@ class Artist < Spree::Base
   # Scopes
   scope :recent, -> { order(created_at: :desc) }
   scope :by_start_work, ->(year) { where(start_work: year) }
-  scope :active_artists, -> { where('start_work >= ?', Date.current.year - 50) }
+  scope :active_artists, -> { where("start_work >= ?", Date.current.year - 50) }
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name introduction start_work address created_at updated_at]
@@ -33,11 +33,11 @@ class Artist < Spree::Base
     processed_image =
       case variant
       when :thumb
-        background_image.variant(resize_to_fill: [ 320, 180 ]).processed
+        background_image.variant(resize_to_fit: [ 320, 180 ]).processed
       when :medium
-        background_image.variant(resize_to_fill: [ 640, 360 ]).processed
+        background_image.variant(resize_to_fit: [ 640, 360 ]).processed
       when :large
-        background_image.variant(resize_to_fill: [ 1280, 720 ]).processed
+        background_image.variant(resize_to_fit: [ 1280, 720 ]).processed
       else
         background_image
       end
