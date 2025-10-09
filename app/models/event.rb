@@ -11,7 +11,7 @@ class Event < Spree::Base
 
   # Class method để trả về status options cho form select
   def self.status_options
-    statuses.map { |key, value| [key.humanize, key] }
+    statuses.map { |key, value| [ key.humanize, key ] }
   end
 
   # Validations
@@ -24,8 +24,8 @@ class Event < Spree::Base
   scope :inactive, -> { where(status: :inactive) }
 
   # Scopes for frontend - sử dụng tên cột mới
-  scope :current, -> { active.where('start_time <= ? AND end_time >= ?', Time.current, Time.current) }
-  scope :upcoming, -> { active.where('start_time > ?', Time.current).order(:start_time) }
+  scope :current, -> { active.where("start_time <= ? AND end_time >= ?", Time.current, Time.current) }
+  scope :upcoming, -> { active.where("start_time > ?", Time.current).order(:start_time) }
   scope :featured, -> { active.order(:start_time).limit(5) }
 
   def self.ransackable_attributes(auth_object = nil)
@@ -52,12 +52,12 @@ class Event < Spree::Base
 
       begin
         processed_image = if image.representable?
-          image.variant(resize_to_fill: [800, 600]).processed
+          image.variant(resize_to_fit: [ 800, 600 ]).processed
         else
           image
         end
 
-        if Rails.application.config.active_storage.service.in?([:amazon_production])
+        if Rails.application.config.active_storage.service.in?([ :amazon_production ])
           processed_image.url
         else
           Rails.application.routes.url_helpers.rails_blob_path(processed_image, disposition: "inline", only_path: true)
@@ -108,14 +108,14 @@ class Event < Spree::Base
       begin
         processed_image = case size
         when :large
-          background_image.variant(resize_to_fill: [800, 600]).processed
+          background_image.variant(resize_to_fit: [ 800, 600 ]).processed
         when :medium
-          background_image.variant(resize_to_fill: [600, 450]).processed
+          background_image.variant(resize_to_fit: [ 600, 450 ]).processed
         else
-          background_image.variant(resize_to_fill: [400, 300]).processed
+          background_image.variant(resize_to_fit: [ 400, 300 ]).processed
         end
 
-        if Rails.application.config.active_storage.service.in?([:amazon_production])
+        if Rails.application.config.active_storage.service.in?([ :amazon_production ])
           processed_image.url
         else
           Rails.application.routes.url_helpers.rails_blob_path(processed_image, disposition: "inline", only_path: true)

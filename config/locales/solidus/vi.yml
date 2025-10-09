@@ -544,6 +544,7 @@ vi:
       one: 1 lỗi cấm hồ sơ không lưu
       other: "%{count} errors prohibited this record from being saved"
     event: Sự kiện
+    about_the_artist: Thông tin tác giả
     events:
       spree:
         cart:

@@ -117,26 +117,34 @@
       </div>
     </div>
 
-    <div class="bg-[#fdf3e2] mt-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <!-- Cột bên trái: ảnh -->
-        <div class="flex justify-center">
-          <% if @artist.background_image.attached? %>
-            <%= image_tag @artist.background_image_url(:large),
-              alt: @artist.name,
-              class: "cus-image-width h-auto" %>
-          <% else %>
-            <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
-              <span class="text-gray-500"><%= t('spree.product.no_image') %></span>
-            </div>
-          <% end %>
-        </div>
+    <div class="bg-[#fdf3e2 flex items-center justify-center mt-12">
+      <span class="text-h3 lg:text-h2.5"><%= t('spree.about_the_artist') %></span>
+    </div>
 
-        <!-- Cột bên phải: thông tin -->
-        <div class="space-y-4">
-          <h2 class="text-2xl md:text-h2.5 font-bold text-gray-900"><%= @artist.name %></h2>
-          <p class="text-base lg:text-h4 text-gray-600"><%= @artist.address %></p>
-          <p class="text-gray-700 leading-relaxed lg:text-h6"><%= @artist.introduction %></p>
+    <div class="w-full h-full flex justify-center mt-12">
+      <div class="w-full max-w-7xl px-4 lg:px-8">
+        <div class="flex gap-8 items-stretch img-container">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <!-- Cột bên trái: ảnh -->
+            <div class="flex justify-center">
+              <% if @artist.background_image.attached? %>
+                <%= image_tag @artist.background_image_url(:large),
+                  alt: @artist.name,
+                  class: "cus-image-width h-auto" %>
+              <% else %>
+                <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
+                  <span class="text-gray-500"><%= t('spree.product.no_image') %></span>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Cột bên phải: thông tin -->
+            <div class="space-y-4">
+              <h2 class="text-2xl md:text-h2.5 font-bold text-gray-900"><%= @artist.name %></h2>
+              <p class="text-base lg:text-h4 text-gray-600"><%= @artist.address %></p>
+              <p class="text-gray-700 leading-relaxed lg:text-h6"><%= @artist.introduction %></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -149,7 +157,7 @@
 
 <style>
   .cus-image-width {
-    max-height: 400px;
+    max-height: 400px !important;
   }
 
   @media (min-width: 451px) {
