@@ -1357,7 +1357,7 @@ vi:
       artist: Họa sĩ
       size: Kích thước
       description: Mô tả
-      details: Thông tin chi tiết
+      details: Thông số
       no_details: Không có thông tin chi tiết
       no_image: Không có hình ảnh
       more_work_title: "Đây là những tác phẩm khác từ %{artist_name} mà bạn có thể thích"

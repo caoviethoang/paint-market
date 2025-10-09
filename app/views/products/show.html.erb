@@ -34,9 +34,9 @@
 
             <!-- Product Details Section -->
             <div class="flex-1 flex flex-col justify-between">
-              <div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-5">
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
                 <!-- Cột trái: Label -->
-                <span class="font-sans-sm text-gray-600"><%= t('spree.product.title') %></span>
+                <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.title') %></span>
 
                 <!-- Cột phải: Value -->
                 <h1 class="text-h6 lg:text-h6" itemprop="name">
@@ -45,9 +45,9 @@
               </div>
 
               <% if @product.price_for_options(current_pricing_options)&.money && !@product.price.nil? %>
-                <div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-5">
+                <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
                   <!-- Label -->
-                  <span class="font-sans-sm text-gray-600"><%= t('spree.product.price') %></span>
+                  <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.price') %></span>
 
                   <!-- Value -->
                   <h2 class="font-sans-md text-body-md" id="product-price">
@@ -68,29 +68,35 @@
                 </div>
               <% end %>
 
-              <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
                 <!-- Label -->
-                <span class="font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>
+                <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>
                 <!-- Value -->
                 <p class="font-sans text-body" itemprop="artist">
                   <%= @product.artist.name rescue t('spree.product_has_no_name') %>
                 </p>
               </div>
 
-              <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
                 <!-- Label -->
-                <span class="font-sans-sm text-gray-600"><%= t('spree.product.details') %></span>
+                <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.details') %></span>
                 <!-- Value -->
-                <div class="font-sans text-body">
+                <div class="font-sans text-body" style="width: 75%;">
                   <% if @product.properties.any? %>
-                    <% @product.properties.each do |property| %>
-                      <% value = @product.property(property.name).presence %>
-                      <% translated = value.present? ? I18n.t("spree.product.#{value}", default: "") : "" %>
-                      <% if translated.present? %>
-                        <div class="mb-2">
-                          <%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= translated %>
-                        </div>
-                      <% end %>
+                    <% values = @product.properties.map do |property| 
+                        value = @product.property(property.name).presence
+                        translated = value.present? ? I18n.t("spree.product.#{value}", default: "") : ""
+                        if translated.present?
+                          "#{t("spree.properties.#{property.name}", default: property.name.humanize)}: #{translated}"
+                        end
+                      end.compact.join(', ') %>
+
+                    <% if values.present? %>
+                      <span>
+                        <%= values.html_safe %>
+                      </span>
+                    <% else %>
+                      <%= t('spree.product.no_details') %>
                     <% end %>
                   <% else %>
                     <%= t('spree.product.no_details') %>
@@ -98,9 +104,9 @@
                 </div>
               </div>
 
-              <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
                 <!-- Label -->
-                <span class="font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
+                <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
                 <!-- Value -->
                 <p class="font-sans text-body" itemprop="description">
                   <%= product_description(@product) rescue t('spree.product_has_no_description') %>
@@ -163,6 +169,10 @@
   @media (min-width: 451px) {
     .img-container {
       max-height: 550px;
+    }
+
+    .custom-width-row {
+      width: 25%;
     }
   }
 
