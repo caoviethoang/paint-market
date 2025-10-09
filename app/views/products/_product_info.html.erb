@@ -1,3 +1,37 @@
+<div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-5">
+  <!-- Cột trái: Label -->
+  <span class="font-sans-sm text-gray-600"><%= t('spree.product.title') %></span>
+
+  <!-- Cột phải: Value -->
+  <h1 class="text-h6 lg:text-h6" itemprop="name">
+    <%= product.name %>
+  </h1>
+</div>
+
+<% if product.price_for_options(current_pricing_options)&.money && !product.price.nil? %>
+  <div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-5">
+    <!-- Label -->
+    <span class="font-sans-sm text-gray-600"><%= t('spree.product.price') %></span>
+
+    <!-- Value -->
+    <h2 class="font-sans-md text-body-md" id="product-price">
+      <%= content_tag(
+        :span,
+        display_price(product),
+        itemprop: 'price',
+        content: product.price_for_options(current_pricing_options)&.money.to_d,
+        data: { js: 'price' }
+      ) %>
+
+      <%= content_tag(
+        :span,
+        current_pricing_options.currency,
+        itemprop: 'priceCurrency'
+      ) %>
+    </h2>
+  </div>
+<% end %>
+
 <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
   <span class="font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>

@@ -1,7 +1,7 @@
 <% thumbnails_class = "flex shrink-0 w-16 h-16 justify-center items-center snap-center p-1 aspect-square transition-colors duration-150 hover:bg-gray-100 rounded-lg border-2 border-transparent hover:border-gray-300" %>
 
-<div class="col-span-full flex items-center justify-center lg:col-span-3 mt-6 no-scrollbar">
-  <ul class="flex flex-nowrap overflow-x-auto no-scrollbar snap-x gap-2 lg:flex-row lg:overflow-x-auto lg:snap-x">
+<div class="thumbnail-desktop col-span-full flex items-center justify-center lg:col-span-3 mt-6 no-scrollbar w-1/2">
+  <ul class="flex flex-nowrap overflow-x-auto no-scrollbar snap-x gap-2 lg:flex-row lg:overflow-x-auto lg:snap-x" style="height: 100%;">
     <% unless product.has_variants? %>
       <% product.gallery.images.each do |image| %>
         <% next if image.viewable_id != product.master.id %>
@@ -10,7 +10,7 @@
           :li,
           data: { js: 'product-thumbnail', js_id: image.viewable_id }
         ) do %>
-          <%= link_to image.url(:product), class: thumbnails_class do %>
+          <%= link_to image.url(:product), class: thumbnails_class, style: "height: 100%; width: 100%;" do %>
             <%= image_tag(image.url(:small), class: "w-full h-full object-cover rounded") %>
           <% end %>
         <% end %>
@@ -34,3 +34,10 @@
   </ul>
 </div>
 
+<style>
+  @media (min-width: 451px) {
+    .thumbnail-desktop {
+      height: 100px;
+    }
+  }
+</style>

@@ -2,9 +2,9 @@
 <% @title = t('spree.product.more_work_title', artist_name: @artist.name) %>
 
 <% cache [I18n.locale, current_pricing_options, @product] do %>
-  <section itemscope itemtype="http://schema.org/Product" class="px-4 sm:px-6">
+  <section itemscope itemtype="http://schema.org/Product" class="product-show lg:p-0 sm:px-6 lg:mt-4 border-t">
     <!-- Mobile Layout: Stack vertically -->
-    <div class="flex flex-col lg:flex-row w-full lg:pb-12 py-4">
+    <div class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4">
       <!-- Image Section -->
       <div class="w-full lg:flex-none custom-width h-full">
         <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:max-h-[680px]">
@@ -14,11 +14,106 @@
       </div>
 
       <!-- Product Details Section -->
-      <div class="w-full flex flex-col pr-8">
-        <%= render 'product_header', product: @product %>
+      <div class="w-full flex flex-col">
         <%= render 'product_info', product: @product %>
-        <%= render 'product_promotions', product: @product %>
         <%= render 'cart_line_items/form', product: @product %>
+      </div>
+    </div>
+
+    <!-- Desktop image Layout: Stack vertically -->
+    <div class="hidden md:block mt-8">
+      <div class="w-full h-full flex justify-center">
+        <div class="w-full max-w-7xl px-4 lg:px-8">
+          <div class="flex gap-8 items-stretch img-container">
+            <!-- Image Section -->
+            <div class="flex-1 flex">
+              <div class="w-full h-full">
+                <%= render 'product_image', product: @product %>
+              </div>
+            </div>
+
+            <!-- Product Details Section -->
+            <div class="flex-1 flex flex-col justify-between">
+              <div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-5">
+                <!-- Cột trái: Label -->
+                <span class="font-sans-sm text-gray-600"><%= t('spree.product.title') %></span>
+
+                <!-- Cột phải: Value -->
+                <h1 class="text-h6 lg:text-h6" itemprop="name">
+                  <%= @product.name %>
+                </h1>
+              </div>
+
+              <% if @product.price_for_options(current_pricing_options)&.money && !@product.price.nil? %>
+                <div class="grid lg:grid-cols-2 md:grid-cols-2 border-t border-dashed border-gray-500 py-5">
+                  <!-- Label -->
+                  <span class="font-sans-sm text-gray-600"><%= t('spree.product.price') %></span>
+
+                  <!-- Value -->
+                  <h2 class="font-sans-md text-body-md" id="product-price">
+                    <%= content_tag(
+                      :span,
+                      display_price(@product),
+                      itemprop: 'price',
+                      content: @product.price_for_options(current_pricing_options)&.money.to_d,
+                      data: { js: 'price' }
+                    ) %>
+
+                    <%= content_tag(
+                      :span,
+                      current_pricing_options.currency,
+                      itemprop: 'priceCurrency'
+                    ) %>
+                  </h2>
+                </div>
+              <% end %>
+
+              <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+                <!-- Label -->
+                <span class="font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>
+                <!-- Value -->
+                <p class="font-sans text-body" itemprop="artist">
+                  <%= @product.artist.name rescue t('spree.product_has_no_name') %>
+                </p>
+              </div>
+
+              <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+                <!-- Label -->
+                <span class="font-sans-sm text-gray-600"><%= t('spree.product.details') %></span>
+                <!-- Value -->
+                <div class="font-sans text-body">
+                  <% if @product.properties.any? %>
+                    <% @product.properties.each do |property| %>
+                      <% value = @product.property(property.name).presence %>
+                      <% translated = value.present? ? I18n.t("spree.product.#{value}", default: "") : "" %>
+                      <% if translated.present? %>
+                        <div class="mb-2">
+                          <%= t("spree.properties.#{property.name}", default: property.name.humanize) %>: <%= translated %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <%= t('spree.product.no_details') %>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+                <!-- Label -->
+                <span class="font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
+                <!-- Value -->
+                <p class="font-sans text-body" itemprop="description">
+                  <%= product_description(@product) rescue t('spree.product_has_no_description') %>
+                </p>
+              </div>
+
+              <div>
+                <%= render 'cart_line_items/form', product: @product %>
+              </div>
+            </div>
+          </div>
+          <%= render 'product_thumbnails', product: @product %>
+        </div>
       </div>
     </div>
 
@@ -46,24 +141,28 @@
       </div>
     </div>
 
-    <div class="pt-12 mt-28">
+    <div class="pt-12">
       <%= render partial: 'home/collection', :locals => { :title => @title, :products => @similar_products } %>
     </div>
   </section>
 <% end %>
 
 <style>
-  @media (min-width: 992px) {
-    .custom-width {
-      width: 50%;
-    }
-
+  @media (min-width: 451px) {
     .cus-image-width {
       width: 70%;
+    }
+
+    .img-container {
+      max-height: 550px;
     }
   }
 
   @media (max-width: 450) {
+    .product-show {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
     .cus-image-width {
       width: 100%;
     }

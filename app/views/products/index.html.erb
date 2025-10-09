@@ -30,7 +30,6 @@
       <% if "products" == params[:controller] && @taxon %>
         <%= render 'shared/search/filters', taxon: @taxon %>
       <% else %>
-        <%= render 'shared/navigation/taxonomies', taxon: @taxon %>
         <%= render 'shared/search/filters', taxon: @taxon %>
       <% end %>
     </aside>
