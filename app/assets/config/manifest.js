@@ -2,6 +2,7 @@
 //= link_directory ../javascripts .js
 //= link_directory ../stylesheets .css
 //= link_tree ../builds
+//= link_tree ../../javascript .js
 //= link controllers/collapse_controller.js
 //= link controllers/mobile_carousel_controller.js
 //= link controllers/mobile_filter_controller.js

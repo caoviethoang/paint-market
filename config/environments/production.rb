@@ -41,7 +41,7 @@ Rails.application.configure do
   # Configure Sprockets for Solidus compatibility
   config.assets.compile = false
   config.assets.digest = true
-  config.assets.precompile += %w[ controllers/* ]
+  config.assets.precompile += %w[ application.js tailwind.css controllers/* ]
   config.assets.css_compressor = nil
   config.assets.js_compressor = nil
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.

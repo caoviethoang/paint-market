@@ -28,21 +28,205 @@
     <!-- Fallback JavaScript for production -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        console.log('Fallback JavaScript loaded');
+
+        const eventCarouselContainer = document.querySelector('[data-controller*="carousel"]');
+        if (eventCarouselContainer) {
+
+          let eventCurrentSlide = 0;
+          const eventSlides = eventCarouselContainer.querySelectorAll('[data-carousel-target="slide"]');
+          const eventSlidesWrapper = eventCarouselContainer.querySelector('[data-carousel-target="slides"]');
+
+          if (eventSlides.length > 0 && eventSlidesWrapper) {
+
+            // Calculate how many slides to show at once based on screen size
+            function getSlidesToShow() {
+              if (window.innerWidth < 640) return 1; // sm: 1 slide
+              if (window.innerWidth < 1024) return 2; // lg: 2 slides
+              return 3; // xl: 3 slides
+            }
+
+            function updateEventCarousel() {
+              if (eventSlides.length === 0) return;
+
+              const slidesToShow = getSlidesToShow();
+              const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
+
+              // Clamp current slide to valid range
+              if (eventCurrentSlide > maxSlide) {
+                eventCurrentSlide = maxSlide;
+              }
+
+              // Lấy thông tin thực tế từ DOM
+              const firstSlide = eventSlides[0];
+              const computedStyle = window.getComputedStyle(firstSlide);
+              const slideWidth = firstSlide.offsetWidth;
+
+              // Lấy gap thực tế từ parent container
+              const wrapperStyle = window.getComputedStyle(eventSlidesWrapper);
+              const gapValue = wrapperStyle.gap || wrapperStyle.columnGap || '0px';
+              const gap = parseInt(gapValue) || (window.innerWidth < 640 ? 8 : 16);
+
+              // Di chuyển chính xác theo slide index
+              const translateX = -eventCurrentSlide * (slideWidth + gap);
+
+              console.log('Event carousel - slide:', eventCurrentSlide, 'slideWidth:', slideWidth, 'gap:', gap, 'translateX:', translateX, 'slidesToShow:', slidesToShow);
+              eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
+              eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
+            }
+
+            function nextEventSlide() {
+              const slidesToShow = getSlidesToShow();
+              const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
+
+              if (eventCurrentSlide < maxSlide) {
+                eventCurrentSlide++;
+              } else {
+                eventCurrentSlide = 0; // Loop back to first slide
+              }
+              updateEventCarousel();
+            }
+
+            function prevEventSlide() {
+              const slidesToShow = getSlidesToShow();
+              const maxSlide = Math.max(0, eventSlides.length - slidesToShow);
+
+              if (eventCurrentSlide > 0) {
+                eventCurrentSlide--;
+              } else {
+                eventCurrentSlide = maxSlide; // Loop to last valid slide
+              }
+              updateEventCarousel();
+            }
+
+            // Setup prev/next buttons (desktop only)
+            const prevButton = eventCarouselContainer.querySelector('[data-action*="carousel#prev"]');
+            const nextButton = eventCarouselContainer.querySelector('[data-action*="carousel#next"]');
+
+            if (prevButton) {
+              prevButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                prevEventSlide();
+              });
+            }
+
+            if (nextButton) {
+              nextButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                nextEventSlide();
+              });
+            }
+
+            // Enhanced touch/swipe support (primary interaction on mobile)
+            let eventStartX = 0;
+            let eventCurrentX = 0;
+            let eventIsDragging = false;
+            let eventStartTime = 0;
+
+            eventSlidesWrapper.addEventListener('touchstart', function(e) {
+              eventStartX = e.touches[0].clientX;
+              eventStartTime = Date.now();
+              eventIsDragging = true;
+              eventSlidesWrapper.style.transition = 'none';
+            });
+
+            eventSlidesWrapper.addEventListener('touchmove', function(e) {
+              if (!eventIsDragging) return;
+              eventCurrentX = e.touches[0].clientX;
+              const diffX = eventCurrentX - eventStartX;
+
+              const currentSlideElement = eventSlides[eventCurrentSlide];
+              const baseTranslateX = -(currentSlideElement.offsetLeft);
+              const translateX = baseTranslateX + diffX;
+
+              eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
+            });
+
+            eventSlidesWrapper.addEventListener('touchend', function(e) {
+              if (!eventIsDragging) return;
+              eventIsDragging = false;
+
+              const diffX = eventCurrentX - eventStartX;
+              const diffTime = Date.now() - eventStartTime;
+              const threshold = window.innerWidth * 0.15; // 15% of screen width
+              const velocity = Math.abs(diffX) / diffTime; // pixels per ms
+
+              eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
+
+              // Check for swipe gesture (distance or velocity)
+              if (Math.abs(diffX) > threshold || velocity > 0.5) {
+                if (diffX > 0) {
+                  // Swipe right - go to previous slide
+                  prevEventSlide();
+                } else {
+                  // Swipe left - go to next slide
+                  nextEventSlide();
+                }
+              } else {
+                // Snap back to current slide
+                updateEventCarousel();
+              }
+            });
+
+            // Mouse support for desktop (optional)
+            let mouseStartX = 0;
+            let mouseIsDragging = false;
+
+            eventSlidesWrapper.addEventListener('mousedown', function(e) {
+              mouseStartX = e.clientX;
+              mouseIsDragging = true;
+              eventSlidesWrapper.style.transition = 'none';
+              e.preventDefault();
+            });
+
+            eventSlidesWrapper.addEventListener('mousemove', function(e) {
+              if (!mouseIsDragging) return;
+              const diffX = e.clientX - mouseStartX;
+              const slideWidth = eventSlides[0].offsetWidth;
+              const gap = 16;
+              const translateX = -eventCurrentSlide * (slideWidth + gap) + diffX;
+              eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
+            });
+
+            eventSlidesWrapper.addEventListener('mouseup', function(e) {
+              if (!mouseIsDragging) return;
+              mouseIsDragging = false;
+
+              const diffX = e.clientX - mouseStartX;
+              const threshold = 100; // 100px threshold for mouse
+
+              eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
+
+              if (Math.abs(diffX) > threshold) {
+                if (diffX > 0) {
+                  prevEventSlide();
+                } else {
+                  nextEventSlide();
+                }
+              } else {
+                updateEventCarousel();
+              }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+              updateEventCarousel();
+            });
+
+            // Initialize
+            updateEventCarousel();
+          }
+        }
 
         // Fallback for locale selector
         const localeSelectors = document.querySelectorAll('select[name="switch_to_locale"]');
         localeSelectors.forEach(function(selector) {
           selector.addEventListener('change', function() {
             const selectedLocale = this.value;
-            console.log('Locale change requested:', selectedLocale);
             if (selectedLocale) {
               const form = this.closest('form');
               if (form) {
-                console.log('Submitting form');
                 form.submit();
               } else {
-                console.log('Form not found, redirecting directly');
                 window.location.href = '/locale/set?switch_to_locale=' + selectedLocale;
               }
             }
@@ -54,7 +238,6 @@
         cartLinks.forEach(function(cartLink) {
           cartLink.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Cart link clicked');
             window.location.href = '/cart';
           });
         });
@@ -63,7 +246,6 @@
         const userLinks = document.querySelectorAll('a[href*="login"], a[href*="account"]');
         userLinks.forEach(function(userLink) {
           userLink.addEventListener('click', function(e) {
-            console.log('User link clicked:', this.href);
             // Let the default link behavior work
           });
         });
@@ -73,14 +255,12 @@
         hamburgerButtons.forEach(function(button) {
           button.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Hamburger menu clicked');
             const drawer = document.querySelector('[data-drawer-target="drawer"]');
             const overlay = document.getElementById('overlay');
 
             if (drawer && overlay) {
               drawer.classList.toggle('-translate-x-full');
               overlay.classList.toggle('hidden');
-              console.log('Drawer toggled');
             }
           });
         });
@@ -107,63 +287,17 @@
             }
           });
         });
-
-        // // Fallback for mobile filter modal (Stimulus alternative)
-        // const mobileFilterButtons = document.querySelectorAll('[data-action*="mobile-filter#toggle"]');
-        // const mobileFilterModal = document.querySelector('[data-mobile-filter-target="modal"], #mobile-filter-modal');
-        // const mobileFilterSidebar = document.querySelector('[data-mobile-filter-target="sidebar"]');
-
-        // function toggleMobileFilter(e) {
-        //   if (e) { e.preventDefault(); e.stopPropagation(); }
-        //   if (!mobileFilterModal || !mobileFilterSidebar) return;
-        //   mobileFilterModal.classList.toggle('hidden');
-        //   mobileFilterSidebar.classList.toggle('translate-x-full');
-        // }
-
-        // mobileFilterButtons.forEach(function(btn) {
-        //   btn.addEventListener('click', toggleMobileFilter);
-        // });
-
-        // // Event delegation fallback (handles dynamically loaded or re-rendered nodes)
-        // document.addEventListener('click', function(e) {
-        //   const trigger = e.target.closest('[data-action*="mobile-filter#toggle"]');
-        //   if (!trigger) return;
-        //   // Re-query each time in case DOM changed
-        //   const modal = document.querySelector('[data-mobile-filter-target="modal"], #mobile-filter-modal');
-        //   const sidebar = document.querySelector('[data-mobile-filter-target="sidebar"]');
-        //   if (!modal || !sidebar) return;
-        //   e.preventDefault();
-        //   e.stopPropagation();
-        //   modal.classList.toggle('hidden');
-        //   sidebar.classList.toggle('translate-x-full');
-        // });
-
-        // // Close when clicking overlay (the dark backdrop area)
-        // if (mobileFilterModal) {
-        //   mobileFilterModal.addEventListener('click', function(e) {
-        //     if (e.target === mobileFilterModal) toggleMobileFilter(e);
-        //   });
-        // }
-        // Debug information
-        console.log('Locale selectors found:', localeSelectors.length);
-        console.log('Cart links found:', cartLinks.length);
-        console.log('User links found:', userLinks.length);
-        console.log('Hamburger buttons found:', hamburgerButtons.length);
-        console.log('Carousel container found:', carouselContainer ? 'Yes' : 'No');
       });
 
       // Additional fallback for when DOMContentLoaded might not fire
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-          console.log('DOMContentLoaded fired');
         });
       } else {
-        console.log('Document already loaded');
       }
 
       // Test function for debugging
       window.testLocaleFunction = function() {
-        console.log('Test function called');
         alert('JavaScript is working! Current locale: ' + (document.querySelector('select[name="switch_to_locale"]')?.value || 'unknown'));
       };
     </script>
