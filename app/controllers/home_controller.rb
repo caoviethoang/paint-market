@@ -7,7 +7,7 @@ class HomeController < StoreController
   def index
     @searcher = build_searcher(params.merge(include_images: true))
     @products = @searcher.retrieve_products
-    @taxonomies = Spree::Taxonomy.includes(:root)
+    @taxonomies = Spree::Taxon.all
     @recent_images = get_recent_images(7)
     @example_taxonomies = get_example_taxonomies(3)
 

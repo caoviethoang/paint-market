@@ -1,7 +1,7 @@
 <% filters = applicable_filters_for(taxon) %>
 
 <% unless filters.empty? %>
-  <%= form_tag '', method: :get, id: 'sidebar_products_search', class: "w-80" do %>
+  <%= form_tag '', method: :get, id: 'sidebar_products_search', class: "cus-width" do %>
     <%= hidden_field_tag 'per_page', params[:per_page] %>
 
     <% filters.each do |filter| %>
@@ -44,3 +44,12 @@
     })();
   </script>
 <% end %>
+
+<style>
+  @media (min-width: 451px) {
+    .cus-width {
+      width: 20rem;
+    }
+  }
+</style>
+

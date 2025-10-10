@@ -21,11 +21,7 @@ class ProductsController < StoreController
     products = apply_property_filters(products, params[:search]) if params[:search].present?
     products = apply_price_filter(products, params.dig("search", "price_range_any")) if params.dig("search", "price_range_any").present?
 
-    @products = products
-                .reorder(nil)
-                .group("spree_products.id")
-                .page(params[:page])
-                .per(12)
+    @products = products.distinct.page(params[:page]).per(12)
   end
 
   def show
