@@ -1,5 +1,5 @@
 <% if @taxon %>
-  <section class="bg-[#fdf3e2] py-8 px-6 text-center border-t">
+  <section class="bg-[#fdf3e2] py-8 px-6 text-center border-t scroll-fade">
     <div class="flex flex-col justify-center mx-auto text-center">
       <!-- Tiêu đề -->
       <h2 class="text-h3 md:text-4xl font-bold text-gray-800 mb-3">
@@ -24,7 +24,7 @@
     </button>
   </div>
 
-  <div class="flex flex-col lg:flex-row gap-8">
+  <div class="flex flex-col lg:flex-row gap-8 scroll-fade">
     <!-- Desktop Filter Sidebar -->
     <aside class="wrapper hidden md:block">
       <% if "products" == params[:controller] && @taxon %>
@@ -70,7 +70,7 @@
         </div>
       <% else %>
         <!-- Custom Products Grid -->
-        <div class="products-grid">
+        <div class="products-grid scroll-fade">
           <div class="grid grid-cols-1 md:grid-cols-2 custom-lg-grid gap-6">
             <% @products.each do |product| %>
               <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
@@ -125,6 +125,16 @@
 </div>
 
 <style>
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
   @media (min-width: 992px) {
     .custom-lg-grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));

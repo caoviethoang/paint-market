@@ -1,6 +1,6 @@
 <div class="p-2 sm:p-4">
   <% if @event.display_image_urls(:medium).present? %>
-    <div class="relative" data-controller="carousel lightbox">
+    <div class="relative scroll-fade" data-controller="carousel lightbox">
       <!-- Nút Prev -->
       <button data-action="click->carousel#prev"
               class="absolute left-1 sm:left-0 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 bg-white rounded-full shadow-md z-10">
@@ -72,7 +72,7 @@
     </div>
   <% end %>
 
-  <div class="mt-6 sm:mt-8 mx-auto event-preview">
+  <div class="mt-6 sm:mt-8 mx-auto event-preview scroll-fade">
     <div>
       <% if @event.present? %>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
@@ -105,7 +105,7 @@
     </div>
   </div>
 
-  <div class="mt-6 sm:mt-8 mx-auto">
+  <div class="mt-6 sm:mt-8 mx-auto scroll-fade">
     <% if @products.present? %>
       <h2 class="mb-4 sm:mb-6 text-lg sm:text-xl lg:text-2xl font-bold text-gray-900"> <%= @products.total_count %> <%= t('spree.events.pages.art_works') %> </h2>
       <%= render 'products/products', products: @products, taxon: nil %>
@@ -115,7 +115,7 @@
   </div>
 </div>
 
-<div class="mt-4 bg-[#fdf3e2] overflow-hidden">
+<div class="mt-4 bg-[#fdf3e2] overflow-hidden scroll-fade">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
     <div class="flex flex-col justify-center lg:p-16 p-6 sm:p-8 lg:p-12 text-center">
       <h2 class="font-bold leading-tight text-2xl sm:text-3xl lg:text-h2.5 mb-6 lg:mb-8 text-gray-900">
@@ -151,5 +151,16 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>

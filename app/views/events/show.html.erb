@@ -2,7 +2,7 @@
   <div class="mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
     <h1 class="text-xl sm:text-2xl lg:text-h2.5 font-bold text-gray-900 leading-tight"><%= t('spree.events.pages.about_event') %></h1>
 
-    <div class="about-event grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mt-4">
+    <div class="about-event grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mt-4 scroll-fade">
       <div class="lg:col-span-2 space-y-6 lg:space-y-10">
         <div>
           <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.statement') %></h2>
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="mt-4 bg-[#fdf3e2] overflow-hidden">
+    <div class="mt-4 bg-[#fdf3e2] overflow-hidden scroll-fade">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
         <div class="flex flex-col justify-center lg:p-16 p-6 sm:p-8 lg:p-12 text-center">
           <h2 class="font-bold leading-tight text-2xl sm:text-3xl lg:text-h2.5 mb-6 lg:mb-8 text-gray-900">
@@ -67,5 +67,15 @@
   </div>
 </section>
 
+<style>
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
 
-
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

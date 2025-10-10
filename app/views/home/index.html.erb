@@ -1,4 +1,4 @@
-<section class="banner relative w-full">
+<section class="banner relative w-full scroll-fade">
   <div class="inset-0">
     <%= link_to detail_event_path(@event), class: "block" do %>
       <div class="relative overflow-hidden group-hover:shadow-xl transition-shadow duration-300">
@@ -28,7 +28,7 @@
 </section>
 
 <!-- Mobile Layout - Separate section below banner -->
-<section class="md:hidden py-8 px-4">
+<section class="md:hidden py-8 px-4 scroll-fade">
   <div>
     <h1 class="text-h4 font-source-serif text-black leading-tight mb-4">
       <%= @event.title %>
@@ -56,7 +56,7 @@
   </div> %>
 </section>
 
-<section class="taxonomies-menu py-6 sm:py-8 pt-4 sm:pt-7 bg-white">
+<section class="taxonomies-menu py-6 sm:py-8 pt-4 sm:pt-7 bg-white scroll-fade">
   <div class="mx-auto px-4 sm:px-4">
     <!-- Mobile Layout - 2 columns -->
     <div class="md:hidden grid grid-cols-2 gap-3" id="taxonomies-container-mobile">
@@ -122,7 +122,7 @@
 
 </section>
 
-<section id="example-taxonomies" class="py-8 sm:py-12 px-4 sm:px-4 bg-white">
+<section id="example-taxonomies" class="py-8 sm:py-12 px-4 sm:px-4 bg-white scroll-fade">
   <% if @example_taxonomies.present? %>
     <div class="md:container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -176,7 +176,7 @@
   <% end %>
 </section>
 
-<section class="bg-[#F8F4ED] py-8 weekly-art">
+<section class="bg-[#F8F4ED] py-8 weekly-art scroll-fade">
   <div class="md:container mx-auto text-center px-4 sm:px-4">
     <!-- Tiêu đề -->
          <h2 class="text-xl sm:text-2xl md:text-h2.5 font-source-serif font-medium text-[#3B382E] mb-2">
@@ -206,6 +206,17 @@
 </section>
 
 <style>
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   @media (min-width: 992px) {
     .custom-lg-height {
       height: 30rem !important;

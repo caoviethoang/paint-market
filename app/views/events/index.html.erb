@@ -1,5 +1,5 @@
 <!-- Featured Show Section -->
-<section class="py-8 lg:py-12 border-b-2 border-dashed border-gray-300">
+<section class="py-8 lg:py-12 border-b-2 border-dashed border-gray-300 scroll-fade">
   <div class="mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="text-xl sm:text-2xl lg:text-h3 font-bold text-gray-900 mb-6 lg:mb-8 text-left relative">
       <span class="inline-block relative">
@@ -61,7 +61,7 @@
 
 <!-- Current Show Section -->
 <% if @current_event %>
-  <section class="py-8 lg:py-16">
+  <section class="py-8 lg:py-16 scroll-fade">
     <div class="mx-auto px-4 sm:px-6">
       <h2 class="text-xl sm:text-2xl lg:text-h3 font-bold text-gray-900 mb-6 lg:mb-8 text-left relative">
         <span class="inline-block relative">
@@ -97,7 +97,7 @@
   </section>
 <% end %>
 
-<div class="mt-6 lg:mt-8 mb-6 lg:mb-8 mx-auto px-4 sm:px-6">
+<section class="mt-6 lg:mt-8 mb-6 lg:mb-8 mx-auto px-4 sm:px-6 scroll-fade">
   <h2 class="mb-4 lg:mb-6 text-lg sm:text-xl lg:text-2xl font-bold text-gray-900"><%= @all_products.count %> <%= t('spree.events.pages.art_works') %></h2>
   <%= render 'products/products', products: @all_products, taxon: nil %>
 
@@ -110,9 +110,9 @@
       </svg>
     <% end %>
   </div>
-</div>
+</section>
 
-<div class="mt-4 bg-[#fdf3e2] overflow-hidden">
+<section class="mt-4 bg-[#fdf3e2] overflow-hidden scroll-fade">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
     <div class="flex flex-col justify-center lg:p-16 p-6 sm:p-8 lg:p-12 text-center">
       <h2 class="font-bold leading-tight text-2xl sm:text-3xl lg:text-h2.5 mb-6 lg:mb-8 text-gray-900">
@@ -139,4 +139,17 @@
       ></iframe>
     </div>
   </div>
-</div>
+</section>
+
+<style>
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

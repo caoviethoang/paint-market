@@ -9,6 +9,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function setupInteractiveElements() {
+  const fadeElements = document.querySelectorAll(".scroll-fade");
+
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target); // chỉ chạy 1 lần
+        }
+      });
+    },
+    { threshold: 0.2 } // phần tử xuất hiện 20% thì chạy animation
+  );
+
+  fadeElements.forEach((el) => observer.observe(el));
   // Setup locale selector
   const localeSelect = document.querySelector('select[name="switch_to_locale"]');
   if (localeSelect) {

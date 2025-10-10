@@ -1,7 +1,7 @@
 <div class="bg-white py-16 px-4">
   <div class="max-w-6xl mx-auto">
     <!-- Thêm h-full và min-h để cân bằng chiều cao -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch scroll-fade">
 
       <!-- Left Column - Video -->
       <div class="flex items-stretch">
@@ -52,7 +52,7 @@
 </div>
 
 <!-- Additional Information Section -->
-<div class="py-16 px-4">
+<div class="py-16 px-4 scroll-fade">
   <div class="max-w-4xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
       <div class="space-y-3">
@@ -87,3 +87,16 @@
     </div>
   </div>
 </div>
+
+<style>
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
