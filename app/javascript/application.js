@@ -4,8 +4,6 @@ import "./controllers"
 
 // Custom JavaScript to ensure functionality
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Application JavaScript loaded');
-
   // Ensure all interactive elements are working
   setupInteractiveElements();
 });
@@ -14,11 +12,8 @@ function setupInteractiveElements() {
   // Setup locale selector
   const localeSelect = document.querySelector('select[name="switch_to_locale"]');
   if (localeSelect) {
-    console.log('Setting up locale selector');
     localeSelect.addEventListener('change', function() {
       const selectedLocale = this.value;
-      console.log('Locale changed to:', selectedLocale);
-
       // Submit the form
       const form = this.closest('form');
       if (form) {
@@ -33,10 +28,8 @@ function setupInteractiveElements() {
   // Setup cart link
   const cartLink = document.getElementById('link-to-cart');
   if (cartLink) {
-    console.log('Setting up cart link');
     cartLink.addEventListener('click', function(e) {
       e.preventDefault();
-      console.log('Cart clicked');
       window.location.href = '/cart';
     });
   }
@@ -44,7 +37,6 @@ function setupInteractiveElements() {
   // Setup user account link
   const userLinks = document.querySelectorAll('a[href*="login"], a[href*="account"]');
   userLinks.forEach(function(link) {
-    console.log('Setting up user link:', link.href);
     link.addEventListener('click', function(e) {
       console.log('User link clicked:', this.href);
     });
@@ -53,25 +45,20 @@ function setupInteractiveElements() {
   // Setup hamburger menu
   const hamburgerButtons = document.querySelectorAll('[data-action*="drawer#toggle"]');
   hamburgerButtons.forEach(function(button) {
-    console.log('Setting up hamburger menu');
     button.addEventListener('click', function(e) {
       e.preventDefault();
-      console.log('Hamburger menu clicked');
       const drawer = document.querySelector('[data-drawer-target="drawer"]');
       const overlay = document.getElementById('overlay');
 
       if (drawer && overlay) {
         drawer.classList.toggle('-translate-x-full');
         overlay.classList.toggle('hidden');
-        console.log('Drawer toggled');
       }
     });
   });
 
   // Setup collapse functionality - strict fallback aligned to FilterComponent
   function setupCollapse() {
-    console.log('Setting up collapse functionality...');
-
     const containers = document.querySelectorAll('[data-controller="collapse"], [data-controller*="collapse"]');
     containers.forEach((container) => {
       const trigger = container.querySelector('[data-action*="collapse#toggle"]');
@@ -134,7 +121,6 @@ function setupInteractiveElements() {
     if (collapseTrigger) {
       e.preventDefault();
       e.stopPropagation();
-      console.log('Collapse triggered via event delegation:', collapseTrigger);
 
       // Find the closest container
       const container = collapseTrigger.closest('[data-controller*="collapse"]') ||
@@ -146,7 +132,6 @@ function setupInteractiveElements() {
 
       if (content) {
         const isVisible = !content.classList.contains('hidden');
-        console.log('Toggling content visibility:', isVisible ? 'hide' : 'show');
 
         if (isVisible) {
           content.classList.add('hidden');
@@ -170,7 +155,6 @@ function setupInteractiveElements() {
   // Setup mobile carousel
   const carouselContainer = document.getElementById('mobile-carousel');
   if (carouselContainer) {
-    console.log('Setting up mobile carousel');
 
     let startX = 0;
     let currentX = 0;
@@ -180,7 +164,6 @@ function setupInteractiveElements() {
 
     function updateCarousel() {
       const translateX = -currentSlide * 45;
-      console.log('Fallback carousel - slide:', currentSlide, 'translateX:', translateX);
       carouselContainer.style.transform = `translateX(${translateX}%)`;
       updateIndicators();
     }
@@ -204,7 +187,6 @@ function setupInteractiveElements() {
       } else {
         currentSlide = 0; // Loop back to first slide
       }
-      console.log('Fallback next slide:', currentSlide);
       updateCarousel();
     }
 
@@ -214,7 +196,6 @@ function setupInteractiveElements() {
       } else {
         currentSlide = totalSlides - 1; // Loop to last slide
       }
-      console.log('Fallback previous slide:', currentSlide);
       updateCarousel();
     }
 
@@ -261,14 +242,12 @@ function setupInteractiveElements() {
   // Setup event detail carousel (swipe-based like 7-images)
   const eventCarouselContainer = document.querySelector('[data-controller*="carousel"]');
   if (eventCarouselContainer) {
-    console.log('Setting up event detail carousel with swipe');
 
     let eventCurrentSlide = 0;
     const eventSlides = eventCarouselContainer.querySelectorAll('[data-carousel-target="slide"]');
     const eventSlidesWrapper = eventCarouselContainer.querySelector('[data-carousel-target="slides"]');
 
     if (eventSlides.length > 0 && eventSlidesWrapper) {
-      console.log('Event carousel found with', eventSlides.length, 'slides');
 
       // Calculate how many slides to show at once based on screen size
       function getSlidesToShow() {
@@ -292,7 +271,6 @@ function setupInteractiveElements() {
         const gap = window.innerWidth < 640 ? 8 : 16; // gap-2 (8px) on mobile, gap-4 (16px) on desktop
         const translateX = -eventCurrentSlide * (slideWidth + gap);
 
-        console.log('Event carousel - slide:', eventCurrentSlide, 'translateX:', translateX, 'slidesToShow:', slidesToShow);
         eventSlidesWrapper.style.transform = `translateX(${translateX}px)`;
         eventSlidesWrapper.style.transition = 'transform 0.3s ease-in-out';
       }
@@ -306,7 +284,6 @@ function setupInteractiveElements() {
         } else {
           eventCurrentSlide = 0; // Loop back to first slide
         }
-        console.log('Event carousel next slide:', eventCurrentSlide);
         updateEventCarousel();
       }
 
@@ -319,7 +296,6 @@ function setupInteractiveElements() {
         } else {
           eventCurrentSlide = maxSlide; // Loop to last valid slide
         }
-        console.log('Event carousel prev slide:', eventCurrentSlide);
         updateEventCarousel();
       }
 
@@ -330,7 +306,6 @@ function setupInteractiveElements() {
       if (prevButton) {
         prevButton.addEventListener('click', function(e) {
           e.preventDefault();
-          console.log('Event carousel prev button clicked');
           prevEventSlide();
         });
       }
@@ -338,7 +313,6 @@ function setupInteractiveElements() {
       if (nextButton) {
         nextButton.addEventListener('click', function(e) {
           e.preventDefault();
-          console.log('Event carousel next button clicked');
           nextEventSlide();
         });
       }
@@ -354,7 +328,6 @@ function setupInteractiveElements() {
         eventStartTime = Date.now();
         eventIsDragging = true;
         eventSlidesWrapper.style.transition = 'none';
-        console.log('Event carousel touch start');
       });
 
       eventSlidesWrapper.addEventListener('touchmove', function(e) {
@@ -392,7 +365,6 @@ function setupInteractiveElements() {
           updateEventCarousel();
         }
 
-        console.log('Event carousel touch end - diffX:', diffX, 'velocity:', velocity);
       });
 
       // Mouse support for desktop (optional)

@@ -4,7 +4,7 @@
 <% cache [I18n.locale, current_pricing_options, @product] do %>
   <section itemscope itemtype="http://schema.org/Product" class="product-show lg:p-0 sm:px-6 lg:mt-4 border-t">
     <!-- Mobile Layout: Stack vertically -->
-    <div class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4 px-4">
+    <div id="mobile-gallery" class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4 px-4">
       <!-- Image Section -->
       <div class="w-full lg:flex-none custom-width h-full">
         <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:max-h-[680px]">
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Desktop image Layout: Stack vertically -->
-    <div class="hidden md:block mt-8">
+    <div id="desktop-gallery" class="hidden md:block mt-8">
       <div class="w-full h-full flex justify-center">
         <div class="w-full px-4 lg:px-8">
           <div class="flex gap-8 items-stretch img-container">
@@ -186,3 +186,82 @@
     }
   }
 </style>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const mobileGallery = document.getElementById('mobile-gallery');
+    const desktopGallery = document.getElementById('desktop-gallery');
+
+    const activeGallery = mobileGallery && window.getComputedStyle(mobileGallery).display !== 'none'
+      ? mobileGallery
+      : desktopGallery;
+
+    if (!activeGallery) {
+      return;
+    }
+
+    const radios = activeGallery.querySelectorAll("[data-js='variant-radio']");
+    const thumbnailsLinks = activeGallery.querySelectorAll("[data-js='product-thumbnail'] a, [data-js='variant-thumbnail'] a");
+    const productImage = activeGallery.querySelector("[data-js='product-main-image']");
+    const variantsThumbnails = activeGallery.querySelectorAll("[data-js='variant-thumbnail']");
+
+    if (!productImage) {
+      return;
+    }
+
+    if (radios.length > 0) {
+      const selectedRadio = activeGallery.querySelector("[data-js='variant-radio'][checked='checked']");
+      if (selectedRadio) {
+        updateVariantPrice(selectedRadio);
+        updateVariantImages(selectedRadio.value);
+      }
+    }
+
+    radios.forEach(radio => {
+      radio.addEventListener('click', () => {
+        updateVariantPrice(radio);
+        updateVariantImages(radio.value);
+      });
+    });
+
+    thumbnailsLinks.forEach(thumbnailLink => {
+      thumbnailLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        updateProductImage(thumbnailLink.href);
+      });
+    });
+
+    function updateVariantPrice(variant) {
+      const variantPrice = variant.dataset.jsPrice;
+      if (variantPrice) {
+        const priceElement = activeGallery.querySelector("[data-js='price']");
+        if (priceElement) {
+          priceElement.innerHTML = variantPrice;
+        }
+      }
+    }
+
+    function updateVariantImages(variantId) {
+      const selector = "[data-js='variant-thumbnail'][data-js-id='" + variantId + "']";
+      const variantsThumbnailsToDisplay = activeGallery.querySelectorAll(selector);
+
+      variantsThumbnails.forEach(thumbnail => {
+        thumbnail.style.display = 'none';
+      });
+
+      variantsThumbnailsToDisplay.forEach(thumbnail => {
+        thumbnail.style.display = 'list-item';
+      });
+
+      if (variantsThumbnailsToDisplay.length) {
+        const variantFirstImage = variantsThumbnailsToDisplay[0].querySelector('a').href;
+        updateProductImage(variantFirstImage);
+      }
+    }
+
+    function updateProductImage(imageSrc) {
+      productImage.src = imageSrc;
+    }
+
+  });
+</script>

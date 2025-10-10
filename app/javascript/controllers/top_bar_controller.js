@@ -7,7 +7,6 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log('Top bar controller connected');
     this.updateCartLink();
     this.setupFallbacks();
   }
