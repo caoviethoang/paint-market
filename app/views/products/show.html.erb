@@ -83,7 +83,7 @@
                 <!-- Value -->
                 <div class="font-sans text-body" style="width: 75%;">
                   <% if @product.properties.any? %>
-                    <% values = @product.properties.map do |property| 
+                    <% values = @product.properties.map do |property|
                         value = @product.property(property.name).presence
                         translated = value.present? ? I18n.t("spree.product.#{value}", default: "") : ""
                         if translated.present?
@@ -108,9 +108,9 @@
                 <!-- Label -->
                 <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
                 <!-- Value -->
-                <p class="font-sans text-body" itemprop="description">
+                <span class="font-sans text-body" itemprop="description" style="width: 75%;">
                   <%= product_description(@product) rescue t('spree.product_has_no_description') %>
-                </p>
+                </span>
               </div>
 
               <div>
