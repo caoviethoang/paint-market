@@ -4,13 +4,16 @@
 <% cache [I18n.locale, current_pricing_options, @product] do %>
   <section itemscope itemtype="http://schema.org/Product" class="product-show lg:p-0 sm:px-6 lg:mt-4 border-t">
     <!-- Mobile Layout: Stack vertically -->
-    <div id="mobile-gallery" class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4 px-4 scroll-fade">
+    <div id="mobile-gallery" class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4 px-4">
       <!-- Image Section -->
       <div class="w-full lg:flex-none custom-width h-full">
         <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:max-h-[680px]">
           <%= render 'product_image', product: @product %>
         </div>
-        <%= render 'product_thumbnails', product: @product %>
+
+        <div class="flex justify-center mb-4">
+          <%= render 'product_thumbnails', product: @product %>
+        </div>
       </div>
 
       <!-- Product Details Section -->
@@ -183,10 +186,6 @@
   }
 
   @media (max-width: 450px) {
-    .product-show {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
     .cus-image-width {
       width: 100%;
     }

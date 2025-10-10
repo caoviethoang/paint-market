@@ -125,19 +125,20 @@
 </div>
 
 <style>
-  .scroll-fade {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease-out;
-  }
-
-  .scroll-fade.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
   @media (min-width: 992px) {
     .custom-lg-grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>
