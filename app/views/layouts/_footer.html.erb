@@ -1,4 +1,4 @@
-<footer class="bg-[#3B382E] mx-auto w-full pt-7 px-6">
+<footer class="bg-[#3B382E] mx-auto w-full pt-7 px-6 scroll-fade">
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-4">
     <div>
       <h3 class="text-h5 font-bold text-white">Ha Vy Art</h3>
@@ -56,5 +56,16 @@
     .custom-ml {
       margin-left: 25%;
     }
-  }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    }
 </style>
