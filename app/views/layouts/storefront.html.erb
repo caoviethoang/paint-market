@@ -280,6 +280,35 @@
           });
         });
 
+        const openBtn = document.getElementById("mobile-filter-toggle");
+        const closeBtn = document.getElementById("mobile-filter-close");
+        const modal = document.getElementById("mobile-filter-modal");
+        const sidebar = document.getElementById("mobile-filter-sidebar");
+
+        openBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          console.log('aaaaaaaaaaaaa')
+          modal.classList.remove("hidden");
+          setTimeout(() => {
+            sidebar.classList.remove("translate-x-full");
+          }, 10);
+        });
+
+        function closeModal() {
+          sidebar.classList.add("translate-x-full");
+          setTimeout(() => {
+            modal.classList.add("hidden");
+          }, 300);
+        }
+
+        closeBtn.addEventListener("click", closeModal);
+
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+
         // Fallback for collapse in filters
         const collapseContainers = document.querySelectorAll('[data-controller="collapse"], [data-controller*="collapse"]');
         collapseContainers.forEach(function(container) {

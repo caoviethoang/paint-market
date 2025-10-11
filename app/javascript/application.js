@@ -72,17 +72,52 @@ function setupInteractiveElements() {
     });
   });
 
+  const openBtn = document.getElementById("mobile-filter-toggle");
+  const closeBtn = document.getElementById("mobile-filter-close");
+  const modal = document.getElementById("mobile-filter-modal");
+  const sidebar = document.getElementById("mobile-filter-sidebar");
+
+  if (!openBtn || !modal || !sidebar) {
+    console.error("Không tìm thấy modal hoặc button.");
+    return;
+  }
+
+  // Mở modal
+  openBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log('aaaaaaaaaaaaa')
+    modal.classList.remove("hidden");
+    setTimeout(() => {
+      sidebar.classList.remove("translate-x-full");
+    }, 10);
+  });
+
+  function closeModal() {
+    sidebar.classList.add("translate-x-full");
+    setTimeout(() => {
+      modal.classList.add("hidden");
+    }, 300);
+  }
+
+  closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
   // Setup collapse functionality - strict fallback aligned to FilterComponent
   function setupCollapse() {
-    const containers = document.querySelectorAll('[data-controller="collapse"], [data-controller*="collapse"]');
-    containers.forEach((container) => {
+    const collapseContainers = document.querySelectorAll('[data-controller="collapse"], [data-controller*="collapse"]');
+    collapseContainers.forEach(function(container) {
       const trigger = container.querySelector('[data-action*="collapse#toggle"]');
       const content = container.querySelector('[data-collapse-target="content"], .collapse-content');
       const icon = container.querySelector('[data-collapse-target="icon"], .collapse-icon, svg');
 
       if (!trigger || !content) return;
 
-      const onClick = (e) => {
+      trigger.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         const isVisible = !content.classList.contains('hidden');
@@ -93,30 +128,7 @@ function setupInteractiveElements() {
           content.classList.remove('hidden');
           if (icon) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
         }
-      };
-
-      trigger.removeEventListener('click', onClick);
-      trigger.addEventListener('click', onClick);
-    });
-
-    // Delegation fallback
-    document.addEventListener('click', function(e) {
-      const trigger = e.target.closest('[data-action*="collapse#toggle"], .collapse-trigger');
-      if (!trigger) return;
-      const container = trigger.closest('[data-controller*="collapse"], .filter-item') || trigger.parentElement;
-      const content = container && container.querySelector('[data-collapse-target="content"], .collapse-content');
-      const icon = container && (container.querySelector('[data-collapse-target="icon"], .collapse-icon, svg'));
-      if (!content) return;
-      e.preventDefault();
-      e.stopPropagation();
-      const isVisible = !content.classList.contains('hidden');
-      if (isVisible) {
-        content.classList.add('hidden');
-        if (icon) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
-      } else {
-        content.classList.remove('hidden');
-        if (icon) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
-      }
+      });
     });
   }
 
@@ -125,47 +137,6 @@ function setupInteractiveElements() {
 
   // Also setup collapse after a delay to catch dynamically loaded content
   setTimeout(setupCollapse, 1000);
-
-  // Event delegation approach - catch all clicks and check if they should trigger collapse
-  document.addEventListener('click', function(e) {
-    const target = e.target;
-
-    // Check if clicked element or its parent should trigger collapse
-    const collapseTrigger = target.closest('[data-action*="collapse#toggle"], [data-collapse-target="trigger"], .collapse-trigger, [data-toggle="collapse"], .filter-toggle');
-
-    if (collapseTrigger) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      // Find the closest container
-      const container = collapseTrigger.closest('[data-controller*="collapse"]') ||
-                       collapseTrigger.closest('.filter-item') ||
-                       collapseTrigger.parentElement;
-
-      // Find content to toggle
-      let content = container ? container.querySelector('[data-collapse-target="content"], .collapse-content, .filter-content') : null;
-
-      if (content) {
-        const isVisible = !content.classList.contains('hidden');
-
-        if (isVisible) {
-          content.classList.add('hidden');
-        } else {
-          content.classList.remove('hidden');
-        }
-
-        // Update icon if found
-        const icon = collapseTrigger.querySelector('svg') || container?.querySelector('svg');
-        if (icon) {
-          if (isVisible) {
-            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
-          } else {
-            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12"></path>';
-          }
-        }
-      }
-    }
-  });
 
   // Setup mobile carousel
   const carouselContainer = document.getElementById('mobile-carousel');
