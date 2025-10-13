@@ -373,3 +373,16 @@
     </div>
   </body>
 </html>
+
+<style>
+  body {
+    padding-top: var(--header-height, 63px);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector("header");
+    document.body.style.setProperty("--header-height", `${header.offsetHeight}px`);
+  });
+</script>
