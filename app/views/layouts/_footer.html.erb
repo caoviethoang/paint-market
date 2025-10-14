@@ -7,6 +7,11 @@
         <li><p class="font-bold text-white">Hà Vy Art Limited</p></li>
         <li><p class="text-white"><%= t('spree.footer.phone') %> : +84 941 641 400</p></li>
         <li><p class="text-white"><%= t('spree.footer.address') %> : <%= t('spree.footer.address_name.name') %></li>
+        <li><p class="text-white">Chứng nhận</p> </li>
+        <li class="flex space-x-6">
+          <%= image_tag "dmca.png", alt: "DMCA", class: "h-8" %>
+          <%= image_tag "congthuong.png", alt: "Bộ Công Thương", class: "h-8" %>
+        </li>
       </ul>
     </div>
     <div class="custom-ml">
@@ -28,7 +33,7 @@
         <!-- YouTube -->
         <a href="https://www.youtube.com/@HaVyArt"
           target="_blank"
-          class="inline-block"
+          class="flex inline-block items-center justify-center"
           aria-label="Theo dõi kênh youtube"
           title="Theo dõi kênh youtube">
           <svg xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +47,7 @@
         <!-- Facebook -->
         <a href="https://www.facebook.com/profile.php?id=61578277770080"
           target="_blank"
-          class="inline-block"
+          class="flex inline-block items-center justify-center"
           aria-label="Nhắn tin qua fanpage"
           title="Nhắn tin qua fanpage">
           <svg xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +60,7 @@
 
         <a href="mailto:info.havyart@gmail.com"
           target="_blank"
-          class="inline-block"
+          class="flex inline-block items-center justify-center"
           aria-label="Gửi email"
           title="Gửi email">
           <svg xmlns="http://www.w3.org/2000/svg"

@@ -1337,7 +1337,7 @@ vi:
         description: "Được thành lập bởi Giám đốc Phòng trưng bày Mike Tran vào năm 2006, Martket đã phát triển một cộng đồng trung thành gồm các nhà sưu tầm nghệ thuật, nghệ sĩ và nhà thiết kế nội thất tại tất cả 50 tiểu bang và hơn 50 quốc gia."
         about_link: "Về Chúng Tôi"
       weekly_art:
-        title: "Khám phá nghệ thuật mới được thêm vào hàng tuần"
+        title: "Khám phá tranh mới được thêm vào hàng tuần"
         cta_button: "Mua ngay"
       search_section:
         title: "Tìm kiếm điều gì đó đặc biệt?"
@@ -1506,7 +1506,7 @@ vi:
       event_description: Mô tả
     footer:
       information: Thông tin
-      our_company: Công ty
+      our_company: Danh sách
       connect: Liên hệ với chúng tôi
       tax_code: Mã số thuế
       showroom: Văn phòng

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
   resources :artists, only: [ :index, :show ]
   resources :about_us, only: [ :index ]
+  resources :products, only: [:show] do
+    resources :votes, only: [:create]
+  end
 
   Spree::Core::Engine.routes.draw do
     namespace :admin do

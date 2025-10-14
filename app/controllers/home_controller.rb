@@ -9,7 +9,7 @@ class HomeController < StoreController
     @products = @searcher.retrieve_products
     @taxonomies = Spree::Taxon.all
     @recent_images = get_recent_images(7)
-    @example_taxonomies = get_example_taxonomies(3)
+    @example_taxonomies = get_example_taxonomies(5)
 
     # Split products into groups of 3 for the homepage blocks.
     # You probably want to remove this logic and use your own!
@@ -17,7 +17,7 @@ class HomeController < StoreController
     @featured_products = homepage_groups[0]
     @collection_products = homepage_groups[1]
     @cta_collection_products = homepage_groups[2]
-    @new_arrivals = @products.last(3)
+    @new_arrivals = @products.last(5)
 
     @event = Event.active.first
   end

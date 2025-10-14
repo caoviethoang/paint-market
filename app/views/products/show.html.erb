@@ -145,13 +145,25 @@
 
             <!-- Cột bên phải: thông tin -->
             <div class="space-y-4">
-              <h2 class="text-2xl md:text-h2.5 font-bold text-gray-900"><%= @artist.name %></h2>
+              <h2 class="text-h4 md:text-h2.5 font-bold text-gray-900"><%= @artist.name %></h2>
               <p class="text-base lg:text-h4 text-gray-600"><%= @artist.address %></p>
               <p class="text-gray-700 leading-relaxed lg:text-h6"><%= @artist.introduction %></p>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="mt-12 px-4 lg:px-8 scroll-fade">
+      <h2 class="text-h6 font-bold mb-6">Đánh giá sản phẩm</h2>
+      <% if @product.votes.any? %>
+        <div class="mb-8">
+          <%= render 'votes/list', votes: @product.votes.recent %>
+        </div>
+      <% end %>
+
+      <!-- Vote form -->
+      <%= render 'votes/form' %>
     </div>
 
     <div class="pt-12 scroll-fade">

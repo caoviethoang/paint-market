@@ -1,0 +1,18 @@
+<div class="space-y-6">
+  <% votes.each do |vote| %>
+    <div class="border-b border-gray-200 pb-6">
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <span class="font-semibold text-gray-900"><%= vote.user_name %></span>
+          <span class="text-orange ml-2">
+            <%= "★" * vote.star %><%= "☆" * (5 - vote.star) %>
+          </span>
+        </div>
+        <span class="text-sm text-gray-500">
+          <%= vote.created_at.strftime('%d/%m/%Y') %>
+        </span>
+      </div>
+      <p class="text-gray-700"><%= vote.comment %></p>
+    </div>
+  <% end %>
+</div>

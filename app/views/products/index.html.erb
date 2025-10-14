@@ -66,7 +66,7 @@
             <% @products.each do |product| %>
               <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
                 <%= link_to product_path(product), itemprop: 'url' do %>
-                  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden" style="cursor: pointer;">
+                  <div class="bg-white shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden" style="cursor: pointer;">
                     <!-- Product Image -->
                     <div class="aspect-[4/3] w-full overflow-hidden bg-gray-100">
                       <% if product.gallery&.images&.any? %>

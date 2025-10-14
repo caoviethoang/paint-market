@@ -24,14 +24,14 @@
   id="product_<%= product.id %>"
 >
   <%= link_to product_path(product), itemprop: 'url' do %>
-    <article class="h-full flex flex-col <%= padding_classes %> bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+    <article class="h-full flex flex-col <%= padding_classes %> bg-white shadow-sm hover:shadow-md transition-all duration-300">
       <section class="product-card_image h-48 md:h-56 lg:h-64 w-full mb-3 md:mb-4">
         <%= render(
           ImageComponent.new(
             image: main_image,
             size: :small,
             itemprop: "image",
-            classes: 'w-full h-full object-cover rounded-lg'
+            classes: 'w-full h-full object-cover'
           )
         ) %>
       </section>
@@ -55,7 +55,7 @@
       <section class="product-card_header mb-2 flex-grow">
         <span class="<%= title_text_classes %>">
           <%= link_to(
-            truncate(product.name, length: 50),
+            truncate(product.name, length: 70),
             product_path(product),
             class: 'hover:text-blue-600 transition-colors',
             style: 'font-weight: 700',

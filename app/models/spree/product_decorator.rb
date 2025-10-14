@@ -3,6 +3,7 @@ module Spree
     def self.prepended(base)
       base.belongs_to :event, optional: true
       base.belongs_to :artist
+      base.has_many :votes, dependent: :destroy
 
       base.validates :artist, presence: true
       base.validate :must_have_taxon

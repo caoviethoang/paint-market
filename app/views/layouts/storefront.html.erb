@@ -8,6 +8,7 @@
     <%= simple_canonical_tag %>
     <%= csrf_meta_tags %>
 
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -371,6 +372,11 @@
       <%= render 'layouts/footer' %>
       <div id="overlay" class="z-40 fixed top-0 left-0 w-full h-full bg-black opacity-50 hidden" data-action="click->drawer#toggle"></div>
     </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>
 

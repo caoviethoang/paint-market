@@ -1,0 +1,145 @@
+<div class="border-2 border-red-400 rounded-lg px-8 py-8 bg-white ">
+  <%= form_with(model: [@product, Vote.new], local: true) do |f| %>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-900 mb-3">
+        Đánh giá của bạn <span class="text-red-500">*</span>
+      </label>
+      <div class="flex items-center gap-2 text-h6" data-controller="star-rating">
+        <% (1..5).each do |rating| %>
+          <label class="cursor-pointer group">
+            <%= f.radio_button :star, rating,
+                class: "sr-only",
+                data: {
+                  action: "change->star-rating#update",
+                  star_rating_target: "input"
+                } %>
+            <div class="star-container text-3xl transition-colors" data-rating="<%= rating %>">
+              <span class="star-empty text-gray-300 group-hover:hidden">☆</span>
+              <span class="star-filled text-yellow-400 hidden group-hover:inline">★</span>
+            </div>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Comment -->
+    <div>
+      <label for="vote_comment" class="block text-sm font-medium text-gray-900 mb-2">
+        Nhận xét của bạn <span class="text-red-500">*</span>
+      </label>
+      <%= f.text_area :comment,
+          required: true,
+          rows: 6,
+          placeholder: "Nhập đánh giá của bạn về sản phẩm...",
+          class: "w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-400 focus:border-transparent resize-none" %>
+    </div>
+
+    <!-- Name and Email in Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Name -->
+      <div>
+        <label for="vote_user_name" class="block text-sm font-medium text-gray-900 mb-2">
+          Tên <span class="text-red-500">*</span>
+        </label>
+        <%= f.text_field :user_name,
+            required: true,
+            placeholder: "Nhập tên của bạn",
+            class: "w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-400 focus:border-transparent" %>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="vote_user_email" class="block text-sm font-medium text-gray-900 mb-2">
+          Email <span class="text-red-500">*</span>
+        </label>
+        <%= f.email_field :user_email,
+            required: true,
+            placeholder: "email@example.com",
+            class: "w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-400 focus:border-transparent" %>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-4">
+      <%= f.submit "GỬI ĐI",
+          class: "px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-medium rounded-md transition-colors cursor-pointer" %>
+    </div>
+
+  <% end %>
+</div>
+
+<!-- Stimulus Controller for Star Rating -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('[data-controller="star-rating"]');
+    if (!form) return;
+
+    const stars = form.querySelectorAll('.star-container');
+    const inputs = form.querySelectorAll('input[type="radio"]');
+
+    // Hover effect
+    stars.forEach((star, index) => {
+      star.addEventListener('mouseenter', () => {
+        highlightStars(index + 1);
+      });
+    });
+
+    form.addEventListener('mouseleave', () => {
+      const checkedInput = form.querySelector('input[type="radio"]:checked');
+      if (checkedInput) {
+        highlightStars(parseInt(checkedInput.value));
+      } else {
+        resetStars();
+      }
+    });
+
+    // Click to select
+    inputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        highlightStars(parseInt(input.value));
+      });
+    });
+
+    function highlightStars(rating) {
+      stars.forEach((star, index) => {
+        const empty = star.querySelector('.star-empty');
+        const filled = star.querySelector('.star-filled');
+
+        if (index < rating) {
+          empty.classList.add('hidden');
+          filled.classList.remove('hidden');
+        } else {
+          empty.classList.remove('hidden');
+          filled.classList.add('hidden');
+        }
+      });
+    }
+
+    function resetStars() {
+      stars.forEach((star) => {
+        const empty = star.querySelector('.star-empty');
+        const filled = star.querySelector('.star-filled');
+        empty.classList.remove('hidden');
+        filled.classList.add('hidden');
+      });
+    }
+  });
+</script>
+
+<style>
+  .star-container {
+    display: inline-block;
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+    color: orange;
+  }
+
+  .star-empty,
+  .star-filled {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
