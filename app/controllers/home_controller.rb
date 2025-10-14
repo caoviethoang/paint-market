@@ -102,9 +102,9 @@ class HomeController < StoreController
     images.first(limit)
   end
 
-  def get_example_taxonomies(limit = 3)
+  def get_example_taxonomies(limit = 5)
     # Get all available taxonomies with products
-    all_taxonomies = Spree::Taxonomy.includes(root: { children: :products }).all
+    all_taxonomies = Spree::Taxonomy.includes(root: { children: :products }).all.reorder(Arel.sql('LENGTH(name) ASC'))
 
     Rails.logger.info "Found #{all_taxonomies.length} total taxonomies"
 
@@ -119,7 +119,6 @@ class HomeController < StoreController
       Rails.logger.info "Processing taxonomy: #{taxonomy.name}"
       next unless taxonomy.root.present?
 
-      # Try to find a product with images in this taxonomy
       product_with_image = nil
       image = nil
 
