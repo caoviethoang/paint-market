@@ -19,7 +19,7 @@ module.exports = {
       '3xl': '1536px',
     },
     fontFamily: {
-      sans: ['Inter Regula', 'system-ui', 'sans-serif'],
+      sans: ["Merriweather", 'sans-serif'],
       serif: ['Cormorant Garamond', 'serif'],
     },
     fontSize: {

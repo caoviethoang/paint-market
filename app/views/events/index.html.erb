@@ -15,7 +15,7 @@
           <div class="group">
             <%= link_to detail_event_path(event), class: "block" do %>
               <div class="relative overflow-hidden group-hover:shadow-xl transition-shadow duration-300">
-                <%= image_tag event_image_url(event, :large),
+                <%= image_tag event_image_url(event, :medium),
                     class: "w-full h-48 sm:h-64 lg:h-80 object-cover group-hover:scale-105 transition-transform duration-300",
                     alt: event.title %>
               </div>

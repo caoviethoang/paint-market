@@ -108,9 +108,9 @@ class Event < Spree::Base
       begin
         processed_image = case size
         when :large
-          background_image.variant(resize_to_fit: [ 800, 600 ]).processed
+          background_image.variant(resize_to_fit: [ 1920, 760 ]).processed
         when :medium
-          background_image.variant(resize_to_fit: [ 600, 450 ]).processed
+          background_image.variant(resize_to_fit: [ 1280, 720 ]).processed
         else
           background_image.variant(resize_to_fit: [ 400, 300 ]).processed
         end
