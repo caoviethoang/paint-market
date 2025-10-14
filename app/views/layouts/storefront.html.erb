@@ -373,6 +373,22 @@
       <div id="overlay" class="z-40 fixed top-0 left-0 w-full h-full bg-black opacity-50 hidden" data-action="click->drawer#toggle"></div>
     </div>
 
+    <div class="float-contact">
+      <div class="flex gap-x-2">
+        <button class="chat-zalo p-1">
+          <a href="http://zalo.me/0941641400" target="_blank">Zalo Chat</a>
+        </button>
+        <button class="messenger p-1">
+          <a href="https://www.facebook.com/messages/t/709823288880860" target="_blank">Messenger</a>
+        </button>
+      </div>
+      <div class="mt-2">
+        <button class="hotline p-1">
+          <a href="tel:0941641400">Hotline: 0941641400</a>
+        </button>
+      </div>
+    </div>
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();
@@ -383,6 +399,43 @@
 <style>
   body {
     padding-top: var(--header-height, 63px);
+  }
+
+  .float-contact {
+    font-family: "Poppins", sans-serif !important;
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+    background: none;
+  }
+
+  .chat-zalo, .messenger, .hotline {
+    border-radius: 4px;
+    color: white;
+    float: right;
+    line-height: 20px;
+  }
+
+  .chat-zalo {
+    background: #4389ef;
+  }
+
+  .messenger {
+    background: #0068FF;
+  }
+
+  .hotline {
+    background: #B33141 !important;
+    width: 100%;
+  }
+
+  .chat-zalo a, .messenger a, .hotline a {
+    font-size: 13px;
+    color: white;
+    font-weight: bold;
+    text-transform: none;
+    line-height: 0;
   }
 </style>
 
