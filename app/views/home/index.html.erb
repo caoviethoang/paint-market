@@ -211,9 +211,6 @@
             </div>
 
             <div class="mb-6">
-              <h3 class="text-h4 font-semibold text-gray-900 mb-3">
-                <%= taxonomy_data[:taxonomy].name %>
-              </h3>
               <% if taxonomy_data[:taxonomy].description.present? %>
                 <p class="text-sm text-gray-500 max-w-sm">
                   <%= truncate(taxonomy_data[:taxonomy].description, length: 120) %>
@@ -225,11 +222,11 @@
               <% if taxonomy_data[:taxonomy].root.present? %>
                 <%= link_to products_path(taxon: taxonomy_data[:taxonomy].root.id),
                     class: "px-4 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200" do %>
-                  <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
+                  <%= taxonomy_data[:taxonomy].name&.titleize %>
                 <% end %>
               <% else %>
                 <a href="#" class="px-4 py-3 text-center border-2 border-gray-500 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                  <%= t('spree.home_page.shop_button') %> <%= taxonomy_data[:taxonomy].name %>
+                  <%= taxonomy_data[:taxonomy].name&.titleize %>
                 </a>
               <% end %>
           </div>
