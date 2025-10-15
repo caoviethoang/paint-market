@@ -1355,6 +1355,8 @@ vi:
       title: Tên tranh
       price: Giá tiền
       artist: Họa sĩ
+      views_count: Lượt xem
+      vote: Đánh giá
       size: Kích thước
       description: Mô tả
       details: Thông số

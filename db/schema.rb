@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_14_031815) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_15_033003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -537,6 +537,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_031815) do
     t.integer "primary_taxon_id"
     t.bigint "event_id"
     t.bigint "artist_id"
+    t.integer "views_count", default: 0, null: false
     t.index ["artist_id"], name: "index_spree_products_on_artist_id"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"

@@ -37,7 +37,7 @@
   <span class="font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>
   <!-- Value -->
   <p class="font-sans text-body" itemprop="artist">
-    <%= product.artist.name rescue t('spree.product_has_no_name') %>
+    <%= product.artist&.name %>
   </p>
 </div>
 

@@ -9,6 +9,10 @@ module Spree
       base.validate :must_have_taxon
     end
 
+    def average_rating
+      votes.average(:star).to_f.round(1)
+    end
+
     private
 
     def must_have_taxon

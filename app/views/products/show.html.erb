@@ -2,7 +2,7 @@
 <% @title = t('spree.product.more_work_title', artist_name: @artist.name) %>
 
 <% cache [I18n.locale, current_pricing_options, @product] do %>
-  <section itemscope itemtype="http://schema.org/Product" class="product-show lg:p-0 sm:px-6 lg:mt-4 border-t">
+  <section itemscope itemtype="http://schema.org/Product" class="product-show lg:p-0 sm:px-6 lg:mt-4 md:container mx-auto">
     <!-- Mobile Layout: Stack vertically -->
     <div id="mobile-gallery" class="md:hidden flex flex-col lg:flex-row w-full lg:pb-12 py-4 px-4">
       <!-- Image Section -->
@@ -37,22 +37,18 @@
 
             <!-- Product Details Section -->
             <div class="flex-1 flex flex-col justify-between">
-              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
-                <!-- Cột trái: Label -->
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 items-center py-5">
                 <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.title') %></span>
 
-                <!-- Cột phải: Value -->
                 <h1 class="text-h6 lg:text-h6" itemprop="name">
                   <%= @product.name %>
                 </h1>
               </div>
 
               <% if @product.price_for_options(current_pricing_options)&.money && !@product.price.nil? %>
-                <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
-                  <!-- Label -->
+                <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 items-center py-5">
                   <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.price') %></span>
 
-                  <!-- Value -->
                   <h2 class="font-sans-md text-body-md" id="product-price">
                     <%= content_tag(
                       :span,
@@ -71,19 +67,15 @@
                 </div>
               <% end %>
 
-              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
-                <!-- Label -->
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 items-center py-5">
                 <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.artist') %></span>
-                <!-- Value -->
                 <p class="font-sans text-body" itemprop="artist">
-                  <%= @product.artist.name rescue t('spree.product_has_no_name') %>
+                  <%= @product.artist&.name %>
                 </p>
               </div>
 
-              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
-                <!-- Label -->
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 items-center py-5">
                 <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.details') %></span>
-                <!-- Value -->
                 <div class="font-sans text-body" style="width: 75%;">
                   <% if @product.properties.any? %>
                     <% values = @product.properties.map do |property|
@@ -107,10 +99,27 @@
                 </div>
               </div>
 
-              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 py-5">
-                <!-- Label -->
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 items-center py-5">
+                <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.views_count') %></span>
+                <p class="font-sans text-body" itemprop="views_count">
+                  <%= @product.views_count %>
+                </p>
+              </div>
+
+              <% if @product.votes.any? %>
+                <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 items-center py-5">
+                  <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.vote') %></span>
+                  <p class="font-sans text-body" itemprop="vote">
+                    <%= @product.average_rating %>
+                    <span class="text-orange">
+                      <%= "★" %>
+                    </span>
+                  </p>
+                </div>
+              <% end %>
+
+              <div class="flex flex-col lg:flex-row border-t border-dashed border-gray-500 items-center py-5">
                 <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
-                <!-- Value -->
                 <span class="font-sans text-body" itemprop="description" style="width: 75%;">
                   <%= product_description(@product) rescue t('spree.product_has_no_description') %>
                 </span>
@@ -130,7 +139,6 @@
       <div class="w-full px-4 lg:px-8">
         <div class="flex gap-8 items-stretch img-container">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <!-- Cột bên trái: ảnh -->
             <div class="flex justify-center">
               <% if @artist.background_image.attached? %>
                 <%= image_tag @artist.background_image_url(:large),
@@ -143,7 +151,6 @@
               <% end %>
             </div>
 
-            <!-- Cột bên phải: thông tin -->
             <div class="space-y-4">
               <h2 class="text-h4 md:text-h2.5 font-bold text-gray-900"><%= @artist.name %></h2>
               <p class="text-base lg:text-h4 text-gray-600"><%= @artist.address %></p>
@@ -162,7 +169,6 @@
         </div>
       <% end %>
 
-      <!-- Vote form -->
       <%= render 'votes/form' %>
     </div>
 

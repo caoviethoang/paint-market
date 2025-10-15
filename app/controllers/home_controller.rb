@@ -14,9 +14,13 @@ class HomeController < StoreController
     products = Spree::Product.all
     total = products.size
     @newest = products.last(5)
-    @outstanding = products[[total - 10, 0].max, 5] || []
-    @overatting = products[[total - 15, 0].max, 5] || []
-    @care = products.first(5)
+    @outstanding = products.first(5)
+    @overatting = products.left_joins(:votes)
+                  .group('spree_products.id')
+                  .select('spree_products.*, AVG(votes.star) as avg_rating, COUNT(votes.id) as votes_count')
+                  .order('avg_rating DESC NULLS LAST, votes_count DESC')
+                  .limit(5) || products[[total - 15, 0].max, 5]
+    @care = products.order(views_count: :desc).limit(5) || products[[total - 10, 0].max, 5]
   end
 
   private
