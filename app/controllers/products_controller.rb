@@ -30,7 +30,7 @@ class ProductsController < StoreController
       display_includes.
       with_prices(current_pricing_options).
       includes([ :option_values, :images ])
-    track_unique_view(@product)
+    @product.increment!(:views_count)
     @product_properties = @product.product_properties.includes(:property)
     @taxon = Spree::Taxon.find(params[:taxon_id]) if params[:taxon_id]
     @similar_products = @artist.products.where.not(id: @product.id).limit(3)
