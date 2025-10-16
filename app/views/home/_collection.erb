@@ -1,23 +1,203 @@
-<% if products.length > 0 %>
+<% if products.any? %>
   <section class="wrapper mb-12">
     <div class="flex items-center justify-center mb-7">
       <span class="text-h4 md:text-h3"><%= title %></span>
     </div>
 
-    <% mobile_classes = 'grid grid-cols-2 gap-4' %>
-    <% desktop_classes = 'md:gap-0 md:flex md:snap-x md:justify-between md:snap-mandatory md:overflow-x-auto md:space-x-6' %>
+    <div class="relative overflow-hidden group" data-carousel-container>
+      <button data-carousel-action="prev"
+        class="-translate-y-1/2 absolute group-hover:opacity-100 hover:bg-gray-100 left-0 p-3 rounded-full top-1/2 z-10 hover:!text-red-500">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
 
-    <ul class="<%= mobile_classes %> <%= desktop_classes %> no-scrollbar">
-      <% products.each do |product| %>
-        <%= cache [I18n.locale, current_pricing_options, @taxon, product] do %>
-          <%= render ProductCardComponent.new(
-            product,
-            price: product.price_for_options(current_pricing_options),
-            additional_classes: 'snap-start shrink-0 md:w-collection-card h-min-content',
-            home_collection: true
-          ) %>
+      <div class="flex transition-transform duration-500 ease-out list-none" data-carousel-track>
+        <% products.each do |product| %>
+          <%= cache [I18n.locale, current_pricing_options, @taxon, product] do %>
+            <div class="flex-shrink-0" data-carousel-item>
+              <%= render ProductCardComponent.new(
+                product,
+                price: product.price_for_options(current_pricing_options),
+                additional_classes: 'h-full',
+                home_collection: true
+              ) %>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
+      </div>
+
+      <button data-carousel-action="next"
+        class="-translate-y-1/2 absolute group-hover:opacity-100 hover:bg-gray-100 right-0 p-3 rounded-full top-1/2 z-10 hover:!text-red-500">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <% if products.count > 4 %>
+      <div class="flex justify-center gap-2 mt-6" data-carousel-indicators>
+        <% (0...(products.count / 4.0).ceil).each do |index| %>
+          <button
+            data-carousel-indicator="<%= index %>"
+            class="w-2 h-2 rounded-full transition-all <%= index == 0 ? 'bg-gray-800 w-8' : 'bg-gray-300' %>">
+          </button>
+        <% end %>
+      </div>
+    <% end %>
   </section>
+  <script>
+    (function() {
+      let currentIndex = 0;
+      let container = null;
+      let track = null;
+      let items = [];
+      let indicators = [];
+      let itemsPerView = 4;
+      let totalSlides = 0;
+
+      function init() {
+        container = document.querySelector('[data-carousel-container]');
+        track = document.querySelector('[data-carousel-track]');
+        items = Array.from(document.querySelectorAll('[data-carousel-item]'));
+        indicators = Array.from(document.querySelectorAll('[data-carousel-indicator]'));
+
+        if (!container || !track || items.length === 0) return;
+
+        updateItemsPerView();
+        totalSlides = Math.max(items.length - itemsPerView + 1, 1);
+
+        bindEvents();
+        updateCarousel();
+      }
+
+      function updateItemsPerView() {
+        const width = window.innerWidth;
+        if (width < 768) {
+          itemsPerView = 2;
+        } else if (width < 1024) {
+          itemsPerView = 3;
+        } else {
+          itemsPerView = 4;
+        }
+      }
+
+      function bindEvents() {
+        const prevBtn = document.querySelector('[data-carousel-action="prev"]');
+        const nextBtn = document.querySelector('[data-carousel-action="next"]');
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+              currentIndex--;
+            } else {
+              // Nhảy về cuối
+              currentIndex = totalSlides - 1;
+            }
+            updateCarousel();
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalSlides - 1) {
+              currentIndex++;
+            } else {
+              // Nhảy về đầu
+              currentIndex = 0;
+            }
+            updateCarousel();
+          });
+        }
+
+        indicators.forEach((indicator, index) => {
+          indicator.addEventListener('click', () => {
+            currentIndex = index;
+            updateCarousel();
+          });
+        });
+
+        window.addEventListener('resize', () => {
+          updateItemsPerView();
+          totalSlides = Math.max(items.length - itemsPerView + 1, 1);
+          if (currentIndex >= totalSlides) {
+            currentIndex = totalSlides - 1;
+          }
+          updateCarousel();
+        });
+
+        // Touch/Swipe support
+        let startX = 0;
+        let isDragging = false;
+
+        track.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].clientX;
+          isDragging = true;
+        });
+
+        track.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          e.preventDefault();
+        });
+
+        track.addEventListener('touchend', (e) => {
+          if (!isDragging) return;
+          isDragging = false;
+
+          const endX = e.changedTouches[0].clientX;
+          const diff = startX - endX;
+
+          if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+              // Swipe left - next
+              if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+              } else {
+                currentIndex = 0;
+              }
+            } else {
+              // Swipe right - previous
+              if (currentIndex > 0) {
+                currentIndex--;
+              } else {
+                currentIndex = totalSlides - 1;
+              }
+            }
+            updateCarousel();
+          }
+        });
+      }
+
+      function updateCarousel() {
+        if (!track || items.length === 0) return;
+
+        const itemWidth = items[0].offsetWidth;
+        const gap = 24; // khoảng cách giữa các items (gap-6 = 24px)
+        const offset = -(currentIndex * (itemWidth + gap));
+
+        track.style.transform = `translateX(${offset}px)`;
+        track.style.transition = 'transform 0.6s ease-in-out';
+
+        // Update indicators
+        const indicatorIndex = Math.floor(currentIndex / itemsPerView);
+        indicators.forEach((indicator, index) => {
+          if (index === indicatorIndex) {
+            indicator.classList.remove('bg-gray-300', 'w-2');
+            indicator.classList.add('bg-gray-800', 'w-8');
+          } else {
+            indicator.classList.remove('bg-gray-800', 'w-8');
+            indicator.classList.add('bg-gray-300', 'w-2');
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+      document.addEventListener('turbo:load', init);
+    })();
+  </script>
 <% end %>

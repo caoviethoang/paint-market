@@ -63,6 +63,25 @@
 </div>
 
 <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+  <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.views_count') %></span>
+  <p class="font-sans text-body" itemprop="views_count">
+    <%= @product.views_count %>
+  </p>
+</div>
+
+<% if @product.votes.any? %>
+  <div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
+    <span class="custom-width-row font-sans-sm text-gray-600"><%= t('spree.product.vote') %></span>
+    <p class="font-sans text-body" itemprop="vote">
+      <%= @product.average_rating %>
+      <span class="text-orange">
+        <%= "★" %>
+      </span>
+    </p>
+  </div>
+<% end %>
+
+<div class="border-t border-dashed border-gray-500 py-5 grid lg:grid-cols-2 md:grid-cols-2">
   <!-- Label -->
   <span class="font-sans-sm text-gray-600"><%= t('spree.product.description') %></span>
   <!-- Value -->

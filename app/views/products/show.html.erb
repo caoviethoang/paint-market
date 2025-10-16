@@ -175,6 +175,34 @@
     <div class="pt-12 scroll-fade">
       <%= render partial: 'home/collection', :locals => { :title => @title, :products => @similar_products } %>
     </div>
+
+    <div data-lightbox-target="modal"
+      data-action="click->lightbox#closeBackground"
+      class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999] hidden overflow-hidden">
+      <div class="relative w-full h-full flex items-center justify-center">
+        <img data-lightbox-target="image" src="" alt="Ảnh phóng to"
+            class="max-w-[90%] max-h-[90%] transition-transform duration-200 cursor-move">
+        <div class="absolute flex items-center justify-center right-0 text-white top-0">
+          <button data-lightbox-action="zoomOut" class="p-1 hover:bg-opacity-75 rounded-r-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+            </svg>
+          </button>
+          <button data-lightbox-action="zoomIn" class="p-1 hover:bg-opacity-75 rounded-l-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+          </button>
+
+          <button data-lightbox-action="close" class="p-1 hover:bg-opacity-75 rounded-l-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 <% end %>
 
@@ -209,6 +237,174 @@
     }
   }
 </style>
+
+<script>
+  (function() {
+    let modal = null;
+    let image = null;
+    let initialScale = 1;
+    let currentScale = 1;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let translateX = 0;
+    let translateY = 0;
+
+    function init() {
+      modal = document.querySelector('[data-lightbox-target="modal"]');
+      image = document.querySelector('[data-lightbox-target="image"]');
+
+      if (!modal || !image) {
+        console.error('Lightbox elements not found');
+        return;
+      }
+
+      bindEvents();
+    }
+
+    function bindEvents() {
+      const openButtons = document.querySelectorAll('[data-lightbox-action="open"]');
+      openButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          open(this);
+        });
+      });
+
+      const closeButton = document.querySelector('[data-lightbox-action="close"]');
+      if (closeButton) {
+        closeButton.addEventListener('click', close);
+      }
+
+      if (modal) {
+        modal.addEventListener('click', closeBackground);
+      }
+
+      const zoomInButton = document.querySelector('[data-lightbox-action="zoomIn"]');
+      const zoomOutButton = document.querySelector('[data-lightbox-action="zoomOut"]');
+
+      if (zoomInButton) {
+        zoomInButton.addEventListener('click', zoomIn);
+      }
+
+      if (zoomOutButton) {
+        zoomOutButton.addEventListener('click', zoomOut);
+      }
+
+      // Thêm sự kiện kéo ảnh
+      if (image) {
+        image.addEventListener('mousedown', startDrag);
+        image.addEventListener('mousemove', drag);
+        image.addEventListener('mouseup', endDrag);
+        image.addEventListener('mouseleave', endDrag);
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+          close();
+        }
+      });
+    }
+
+    function open(element) {
+      const imageUrl = element.childNodes[1].src;
+
+      if (!imageUrl || !modal || !image) return;
+
+      image.src = imageUrl;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      currentScale = initialScale;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    }
+
+    function close() {
+      if (!modal || !image) return;
+
+      modal.classList.add('hidden');
+      image.src = '';
+      document.body.style.overflow = 'auto';
+
+      currentScale = initialScale;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    }
+
+    function closeBackground(event) {
+      if (event.target === modal) {
+        close();
+      }
+    }
+
+    function zoomIn() {
+      if (!image) return;
+
+      currentScale += 1.2;
+      updateTransform();
+    }
+
+    function zoomOut() {
+      if (!image) return;
+
+      if (currentScale > initialScale) {
+        currentScale -= 1.2;
+        updateTransform();
+      }
+    }
+
+    function startDrag(e) {
+      if (currentScale <= initialScale) return;
+
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      image.style.cursor = 'grabbing';
+      e.preventDefault();
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updateTransform();
+    }
+
+    function endDrag() {
+      isDragging = false;
+      if (image && currentScale > initialScale) {
+        image.style.cursor = 'move';
+      }
+    }
+
+    function updateTransform() {
+      if (!image) return;
+
+      image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+      image.style.transition = isDragging ? 'none' : 'transform 0.3s ease-in-out';
+
+      if (currentScale > initialScale) {
+        image.style.cursor = 'move';
+      } else {
+        image.style.cursor = 'default';
+        translateX = 0;
+        translateY = 0;
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    document.addEventListener('turbo:load', init);
+  })();
+</script>
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {

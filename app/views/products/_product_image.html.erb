@@ -1,5 +1,5 @@
 <div class="col-span-full md:col-span-9">
-  <picture class="flex items-center justify-center lg:rounded-2xl md:rounded-xl rounded-lg">
+  <picture class="flex cursor-pointer items-center justify-center relative" data-lightbox-action="open">
     <%= render(ImageComponent.new(
       image: product.gallery.images.first,
       size: :product,
