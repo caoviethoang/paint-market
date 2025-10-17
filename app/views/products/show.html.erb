@@ -162,7 +162,7 @@
     </div>
 
     <div class="mt-12 px-4 lg:px-8 scroll-fade">
-      <h2 class="text-h6 font-bold mb-6">Đánh giá sản phẩm</h2>
+      <h2 class="text-h6 font-bold mb-6"><%= t('spree.product.reviews_title') %></h2>
       <% if @product.votes.any? %>
         <div class="mb-8">
           <%= render 'votes/list', votes: @product.votes.recent %>

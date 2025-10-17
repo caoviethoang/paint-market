@@ -1684,6 +1684,12 @@ en:
           title: "Secure Transactions"
           description: "Safe and reliable payment processing for all purchases"
     home_page:
+      featured_categories_title: "Featured Categories"
+      widgets:
+        newest: "Newest"
+        outstanding: "Outstanding"
+        top_rated: "Top Rated"
+        trending: "Trending"
       banner:
         title: "Good art changes lives"
         description: "Bring home your new art to view it in person. If a piece doesn't quite work in your space, return it within seven days of receiving your order and receive a full refund."
@@ -2195,6 +2201,7 @@ en:
     search_results: Search results for '%{keywords}'
     search_results_all: Show all results for '%{keywords}'
     searching: Searching
+    view_all: View All
     secure_connection_type: Secure Connection Type
     security_settings: Security Settings
     select: Select
@@ -2467,6 +2474,8 @@ en:
       email_placeholder: name@example.com
     product:
       title: Title
+      reviews_title: "Product Reviews"
+      write_review: "Write a review"
       artist: Artist
       size: Size
       description: Description
@@ -2571,6 +2580,27 @@ en:
       taxonomy_description_help: Optional description for this taxonomy category
       event_description: Description
     footer:
+      brand_name: "Ha Vy Art"
+      company_legal_name: "Hà Vy Art Limited"
+      certifications: "Certifications"
+    a11y:
+      open_main_menu: "Open main menu"
+      close_main_menu: "Close main menu"
+
+    contact:
+      zalo_chat: "Zalo Chat"
+      messenger: "Messenger"
+      hotline: "Hotline"
+
+    votes:
+      thanks_for_review: "Thank you for reviewing this product!"
+
+    events:
+      defaults:
+        statement: "Discover an exclusive selection of silver sculptures by Salvador Dalí: refined creations including the iconic melting watches and Alice in Wonderland, where the brilliance of silver enhances the master's surrealist vision."
+        press_release: "Ben Brown Fine Arts is pleased to present 'Wish You Were Here', an exhibition curated by New York-based curator, art advisor, and independent scholar Jie Xia. On view at Ben Brown Fine Arts Hong Kong, the exhibition evokes the intoxicating pull of summer: the heat, the haze, and the promise of escape. Featuring works by leading postwar and contemporary artists – drawn from the gallery's programme and beyond – the exhibition explores the iconography of travel, the sea, and the rituals of seasonal escape, approached with varying degrees of meditation, longing, and nostalgia."
+        gallery: "Martket Gallery Ha Noi"
+        location_html: "201 The Factory,<br>1 Hang Bai,<br>Ha Noi, VN."
       information: INFORMATION
       our_company: OUR COMPANY
       connect: CONNECT WITH US

@@ -192,7 +192,7 @@
 </div>
 
 <div class="section-title md:container mx-auto scroll-fade">
-  <span class="lg:text-h2.5 md:text-h2.5">Danh Mục Tranh Nổi Bật</span>
+  <span class="lg:text-h2.5 md:text-h2.5"><%= t('spree.home_page.featured_categories_title') %></span>
 </div>
 
 <section id="example-taxonomies" class="py-8 sm:py-12 px-4 sm:px-4 bg-white scroll-fade">
@@ -259,7 +259,7 @@
       <!-- Grid ảnh -->
       <div class="grid gap-6 sm:gap-8 mb-6 sm:mb-10 discovery-grid-col">
         <div class="newest flex flex-col items-start ">
-          <span class="widget-title text-h6">Mới nhất</span>
+          <span class="widget-title text-h6"><%= t('spree.home_page.widgets.newest') %></span>
           <div class="is-divider small"></div>
           <% @newest.each do |product| %>
             <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
@@ -268,7 +268,7 @@
           <% end %>
         </div>
         <div class="outstanding flex flex-col items-start ">
-          <span class="widget-title text-h6">Nổi bật</span>
+          <span class="widget-title text-h6"><%= t('spree.home_page.widgets.outstanding') %></span>
           <div class="is-divider small"></div>
           <% @outstanding.each do |product| %>
             <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
@@ -277,7 +277,7 @@
           <% end %>
         </div>
         <div class="overatting flex flex-col items-start ">
-          <span class="widget-title text-h6">Đánh giá cao</span>
+          <span class="widget-title text-h6"><%= t('spree.home_page.widgets.top_rated') %></span>
           <div class="is-divider small"></div>
           <% @overatting.each do |product| %>
             <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>
@@ -286,7 +286,7 @@
           <% end %>
         </div>
         <div class="care flex flex-col items-start ">
-          <span class="widget-title text-h6">Quan tâm</span>
+          <span class="widget-title text-h6"><%= t('spree.home_page.widgets.trending') %></span>
           <div class="is-divider small"></div>
           <% @care.each do |product| %>
             <% cache [I18n.locale, current_pricing_options, @taxon, product] do %>

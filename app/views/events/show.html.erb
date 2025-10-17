@@ -7,14 +7,14 @@
         <div>
           <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.statement') %></h2>
           <p class="text-gray-700 text-base sm:text-lg leading-relaxed">
-            <%= @event.statement.presence || "Discover an exclusive selection of silver sculptures by Salvador Dalí: refined creations including the iconic melting watches and Alice in Wonderland, where the brilliance of silver enhances the master's surrealist vision." %>
+            <%= @event.statement.presence || t('spree.events.defaults.statement') %>
           </p>
         </div>
 
         <div>
           <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.press_release') %></h2>
           <p class="text-gray-700 text-base sm:text-lg leading-relaxed mb-4 lg:mb-6">
-            <%= @event.press_release.presence || "Ben Brown Fine Arts is pleased to present 'Wish You Were Here', an exhibition curated by New York-based curator, art advisor, and independent scholar Jie Xia. On view at Ben Brown Fine Arts Hong Kong, the exhibition evokes the intoxicating pull of summer: the heat, the haze, and the promise of escape. Featuring works by leading postwar and contemporary artists – drawn from the gallery's programme and beyond – the exhibition explores the iconography of travel, the sea, and the rituals of seasonal escape, approached with varying degrees of meditation, longing, and nostalgia." %>
+            <%= @event.press_release.presence || t('spree.events.defaults.press_release') %>
           </p>
         </div>
       </div>
@@ -22,12 +22,12 @@
       <div class="flex flex-col gap-6 lg:gap-10 justify-start">
         <div>
           <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.gallery') %></h2>
-          <p class="text-gray-700 text-base sm:text-lg"><%= @event.gallery.presence || "Martket Gallery Ha Noi" %></p>
+          <p class="text-gray-700 text-base sm:text-lg"><%= @event.gallery.presence || t('spree.events.defaults.gallery') %></p>
         </div>
         <div>
           <h2 class="text-lg sm:text-xl text-h4 font-semibold text-gray-600 mb-3 lg:mb-4"><%= t('spree.events.pages.location') %></h2>
           <p class="text-gray-700 text-base sm:text-lg leading-relaxed">
-            <%= @event.location.presence || "201 The Factory,<br>1 Hang Bai,<br>Ha Noi, VN.".html_safe %>
+            <%= @event.location.presence || t('spree.events.defaults.location_html').html_safe %>
           </p>
           <p class="text-gray-700 text-base sm:text-lg mt-2 lg:mt-3">
             <%= @event.display_operating_hours %>

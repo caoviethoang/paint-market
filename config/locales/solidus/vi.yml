@@ -1046,7 +1046,10 @@ vi:
     scope: Phạm vi
     search: Tìm kiếm
     search_results: Kết quả tìm kiếm cho '%{keywords}'
+    search_results_all: "Hiển thị tất cả kết quả cho '%{keywords}'"
     searching: Searching
+    view_all: "Xem Tất Cả"
+    no_results: "Không có kết quả"
     secure_connection_type: Kiệu kết nối bảo mật
     security_settings:
     select: Lựa chọn
@@ -1307,6 +1310,12 @@ vi:
           title: "Giao Dịch An Toàn"
           description: "Xử lý thanh toán an toàn và đáng tin cậy cho tất cả các giao dịch"
     home_page:
+      featured_categories_title: "Danh Mục Tranh Nổi Bật"
+      widgets:
+        newest: "Mới nhất"
+        outstanding: "Nổi bật"
+        top_rated: "Đánh giá cao"
+        trending: "Quan tâm"
       banner:
         title: "Nghệ thuật tốt thay đổi cuộc sống"
         description: "Mang về nhà tác phẩm nghệ thuật mới để xem trực tiếp. Nếu một tác phẩm không phù hợp với không gian của bạn, hãy trả lại trong vòng bảy ngày kể từ khi nhận đơn hàng và nhận hoàn tiền đầy đủ."
@@ -1343,6 +1352,22 @@ vi:
         title: "Tìm kiếm điều gì đó đặc biệt?"
         subtitle: "Bắt đầu tìm kiếm với các đặc điểm cụ thể và thu hẹp lựa chọn của bạn."
       shop_button: "Bộ sưu tập"
+      usp:
+        quality:
+          title: Chất lượng
+          content: Đảm bảo chất lượng những dịch vụ tốt nhất.
+        speed:
+          title: Tốc độ
+          content: Giao hàng nhanh chóng đến địa chỉ khách hàng.
+        support:
+          title: Trợ giúp
+          content: Tư vấn và hỗ giúp đặt hàng nhanh chóng.
+        description:
+          text_bold_1: Tranh Phong Cảnh, Tranh Tĩnh Vật, Chất Lượng Cao!
+          text_bold_2: Hà Vy Art
+          text_bold_3: đẹp nhất từ hàng trăm họa sĩ tài năng và giàu kinh nghiệm tại Việt Nam.
+          text_normal_1: đang mang đến cho không gian của bạn thêm phần sống động, nhiều màu sắc, sự tinh tế, vẻ đẹp thông qua những những bức tranh sơn dầu, tranh sơn mài, tranh phong cảnh, tranh trừu tượng, tranh nghệ thuật
+          text_normal_2: Những bức tranh độc bản được sáng tác đậm chất nghệ thuật và độc đáo nhất mà bạn không thể tìm được thấy được ở nơi nào khác đảm bảo sẽ đem đến sự hài lòng cho các bạn.
     celebrate: Kỷ Niệm 15 Năm Khám Phá Nghệ Thuật Mà Bạn Yêu Thích
     made_easy: "NĂM SỐNG CÙNG NGHỆ THUẬT, THẬT DỄ DÀNG"
     home_with_art: NGÔI NHÀ CÓ TRANH NGHỆ THUẬT
@@ -1353,6 +1378,8 @@ vi:
     checkout: Đặt hàng
     product:
       title: Tên tranh
+      reviews_title: "Đánh giá sản phẩm"
+      write_review: "Viết đánh giá"
       price: Giá tiền
       artist: Họa sĩ
       views_count: Lượt xem
@@ -1507,6 +1534,27 @@ vi:
       taxonomy_description_help: Mô tả tùy chọn cho danh mục phân loại này
       event_description: Mô tả
     footer:
+      brand_name: "Ha Vy Art"
+      company_legal_name: "Hà Vy Art Limited"
+      certifications: "Chứng nhận"
+    a11y:
+      open_main_menu: "Mở menu chính"
+      close_main_menu: "Đóng menu chính"
+
+    contact:
+      zalo_chat: "Zalo Chat"
+      messenger: "Messenger"
+      hotline: "Hotline"
+
+    votes:
+      thanks_for_review: "Cảm ơn bạn đã đánh giá sản phẩm!"
+
+    events:
+      defaults:
+        statement: "Khám phá tuyển tập các tác phẩm điêu khắc bạc độc đáo của Salvador Dalí: những sáng tạo tinh xảo bao gồm chiếc đồng hồ tan chảy mang tính biểu tượng và Alice ở Xứ Sở Thần Tiên, nơi ánh bạc tôn vinh tầm nhìn siêu thực của bậc thầy."
+        press_release: "Ben Brown Fine Arts hân hạnh giới thiệu 'Wish You Were Here', triển lãm do nhà giám tuyển, cố vấn nghệ thuật và học giả độc lập Jie Xia (New York) tuyển chọn. Tổ chức tại Ben Brown Fine Arts Hong Kong, triển lãm gợi nhớ sự quyến rũ của mùa hè: hơi nóng, sương mờ và lời mời gọi trốn thoát. Với các tác phẩm của những nghệ sĩ hậu chiến và đương đại hàng đầu – đến từ chương trình của gallery và hơn thế – triển lãm khám phá biểu tượng của du lịch, biển cả và những nghi thức của những chuyến đi mùa vụ, được tiếp cận bằng nhiều mức độ suy ngẫm, khát khao và hoài niệm."
+        gallery: "Martket Gallery Hà Nội"
+        location_html: "201 The Factory,<br>1 Hàng Bài,<br>Hà Nội, VN."
       information: Thông tin
       our_company: Danh sách
       connect: Liên hệ với chúng tôi

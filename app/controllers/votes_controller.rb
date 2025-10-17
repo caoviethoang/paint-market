@@ -7,7 +7,7 @@ class VotesController < StoreController
     @vote = @product.votes.build(vote_params)
 
     if @vote.save
-      redirect_to product_path(@product), notice: 'Cảm ơn bạn đã đánh giá sản phẩm!'
+      redirect_to product_path(@product), notice: I18n.t('spree.votes.thanks_for_review')
     else
       redirect_to product_path(@product), alert: @vote.errors.full_messages.join(', ')
     end
