@@ -593,8 +593,8 @@ vi:
     fill_in_customer_info: Xin điền vào thông tin khách hàng
     filter_results: Kết quả lọc
     finalize: Hoành thành
-    finalized:
-    find_a_taxon:
+    finalized: Đã hoàn tất
+    find_a_taxon: Tìm thể loại
     first_item: Món hàng đầu tiên giá
     first_name: Tên
     first_name_begins_with: Tên bắt đầu với
@@ -1271,7 +1271,7 @@ vi:
       unpaid_amount_not_zero:
     value: Giá trị
     variant: Variant
-    variant_placeholder:
+    variant_placeholder: Chọn một biến thể
     variants: Biến thể
     version: Phiên bản
     void: Vô hiệu hóa
