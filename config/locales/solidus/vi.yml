@@ -575,6 +575,11 @@ vi:
         view_all: Xem Tất Cả
         art_works: TÁC PHẨM NGHỆ THUẬT
         no_art_works: Không Tìm Thấy Tác Phẩm Nghệ Thuật
+      defaults:
+        statement: "Khám phá tuyển tập các tác phẩm điêu khắc bạc độc đáo của Salvador Dalí: những sáng tạo tinh xảo bao gồm chiếc đồng hồ tan chảy mang tính biểu tượng và Alice ở Xứ Sở Thần Tiên, nơi ánh bạc tôn vinh tầm nhìn siêu thực của bậc thầy."
+        press_release: "Ben Brown Fine Arts hân hạnh giới thiệu 'Wish You Were Here', triển lãm do nhà giám tuyển, cố vấn nghệ thuật và học giả độc lập Jie Xia (New York) tuyển chọn. Tổ chức tại Ben Brown Fine Arts Hong Kong, triển lãm gợi nhớ sự quyến rũ của mùa hè: hơi nóng, sương mờ và lời mời gọi trốn thoát. Với các tác phẩm của những nghệ sĩ hậu chiến và đương đại hàng đầu – đến từ chương trình của gallery và hơn thế – triển lãm khám phá biểu tượng của du lịch, biển cả và những nghi thức của những chuyến đi mùa vụ, được tiếp cận bằng nhiều mức độ suy ngẫm, khát khao và hoài niệm."
+        gallery: "Martket Gallery Hà Nội"
+        location_html: "201 The Factory,<br>1 Hàng Bài,<br>Hà Nội, VN."
     exceptions:
       count_on_hand_setter: Không thể thay count_on_hand vì giá trị này được tự động thay bởi recalculate_count_on_hand callback. Xin dùng `update_column(:count_on_hand, value)`.
     exchange_for:
@@ -1537,6 +1542,15 @@ vi:
       brand_name: "Ha Vy Art"
       company_legal_name: "Hà Vy Art Limited"
       certifications: "Chứng nhận"
+      information: Thông tin
+      our_company: Danh sách
+      connect: Liên hệ với chúng tôi
+      tax_code: Mã số thuế
+      showroom: Văn phòng
+      phone: Số điện thoại
+      address: Địa chỉ
+      address_name:
+        name: Số 32, đường Đồn Din, thôn Muỗi, xã Yên Bài, Hà Nội (Hà Vy Garden)
     a11y:
       open_main_menu: "Mở menu chính"
       close_main_menu: "Đóng menu chính"
@@ -1548,19 +1562,3 @@ vi:
 
     votes:
       thanks_for_review: "Cảm ơn bạn đã đánh giá sản phẩm!"
-
-    events:
-      defaults:
-        statement: "Khám phá tuyển tập các tác phẩm điêu khắc bạc độc đáo của Salvador Dalí: những sáng tạo tinh xảo bao gồm chiếc đồng hồ tan chảy mang tính biểu tượng và Alice ở Xứ Sở Thần Tiên, nơi ánh bạc tôn vinh tầm nhìn siêu thực của bậc thầy."
-        press_release: "Ben Brown Fine Arts hân hạnh giới thiệu 'Wish You Were Here', triển lãm do nhà giám tuyển, cố vấn nghệ thuật và học giả độc lập Jie Xia (New York) tuyển chọn. Tổ chức tại Ben Brown Fine Arts Hong Kong, triển lãm gợi nhớ sự quyến rũ của mùa hè: hơi nóng, sương mờ và lời mời gọi trốn thoát. Với các tác phẩm của những nghệ sĩ hậu chiến và đương đại hàng đầu – đến từ chương trình của gallery và hơn thế – triển lãm khám phá biểu tượng của du lịch, biển cả và những nghi thức của những chuyến đi mùa vụ, được tiếp cận bằng nhiều mức độ suy ngẫm, khát khao và hoài niệm."
-        gallery: "Martket Gallery Hà Nội"
-        location_html: "201 The Factory,<br>1 Hàng Bài,<br>Hà Nội, VN."
-      information: Thông tin
-      our_company: Danh sách
-      connect: Liên hệ với chúng tôi
-      tax_code: Mã số thuế
-      showroom: Văn phòng
-      phone: Số điện thoại
-      address: Địa chỉ
-      address_name:
-        name: Số 32, đường Đồn Din, thôn Muỗi, xã Yên Bài, Hà Nội (Hà Vy Garden)
