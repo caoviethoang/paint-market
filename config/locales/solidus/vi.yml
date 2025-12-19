@@ -1196,6 +1196,9 @@ vi:
     taxon: "Đơn vị phân loại"
     taxon_edit: Sửa đổi đơn vị phân loại
     taxon_placeholder: Thêm vào một phân loại
+    option_type_placeholder: "Chọn loại tùy chọn"
+    find_a_taxon: "Tìm danh mục"
+    variant_placeholder: "Chọn biến thể"
     taxon_rule:
       choose_taxons:
       label:

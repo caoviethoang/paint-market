@@ -2361,6 +2361,10 @@ en:
     taxon_attachment_removal_error: There was an error removing the attachment
     taxon_edit: Edit Taxon
     taxon_placeholder: Add a Taxon
+    taxon_placeholder: Thêm vào một phân loại
+    option_type_placeholder: "Chọn loại tùy chọn"
+    find_a_taxon: "Tìm danh mục"
+    variant_placeholder: "Chọn biến thể"
     taxonomies: Taxonomies
     taxonomy: Taxonomy
     taxonomy_edit: Edit taxonomy
@@ -2489,37 +2493,37 @@ en:
       dimensions: Dimensions
       weight: Weight
       thickness: Thickness
-      
+
       # Materials and techniques
       material: Material
       medium: Medium
       technique: Technique
       support: Support
       frame: Frame
-      
+
       # Artistic information
       year: Year
       period: Period
       style: Style
       movement: Art Movement
       genre: Genre
-      
+
       # Colors and lighting
       color: Color
       color_scheme: Color Scheme
       lighting: Lighting
-      
+
       # Condition and conservation
       condition: Condition
       conservation: Conservation
       restoration: Restoration
       authenticity: Authenticity
-      
+
       # Legal information
       provenance: Provenance
       certificate: Certificate
       copyright: Copyright
-      
+
       # Commercial information
       edition: Edition
       limited_edition: Limited Edition

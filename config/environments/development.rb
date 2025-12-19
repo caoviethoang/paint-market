@@ -30,6 +30,7 @@ Rails.application.configure do
   config.hosts.clear
   config.i18n.default_locale = :vi
   config.i18n.fallbacks = [ :vi, :en ]
+  config.i18n.fallbacks = true
   # Store uploaded files on the local file system (see config/storage.yml for options).
   # config.active_storage.service = :local
 

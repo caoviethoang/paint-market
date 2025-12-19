@@ -550,6 +550,9 @@ GEM
       ransack (~> 4.0, < 5)
       sprockets-rails (!= 3.5.0)
       state_machines-activerecord (~> 0.6)
+    solidus_i18n (2.2.0)
+      solidus_core (>= 1.1, < 5)
+      solidus_support (~> 0.4)
     solidus_legacy_promotions (4.5.1)
       csv (~> 3.0)
       solidus_api (= 4.5.1)
@@ -673,6 +676,7 @@ DEPENDENCIES
   solidus (~> 4.5)
   solidus_admin (>= 0.2)
   solidus_auth_devise (~> 2.5)
+  solidus_i18n
   solidus_support (>= 0.12.0)
   sprockets-rails
   stimulus-rails

@@ -65,6 +65,7 @@ group :development, :test do
 end
 
 gem "solidus_admin", ">= 0.2"
+gem "solidus_i18n"
 
 gem "kaminari", "~> 1.2"
 
